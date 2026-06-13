@@ -3,28 +3,33 @@
 import type { DailyDraft } from "@/lib/types";
 
 function Field({
-  ph,
+  label,
   value,
   onChange,
   inputMode,
 }: {
-  ph: string;
+  label: string;
   value: string;
   onChange: (v: string) => void;
   inputMode?: "numeric" | "text";
 }) {
   return (
-    <input
-      placeholder={ph}
-      value={value}
-      inputMode={inputMode}
-      onChange={(e) => onChange(e.target.value)}
-      className="bg-slate-800 rounded-lg px-3 py-2.5 text-sm outline-none w-full placeholder:text-slate-500 focus:ring-1 focus:ring-blue-500/60"
-    />
+    <label className="flex flex-col gap-1">
+      <span className="text-[10px] uppercase tracking-wide text-slate-500">
+        {label}
+      </span>
+      <input
+        value={value}
+        inputMode={inputMode}
+        onChange={(e) => onChange(e.target.value)}
+        className="rounded-md border border-edge bg-ink/60 px-2.5 py-1.5 text-sm outline-none focus:border-accent/60 focus:ring-1 focus:ring-accent/40"
+      />
+    </label>
   );
 }
 
-// "Log today" form. State is owned by the page; this is presentational.
+// Compact "log today" card. State owned by the page; saving refreshes stats +
+// analytics so the heatmap cell updates immediately.
 export function DailyLog({
   value,
   onField,
@@ -37,45 +42,48 @@ export function DailyLog({
   saved: boolean;
 }) {
   return (
-    <section className="bg-slate-900/60 rounded-2xl p-4 border border-slate-800">
-      <h2 className="font-semibold mb-3">Log today</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+    <div className="flex h-full flex-col gap-2.5">
+      <div className="grid grid-cols-3 gap-2">
         <Field
-          ph="Solved"
+          label="Solved"
           value={value.solved}
           inputMode="numeric"
           onChange={(v) => onField("solved", v)}
         />
         <Field
-          ph="Minutes"
+          label="Minutes"
           value={value.minutes}
           inputMode="numeric"
           onChange={(v) => onField("minutes", v)}
         />
         <Field
-          ph="Conf 1-5"
+          label="Conf 1-5"
           value={value.confidence}
           inputMode="numeric"
           onChange={(v) => onField("confidence", v)}
         />
-        <Field
-          ph="Topic"
-          value={value.topic}
-          onChange={(v) => onField("topic", v)}
-        />
       </div>
-      <input
-        placeholder="Notes / weak spots"
-        value={value.notes}
-        onChange={(e) => onField("notes", e.target.value)}
-        className="w-full bg-slate-800 rounded-lg px-3 py-2.5 text-sm outline-none mb-2 placeholder:text-slate-500 focus:ring-1 focus:ring-blue-500/60"
+      <Field
+        label="Topic"
+        value={value.topic}
+        onChange={(v) => onField("topic", v)}
       />
+      <label className="flex flex-1 flex-col gap-1">
+        <span className="text-[10px] uppercase tracking-wide text-slate-500">
+          Notes / weak spots
+        </span>
+        <textarea
+          value={value.notes}
+          onChange={(e) => onField("notes", e.target.value)}
+          className="min-h-[44px] flex-1 resize-none rounded-md border border-edge bg-ink/60 px-2.5 py-1.5 text-sm outline-none focus:border-accent/60 focus:ring-1 focus:ring-accent/40"
+        />
+      </label>
       <button
         onClick={onSave}
-        className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 rounded-lg px-5 py-2.5 text-sm font-medium transition-colors"
+        className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-500"
       >
-        {saved ? "Saved ✓" : "Save"}
+        {saved ? "Saved ✓" : "Save today"}
       </button>
-    </section>
+    </div>
   );
 }

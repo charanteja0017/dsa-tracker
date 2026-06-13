@@ -53,6 +53,7 @@ export type WeekGroup = {
 
 export type Filters = {
   difficulties: Set<Difficulty>; // empty = all difficulties
+  patterns: Set<string>; // empty = all patterns
   hideCompleted: boolean;
 };
 
@@ -63,4 +64,23 @@ export type DailyDraft = {
   confidence: string;
   topic: string;
   notes: string;
+};
+
+// A persisted daily_log row (as returned by GET /api/log).
+export type DailyLogRow = {
+  log_date: string;
+  solved: number;
+  minutes: number;
+  confidence: number | null;
+  topic: string | null;
+  notes: string | null;
+};
+
+// Aggregated series for the data-viz row, from GET /api/analytics.
+export type Analytics = {
+  range: { start: string; phase1: string; target: number };
+  daily: { date: string; solved: number; minutes: number }[];
+  cumulative: { date: string; total: number }[];
+  byPattern: { pattern: string; total: number; done: number }[];
+  byDifficulty: { difficulty: Difficulty; total: number; done: number }[];
 };

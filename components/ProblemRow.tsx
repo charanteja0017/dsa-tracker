@@ -1,10 +1,9 @@
 "use client";
 
 import type { Problem } from "@/lib/types";
-import { DIFF_LABEL, DIFF_TEXT } from "@/lib/study";
+import { Tag } from "./Tag";
 
-// A single problem: big checkbox tap target, LeetCode link, difficulty + company
-// count. Wraps cleanly on narrow screens — no fixed-width columns, no h-scroll.
+// Full-width desktop row: checkbox · title→LeetCode · pattern · difficulty · co.
 export function ProblemRow({
   problem,
   onToggle,
@@ -13,36 +12,31 @@ export function ProblemRow({
   onToggle: (id: number, done: boolean) => void;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-slate-900/40 border border-slate-800/60 px-3 py-2.5">
+    <div className="group flex items-center gap-3 rounded-lg border border-edge/70 bg-panel/40 px-3 py-2 transition-colors hover:bg-panel2/60">
       <input
         type="checkbox"
         checked={problem.done}
         onChange={(e) => onToggle(problem.id, e.target.checked)}
         aria-label={`Mark ${problem.title} done`}
-        className="w-5 h-5 accent-blue-500 shrink-0"
+        className="h-4 w-4 shrink-0 accent-[#6366f1]"
       />
-      <div className="min-w-0 flex-1">
-        <a
-          href={problem.link}
-          target="_blank"
-          rel="noreferrer"
-          className={`block truncate text-sm ${
-            problem.done
-              ? "line-through text-slate-600"
-              : "text-slate-100 hover:underline"
-          }`}
-        >
-          {problem.title}
-        </a>
-        <div className="mt-0.5 flex items-center gap-2 text-[11px]">
-          <span className={DIFF_TEXT[problem.difficulty] ?? "text-slate-400"}>
-            {DIFF_LABEL[problem.difficulty as keyof typeof DIFF_LABEL] ??
-              problem.difficulty}
-          </span>
-          <span className="text-slate-600">·</span>
-          <span className="text-slate-500">{problem.companies} co</span>
-        </div>
-      </div>
+      <a
+        href={problem.link}
+        target="_blank"
+        rel="noreferrer"
+        className={`min-w-0 flex-1 truncate text-sm ${
+          problem.done
+            ? "text-slate-600 line-through"
+            : "text-slate-100 group-hover:text-accent-fg"
+        }`}
+      >
+        {problem.title}
+      </a>
+      <Tag variant="pattern" value={problem.pattern} className="hidden lg:inline-flex" />
+      <Tag variant="difficulty" value={problem.difficulty} />
+      <span className="w-9 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
+        {problem.companies}co
+      </span>
     </div>
   );
 }

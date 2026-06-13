@@ -1,21 +1,20 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type {
-  DailyDraft,
-  Difficulty,
-  Problem,
-  Recruiter,
-  Stats,
-} from "@/lib/types";
-import { groupProblems } from "@/lib/study";
-import { StatCard } from "@/components/StatCard";
-import { ProgressBar } from "@/components/ProgressBar";
-import { FilterBar } from "@/components/FilterBar";
-import { WeekSection } from "@/components/WeekSection";
-import { PatternProgress } from "@/components/PatternProgress";
-import { RecruiterList } from "@/components/RecruiterList";
+import { useCallback, useEffect, useState } from "react";
+import type { Analytics, DailyDraft, Problem, Recruiter, Stats } from "@/lib/types";
+import { COLORS } from "@/lib/colors";
+import { Header } from "@/components/Header";
+import { DashboardGrid } from "@/components/DashboardGrid";
+import { Panel } from "@/components/Panel";
+import { WeekFocusPanel } from "@/components/WeekFocusPanel";
+import { StatsGrid } from "@/components/StatsGrid";
+import { ContributionHeatmap } from "@/components/ContributionHeatmap";
+import { PaceChart } from "@/components/PaceChart";
+import { PatternBarChart } from "@/components/PatternBarChart";
+import { DifficultyDonut } from "@/components/DifficultyDonut";
 import { DailyLog } from "@/components/DailyLog";
+import { FullProblemList } from "@/components/FullProblemList";
+import { RecruiterList } from "@/components/RecruiterList";
 
 const EMPTY_DRAFT: DailyDraft = {
   solved: "",
@@ -25,62 +24,50 @@ const EMPTY_DRAFT: DailyDraft = {
   notes: "",
 };
 
+function Skeleton({ className = "" }: { className?: string }) {
+  return (
+    <div className={`animate-pulse rounded-xl border border-edge bg-panel/60 ${className}`} />
+  );
+}
+
 export default function Home() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [problems, setProblems] = useState<Problem[]>([]);
   const [recruiters, setRecruiters] = useState<Recruiter[]>([]);
+  const [analytics, setAnalytics] = useState<Analytics | null>(null);
 
-  // Filters + accordion state.
-  const [difficulties, setDifficulties] = useState<Set<Difficulty>>(new Set());
-  const [hideCompleted, setHideCompleted] = useState(false);
-  const [openWeeks, setOpenWeeks] = useState<Set<number>>(new Set());
-  const didInitWeeks = useRef(false);
-
-  // Daily-log form + recruiters accordion.
   const [today, setToday] = useState<DailyDraft>(EMPTY_DRAFT);
   const [saved, setSaved] = useState(false);
-  const [openCompany, setOpenCompany] = useState<string | null>(null);
 
   const load = useCallback(async () => {
-    const [s, p, r] = await Promise.all([
+    const [s, p, r, a] = await Promise.all([
       fetch("/api/stats").then((res) => res.json() as Promise<Stats>),
       fetch("/api/problems").then((res) => res.json() as Promise<Problem[]>),
       fetch("/api/recruiters").then((res) => res.json() as Promise<Recruiter[]>),
+      fetch("/api/analytics").then((res) => res.json() as Promise<Analytics>),
     ]);
     setStats(s);
     setProblems(p);
     setRecruiters(r);
+    setAnalytics(a);
   }, []);
 
   useEffect(() => {
     load();
   }, [load]);
 
-  // Auto-expand the current week once, the first time data arrives. If the
-  // current week has no problems, fall back to the next upcoming week that does
-  // (else the last). Runs once so reloads after a toggle don't reset the user.
-  useEffect(() => {
-    if (didInitWeeks.current || !stats || problems.length === 0) return;
-    didInitWeeks.current = true;
-    const weeks = Array.from(new Set(problems.map((p) => p.week))).sort(
-      (a, b) => a - b
-    );
-    const cur = stats.weekNum;
-    const pick = weeks.includes(cur)
-      ? cur
-      : weeks.find((w) => w >= cur) ?? weeks[weeks.length - 1];
-    if (pick !== undefined) setOpenWeeks(new Set([pick]));
-  }, [stats, problems]);
-
-  async function toggle(id: number, done: boolean) {
-    setProblems((prev) => prev.map((x) => (x.id === id ? { ...x, done } : x)));
-    await fetch("/api/problems", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, done }),
-    });
-    load();
-  }
+  const toggle = useCallback(
+    async (id: number, done: boolean) => {
+      setProblems((prev) => prev.map((x) => (x.id === id ? { ...x, done } : x)));
+      await fetch("/api/problems", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, done }),
+      });
+      load();
+    },
+    [load]
+  );
 
   async function saveDay() {
     const d = new Date().toISOString().slice(0, 10);
@@ -98,156 +85,116 @@ export default function Home() {
     });
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
-    load();
+    load(); // refresh stats + analytics so the heatmap cell updates immediately
   }
-
-  function toggleDifficulty(d: Difficulty) {
-    setDifficulties((prev) => {
-      const next = new Set(prev);
-      if (next.has(d)) next.delete(d);
-      else next.add(d);
-      return next;
-    });
-  }
-
-  function toggleWeek(week: number) {
-    setOpenWeeks((prev) => {
-      const next = new Set(prev);
-      if (next.has(week)) next.delete(week);
-      else next.add(week);
-      return next;
-    });
-  }
-
-  const weekGroups = useMemo(
-    () => groupProblems(problems, { difficulties, hideCompleted }),
-    [problems, difficulties, hideCompleted]
-  );
-
-  const pct = stats ? Math.round((stats.totalSolved / stats.target) * 100) : 0;
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-6 sm:py-8">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold mb-1">DSA Placement Tracker</h1>
-        <p className="text-slate-400 text-sm">
-          23-week plan &middot; Jun 22 &rarr; Phase 1 on Dec 1
-        </p>
-      </header>
+    <>
+      <Header weekNum={stats?.weekNum} daysToPhase1={stats?.daysToPhase1} />
 
-      {/* Stat cards */}
-      {stats && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-          <StatCard label="Week" value={`${stats.weekNum} / 23`} />
-          <StatCard label="Days to Phase 1" value={stats.daysToPhase1} />
-          <StatCard
-            label="Streak"
-            value={`${stats.streak} 🔥`}
-            accent="text-amber-300"
-          />
-          <StatCard
-            label="Total solved"
-            value={stats.totalSolved}
-            accent="text-emerald-300"
-          />
+      <DashboardGrid>
+        {/* Top zone: focus + stats, side by side */}
+        <div className="col-span-12 md:col-span-7 xl:col-span-8">
+          {stats ? (
+            <WeekFocusPanel weekNum={stats.weekNum} problems={problems} onToggle={toggle} />
+          ) : (
+            <Skeleton className="h-72" />
+          )}
         </div>
-      )}
+        <div className="col-span-12 md:col-span-5 xl:col-span-4">
+          {stats ? <StatsGrid stats={stats} analytics={analytics} /> : <Skeleton className="h-72" />}
+        </div>
 
-      {/* Progress to target */}
-      {stats && (
-        <div className="mb-8 rounded-2xl bg-slate-900/60 border border-slate-800 p-4">
-          <div className="flex justify-between items-baseline text-sm mb-2">
-            <span className="text-slate-200 font-medium">
-              Progress to {stats.target} problems
-            </span>
-            <span className="text-slate-400 tabular-nums">
-              {stats.totalSolved} ({pct}%)
-            </span>
-          </div>
-          <ProgressBar value={stats.totalSolved} max={stats.target} />
-          <p className="text-xs text-slate-500 mt-2">
-            Must-do list: {stats.mustDoDone}/{stats.mustDoTotal} done &middot;{" "}
-            {Math.round(stats.totalMinutes / 60)} hrs logged
-          </p>
-        </div>
-      )}
-
-      {/* Today's log */}
-      <div className="mb-8">
-        <DailyLog
-          value={today}
-          onField={(key, v) => setToday((t) => ({ ...t, [key]: v }))}
-          onSave={saveDay}
-          saved={saved}
-        />
-      </div>
-
-      {/* Study plan: week -> pattern -> problem */}
-      <section className="mb-8">
-        <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-          <h2 className="font-semibold">Study plan</h2>
-        </div>
-        <div className="mb-3">
-          <FilterBar
-            difficulties={difficulties}
-            onToggleDifficulty={toggleDifficulty}
-            hideCompleted={hideCompleted}
-            onToggleHideCompleted={() => setHideCompleted((v) => !v)}
-          />
-        </div>
-        {weekGroups.length === 0 ? (
-          <p className="text-sm text-slate-500 px-1 py-6 text-center">
-            {problems.length === 0
-              ? "No problems yet."
-              : "No problems match the current filters."}
-          </p>
-        ) : (
-          <div className="space-y-2.5">
-            {weekGroups.map((g) => (
-              <WeekSection
-                key={g.week}
-                group={g}
-                open={openWeeks.has(g.week)}
-                isCurrent={g.week === stats?.weekNum}
-                onToggle={toggleWeek}
-                onToggleProblem={toggle}
+        {/* Data-viz row */}
+        <div className="col-span-12 xl:col-span-7">
+          <Panel title="Activity">
+            {analytics ? (
+              <ContributionHeatmap
+                daily={analytics.daily}
+                start={analytics.range.start}
+                end={analytics.range.phase1}
               />
-            ))}
-          </div>
-        )}
-      </section>
+            ) : (
+              <Skeleton className="h-28 border-0" />
+            )}
+          </Panel>
+        </div>
+        <div className="col-span-12 md:col-span-6 xl:col-span-5">
+          <Panel
+            title="Pace to 271"
+            right={
+              <span className="flex items-center gap-3 text-[11px] text-slate-500">
+                <span className="flex items-center gap-1">
+                  <span className="h-0.5 w-3" style={{ background: COLORS.accent }} />
+                  Actual
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="h-0.5 w-3" style={{ background: COLORS.muted }} />
+                  Ideal
+                </span>
+              </span>
+            }
+          >
+            <div className="h-[220px]">
+              {analytics ? (
+                <PaceChart cumulative={analytics.cumulative} range={analytics.range} />
+              ) : (
+                <Skeleton className="h-full border-0" />
+              )}
+            </div>
+          </Panel>
+        </div>
+        <div className="col-span-12 md:col-span-6 xl:col-span-6">
+          <Panel title="By pattern" bodyClassName="p-3">
+            <div className="max-h-[320px] overflow-y-auto scroll-thin">
+              {analytics ? (
+                <PatternBarChart byPattern={analytics.byPattern} />
+              ) : (
+                <Skeleton className="h-56 border-0" />
+              )}
+            </div>
+          </Panel>
+        </div>
+        <div className="col-span-12 md:col-span-6 xl:col-span-3">
+          <Panel title="Difficulty">
+            {analytics ? (
+              <DifficultyDonut byDifficulty={analytics.byDifficulty} />
+            ) : (
+              <Skeleton className="h-44 border-0" />
+            )}
+          </Panel>
+        </div>
+        <div className="col-span-12 md:col-span-6 xl:col-span-3">
+          <Panel title="Log today">
+            <DailyLog
+              value={today}
+              onField={(key, v) => setToday((t) => ({ ...t, [key]: v }))}
+              onSave={saveDay}
+              saved={saved}
+            />
+          </Panel>
+        </div>
 
-      {/* Per-pattern progress */}
-      {stats && stats.byPattern.length > 0 && (
-        <section className="mb-8">
-          <h2 className="font-semibold mb-3">By pattern</h2>
-          <PatternProgress items={stats.byPattern} />
-        </section>
-      )}
-
-      {/* Senior recruiters (AI dept 2026) */}
-      {recruiters.length > 0 && (
-        <section className="mb-8">
-          <h2 className="font-semibold mb-1">
-            Senior recruiters &middot; AI Dept 2026
-          </h2>
-          <p className="text-xs text-slate-500 mb-3">
-            Tap a company for its interview pattern &amp; your prep focus.
-            Directional (one cohort, ~35 students).
-          </p>
-          <RecruiterList
-            recruiters={recruiters}
-            openCompany={openCompany}
-            onToggle={setOpenCompany}
+        {/* Lower zone: full list + recruiters, side by side */}
+        <div className="col-span-12 xl:col-span-8">
+          <FullProblemList
+            problems={problems}
+            currentWeek={stats?.weekNum}
+            onToggleProblem={toggle}
           />
-        </section>
-      )}
+        </div>
+        <div className="col-span-12 xl:col-span-4">
+          {recruiters.length > 0 ? (
+            <RecruiterList recruiters={recruiters} />
+          ) : (
+            <Skeleton className="h-72" />
+          )}
+        </div>
+      </DashboardGrid>
 
-      <footer className="mt-10 text-center text-xs text-slate-600">
-        First run? Visit{" "}
-        <code className="text-slate-400">/api/init</code> once to set up the
-        database.
+      <footer className="mx-auto max-w-[1600px] px-6 pb-8 pt-2 text-center text-xs text-slate-600">
+        First run? Visit <code className="text-slate-400">/api/init</code> once to set up the database.
       </footer>
-    </main>
+    </>
   );
 }

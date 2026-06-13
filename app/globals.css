@@ -2,5 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
-body { background: #0b0f1a; color: #e6e9ef; }
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: #0a0a0f;
+  color: #e6e9ef;
+}
+
+/* Thin, quiet scrollbars for the internal-scroll panels (problem list, recruiters). */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a38 transparent;
+}
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: #2a2a38;
+  border-radius: 9999px;
+}
+.scroll-thin::-webkit-scrollbar-thumb:hover {
+  background: #353548;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}

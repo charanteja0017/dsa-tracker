@@ -1,30 +1,13 @@
 "use client";
 
+import { ChevronRight } from "lucide-react";
 import type { WeekGroup } from "@/lib/types";
-import { ProblemRow } from "./ProblemRow";
+import { PatternGroup } from "./PatternGroup";
 import { ProgressBar } from "./ProgressBar";
 
-function Chevron({ open }: { open: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className={`w-4 h-4 shrink-0 text-slate-500 transition-transform ${
-        open ? "rotate-90" : ""
-      }`}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M9 6l6 6-6 6" />
-    </svg>
-  );
-}
-
-// Collapsible week accordion. Header shows week number, topic label, and a
-// done/total ratio with a progress bar. Body groups problems by pattern.
+// One week accordion in the full study list. Header: "W{n} · {topic}" + done/
+// total + mini bar. Body groups by pattern, or shows topic guidance when the
+// week has no seeded problems (or a "no match" note when filtered empty).
 export function WeekSection({
   group,
   open,
@@ -38,63 +21,65 @@ export function WeekSection({
   onToggle: (week: number) => void;
   onToggleProblem: (id: number, done: boolean) => void;
 }) {
-  const complete = group.done === group.total;
+  const complete = group.total > 0 && group.done === group.total;
+
   return (
-    <section className="rounded-2xl bg-slate-900/60 border border-slate-800 overflow-hidden">
+    <section className="overflow-hidden rounded-lg border border-edge bg-panel/40">
       <button
         type="button"
         aria-expanded={open}
         onClick={() => onToggle(group.week)}
-        className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-slate-800/30 transition-colors"
+        className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left transition-colors hover:bg-panel2/50"
       >
-        <Chevron open={open} />
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-semibold uppercase tracking-wide text-blue-400">
-              Week {group.week}
-            </span>
-            {isCurrent && (
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300">
-                current
-              </span>
-            )}
-          </div>
-          <div className="text-sm font-semibold text-slate-100 truncate">
-            {group.topic}
-          </div>
-        </div>
-        <div className="w-20 sm:w-32 shrink-0">
-          <div className="flex justify-end items-center gap-1 text-[11px] text-slate-400 mb-1 tabular-nums">
-            {complete && <span className="text-emerald-400">✓</span>}
-            {group.done}/{group.total}
-          </div>
+        <ChevronRight
+          className={`h-4 w-4 shrink-0 text-slate-500 transition-transform ${
+            open ? "rotate-90" : ""
+          }`}
+        />
+        <span className="shrink-0 font-mono text-xs font-semibold text-accent-fg">
+          W{group.week}
+        </span>
+        <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-200">
+          {group.topic}
+        </span>
+        {isCurrent && (
+          <span className="hidden shrink-0 rounded-full bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-fg sm:inline">
+            current
+          </span>
+        )}
+        <div className="hidden w-20 shrink-0 sm:block">
           <ProgressBar
             value={group.done}
-            max={group.total}
-            barClass={complete ? "bg-emerald-500" : "bg-blue-500"}
+            max={Math.max(1, group.total)}
+            barClass={complete ? "bg-emerald-500" : "bg-accent"}
           />
         </div>
+        <span className="w-10 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
+          {group.done}/{group.total}
+        </span>
       </button>
 
       {open && (
-        <div className="px-3 pb-3 space-y-4">
-          {group.patterns.map((pg) => (
-            <div key={pg.pattern}>
-              <div className="flex items-center gap-2 px-1 pt-1 pb-1.5">
-                <h4 className="text-xs font-medium text-slate-300">
-                  {pg.pattern}
-                </h4>
-                <span className="text-[11px] text-slate-500 tabular-nums">
-                  {pg.done}/{pg.total}
-                </span>
-              </div>
-              <div className="space-y-1.5">
-                {pg.problems.map((p) => (
-                  <ProblemRow key={p.id} problem={p} onToggle={onToggleProblem} />
-                ))}
-              </div>
-            </div>
-          ))}
+        <div className="space-y-3 border-t border-edge px-3 py-3">
+          {group.total === 0 ? (
+            <p className="rounded-md border border-dashed border-edge bg-panel/40 px-3 py-2.5 text-xs text-slate-500">
+              No seeded problems — focus on{" "}
+              <span className="text-slate-300">{group.topic}</span> pattern
+              practice this week.
+            </p>
+          ) : group.patterns.length === 0 ? (
+            <p className="px-1 py-1 text-xs text-slate-600">
+              No problems match the current filters.
+            </p>
+          ) : (
+            group.patterns.map((pg) => (
+              <PatternGroup
+                key={pg.pattern}
+                group={pg}
+                onToggleProblem={onToggleProblem}
+              />
+            ))
+          )}
         </div>
       )}
     </section>

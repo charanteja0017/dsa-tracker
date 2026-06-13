@@ -1,23 +1,36 @@
 import type { ReactNode } from "react";
+import { COLORS } from "@/lib/colors";
+import { Sparkline } from "./Sparkline";
 
-// Compact stat tile used in the top grid. Large value, quiet label.
+// Metric tile: quiet label, big mono number, optional sub-line + trend sparkline.
 export function StatCard({
   label,
   value,
-  accent = "text-slate-100",
+  sub,
+  icon,
+  spark,
+  sparkColor = COLORS.accent,
 }: {
   label: string;
   value: ReactNode;
-  accent?: string;
+  sub?: ReactNode;
+  icon?: ReactNode;
+  spark?: number[];
+  sparkColor?: string;
 }) {
   return (
-    <div className="rounded-2xl bg-slate-900/60 border border-slate-800 p-3.5 sm:p-4">
-      <div className="text-[11px] uppercase tracking-wide text-slate-400 mb-1">
-        {label}
+    <div className="flex flex-col rounded-xl border border-edge bg-panel p-3.5 shadow-card">
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-slate-400">{label}</span>
+        {icon && <span className="text-slate-500">{icon}</span>}
       </div>
-      <div className={`text-xl sm:text-2xl font-bold leading-tight ${accent}`}>
+      <div className="mt-1 font-mono text-3xl font-semibold tracking-tight tabular-nums text-slate-100">
         {value}
       </div>
+      {sub && <div className="mt-0.5 text-xs text-slate-500">{sub}</div>}
+      {spark && spark.length > 1 && (
+        <Sparkline data={spark} color={sparkColor} className="mt-auto h-7 w-full pt-2" />
+      )}
     </div>
   );
 }

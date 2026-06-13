@@ -5,35 +5,11 @@ import type {
   Problem,
   WeekGroup,
 } from "./types";
+import { WEEK_TOPICS } from "./seedData";
 
-// Curated topic label per week of the 23-week roadmap. Where a week has no
-// explicit label here, groupProblems() falls back to that week's dominant
-// pattern, so this map is safe to edit/extend without breaking the UI.
-export const WEEK_TOPICS: Record<number, string> = {
-  1: "Arrays, Hashing & Strings",
-  2: "Two Pointers",
-  3: "Sliding Window",
-  4: "Stack",
-  5: "Binary Search & Sorting",
-  6: "Linked List",
-  7: "Recursion & Trees I",
-  8: "Trees (BFS / DFS)",
-  9: "Tries & Heaps",
-  10: "Heap / Priority Queue",
-  11: "Backtracking",
-  12: "Graphs I",
-  13: "Graphs II (Union-Find, Topo)",
-  14: "Dynamic Programming I",
-  15: "Dynamic Programming II",
-  16: "Greedy & Intervals",
-  17: "Bit Manipulation",
-  18: "Math & Matrix",
-  19: "Design",
-  20: "Advanced Strings",
-  21: "Mixed Hard Set",
-  22: "Mock Interviews",
-  23: "Review & Weak Spots",
-};
+// Single source of truth for week labels lives in seedData.ts; re-exported here
+// so UI code can import topic + grouping helpers from one module.
+export { WEEK_TOPICS };
 
 export const DIFFICULTIES: Difficulty[] = ["EASY", "MEDIUM", "HARD"];
 
@@ -57,15 +33,11 @@ export const DIFF_CHIP: Record<Difficulty, string> = {
   HARD: "bg-rose-500/20 text-rose-200 border-rose-500/50",
 };
 
-function topicForWeek(week: number, patterns: PatternGroup[]): string {
-  // patterns are sorted by total desc, so [0] is the dominant pattern.
-  return WEEK_TOPICS[week] ?? patterns[0]?.pattern ?? "Mixed";
-}
-
-// Groups a flat problem list into WEEK → PATTERN → PROBLEM. Header counts
-// (done/total) always reflect the real totals; the `problems` arrays contain
-// only rows that pass the active filters. Patterns/weeks with no visible rows
-// are omitted so the accordion never shows empty sections.
+// Groups a flat problem list into WEEK → PATTERN → PROBLEM for ALL 23 roadmap
+// weeks (plus any extra weeks present in the data). Header counts (done/total)
+// always reflect the real seeded totals; each pattern's `problems` array holds
+// only the rows that pass the active filters. Weeks with no seeded problems
+// still appear (total === 0) so the list can show topic guidance for them.
 export function groupProblems(
   problems: Problem[],
   filters: Filters
@@ -73,6 +45,7 @@ export function groupProblems(
   const matches = (p: Problem): boolean =>
     (filters.difficulties.size === 0 ||
       filters.difficulties.has(p.difficulty as Difficulty)) &&
+    (filters.patterns.size === 0 || filters.patterns.has(p.pattern)) &&
     (!filters.hideCompleted || !p.done);
 
   type Agg = { total: number; done: number; problems: Problem[] };
@@ -94,29 +67,49 @@ export function groupProblems(
     if (matches(p)) agg.problems.push(p);
   }
 
+  // Full week set: every roadmap week plus any unexpected week in the data.
+  const allWeeks = new Set<number>([
+    ...Object.keys(WEEK_TOPICS).map(Number),
+    ...weeks.keys(),
+  ]);
+
   const result: WeekGroup[] = [];
-  for (const week of Array.from(weeks.keys()).sort((a, b) => a - b)) {
-    const pats = weeks.get(week)!;
+  for (const week of Array.from(allWeeks).sort((a, b) => a - b)) {
+    const pats = weeks.get(week);
     const patterns: PatternGroup[] = [];
     let total = 0;
     let done = 0;
-    for (const [pattern, agg] of pats) {
-      total += agg.total;
-      done += agg.done;
-      if (agg.problems.length > 0) {
-        patterns.push({
-          pattern,
-          total: agg.total,
-          done: agg.done,
-          problems: agg.problems,
-        });
+    if (pats) {
+      for (const [pattern, agg] of pats) {
+        total += agg.total;
+        done += agg.done;
+        if (agg.problems.length > 0) {
+          patterns.push({
+            pattern,
+            total: agg.total,
+            done: agg.done,
+            problems: agg.problems,
+          });
+        }
       }
     }
-    if (patterns.length === 0) continue; // nothing visible this week
     patterns.sort(
       (a, b) => b.total - a.total || a.pattern.localeCompare(b.pattern)
     );
-    result.push({ week, topic: topicForWeek(week, patterns), total, done, patterns });
+    result.push({
+      week,
+      topic: WEEK_TOPICS[week] ?? patterns[0]?.pattern ?? "Pattern practice",
+      total,
+      done,
+      patterns,
+    });
   }
   return result;
+}
+
+// Returns the sorted set of distinct patterns across all problems.
+export function allPatterns(problems: Problem[]): string[] {
+  return Array.from(new Set(problems.map((p) => p.pattern))).sort((a, b) =>
+    a.localeCompare(b)
+  );
 }
