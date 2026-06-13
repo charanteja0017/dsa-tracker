@@ -17,7 +17,8 @@ export const DIFF_HEX: Record<string, string> = {
 };
 
 // Heatmap intensity ramp (0 → 4), GitHub-contribution style in emerald.
-export const HEAT_RAMP = ["#16161e", "#0e3a2e", "#13754f", "#1ea672", "#34d399"];
+// Level 0 is a touch lighter than the card so empty days stay visible.
+export const HEAT_RAMP = ["#23232e", "#0e3a2e", "#13754f", "#1ea672", "#34d399"];
 
 export function heatLevel(solved: number): number {
   if (solved <= 0) return 0;

@@ -113,3 +113,39 @@ export function allPatterns(problems: Problem[]): string[] {
     a.localeCompare(b)
   );
 }
+
+// Per-pattern done/total, derived client-side from the problems array so the
+// pattern chart updates instantly when a checkbox is toggled (no refetch).
+export function patternStats(
+  problems: Problem[]
+): { pattern: string; total: number; done: number }[] {
+  const m = new Map<string, { total: number; done: number }>();
+  for (const p of problems) {
+    const e = m.get(p.pattern) ?? { total: 0, done: 0 };
+    e.total++;
+    if (p.done) e.done++;
+    m.set(p.pattern, e);
+  }
+  return Array.from(m, ([pattern, v]) => ({ pattern, ...v })).sort(
+    (a, b) => b.total - a.total || a.pattern.localeCompare(b.pattern)
+  );
+}
+
+// Per-difficulty done/total (always EASY/MEDIUM/HARD order), derived client-side
+// so the donut updates instantly on toggle.
+export function difficultyStats(
+  problems: Problem[]
+): { difficulty: Difficulty; total: number; done: number }[] {
+  const m = new Map<string, { total: number; done: number }>();
+  for (const p of problems) {
+    const e = m.get(p.difficulty) ?? { total: 0, done: 0 };
+    e.total++;
+    if (p.done) e.done++;
+    m.set(p.difficulty, e);
+  }
+  return DIFFICULTIES.map((d) => ({
+    difficulty: d,
+    total: m.get(d)?.total ?? 0,
+    done: m.get(d)?.done ?? 0,
+  }));
+}

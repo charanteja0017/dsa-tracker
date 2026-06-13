@@ -40,10 +40,11 @@ export function PatternBarChart({
         <YAxis
           type="category"
           dataKey="pattern"
-          width={132}
+          width={150}
           tick={{ fill: COLORS.text, fontSize: 11 }}
           tickLine={false}
           axisLine={false}
+          interval={0}
         />
         <Tooltip
           cursor={{ fill: "#ffffff08" }}

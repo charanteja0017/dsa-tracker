@@ -5,6 +5,7 @@ import type { Problem } from "@/lib/types";
 import { WEEK_TOPICS } from "@/lib/study";
 import { Tag } from "./Tag";
 import { ProgressRing } from "./ProgressRing";
+import { Checkbox } from "./Checkbox";
 
 // The hero panel opened first every day: this week's problems as an actionable
 // checklist, a progress ring, and a next-week hint. Never renders blank.
@@ -41,7 +42,7 @@ export function WeekFocusPanel({
         <ProgressRing value={done} max={items.length} size={64} />
       </div>
 
-      <div className="mt-3 min-h-0 flex-1">
+      <div className="mt-3 max-h-[300px] min-h-0 flex-1 overflow-y-auto scroll-thin pr-1">
         {items.length === 0 ? (
           <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-4 text-sm text-slate-400">
             No must-do problems seeded for this week. Focus on{" "}
@@ -55,12 +56,10 @@ export function WeekFocusPanel({
                 key={p.id}
                 className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2"
               >
-                <input
-                  type="checkbox"
+                <Checkbox
                   checked={p.done}
-                  onChange={(e) => onToggle(p.id, e.target.checked)}
-                  aria-label={`Mark ${p.title} done`}
-                  className="h-4 w-4 shrink-0 accent-[#6366f1]"
+                  onChange={(v) => onToggle(p.id, v)}
+                  label={`Mark ${p.title} done`}
                 />
                 <a
                   href={p.link}

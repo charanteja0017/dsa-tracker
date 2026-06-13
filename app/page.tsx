@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Analytics, DailyDraft, Problem, Recruiter, Stats } from "@/lib/types";
 import { COLORS } from "@/lib/colors";
+import { difficultyStats, patternStats } from "@/lib/study";
 import { Header } from "@/components/Header";
 import { DashboardGrid } from "@/components/DashboardGrid";
 import { Panel } from "@/components/Panel";
@@ -56,18 +57,21 @@ export default function Home() {
     load();
   }, [load]);
 
-  const toggle = useCallback(
-    async (id: number, done: boolean) => {
-      setProblems((prev) => prev.map((x) => (x.id === id ? { ...x, done } : x)));
-      await fetch("/api/problems", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, done }),
-      });
-      load();
-    },
-    [load]
-  );
+  // Optimistic only: update local problems immediately (which re-derives the
+  // pattern chart, donut, focus ring and list counts) and persist in the
+  // background — no full refetch, so nothing flashes or re-animates.
+  const toggle = useCallback(async (id: number, done: boolean) => {
+    setProblems((prev) => prev.map((x) => (x.id === id ? { ...x, done } : x)));
+    await fetch("/api/problems", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, done }),
+    });
+  }, []);
+
+  // Problem-derived series — recompute instantly on every toggle.
+  const byPattern = useMemo(() => patternStats(problems), [problems]);
+  const byDifficulty = useMemo(() => difficultyStats(problems), [problems]);
 
   async function saveDay() {
     const d = new Date().toISOString().slice(0, 10);
@@ -147,8 +151,8 @@ export default function Home() {
         <div className="col-span-12 md:col-span-6 xl:col-span-6">
           <Panel title="By pattern" bodyClassName="p-3">
             <div className="max-h-[320px] overflow-y-auto scroll-thin">
-              {analytics ? (
-                <PatternBarChart byPattern={analytics.byPattern} />
+              {problems.length > 0 ? (
+                <PatternBarChart byPattern={byPattern} />
               ) : (
                 <Skeleton className="h-56 border-0" />
               )}
@@ -157,8 +161,8 @@ export default function Home() {
         </div>
         <div className="col-span-12 md:col-span-6 xl:col-span-3">
           <Panel title="Difficulty">
-            {analytics ? (
-              <DifficultyDonut byDifficulty={analytics.byDifficulty} />
+            {problems.length > 0 ? (
+              <DifficultyDonut byDifficulty={byDifficulty} />
             ) : (
               <Skeleton className="h-44 border-0" />
             )}
