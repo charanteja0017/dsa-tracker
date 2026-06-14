@@ -23,10 +23,13 @@ export async function initSchema() {
       pattern     TEXT NOT NULL,
       week        INT  NOT NULL,
       link        TEXT,
+      youtube     TEXT,
       done        BOOLEAN NOT NULL DEFAULT FALSE,
       done_at     TIMESTAMPTZ
     );
   `;
+  // Migrate existing tables that predate the youtube column.
+  await sql`ALTER TABLE problems ADD COLUMN IF NOT EXISTS youtube TEXT;`;
   await sql`
     CREATE TABLE IF NOT EXISTS recruiters (
       id        SERIAL PRIMARY KEY,

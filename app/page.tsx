@@ -137,11 +137,15 @@ export default function Home() {
               <Skeleton className="h-32 border-0" />
             )}
           </Panel>
-          <Panel title="Difficulty">
+          <Panel
+            title="Difficulty"
+            className="flex-1"
+            bodyClassName="flex flex-1 items-center justify-center p-4"
+          >
             {problems.length > 0 ? (
               <DifficultyRing byDifficulty={byDifficulty} />
             ) : (
-              <Skeleton className="h-52 border-0" />
+              <Skeleton className="h-52 w-full border-0" />
             )}
           </Panel>
         </Span>

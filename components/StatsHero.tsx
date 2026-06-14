@@ -11,7 +11,7 @@ export function StatsHero({ stats }: { stats: Stats }) {
       <div className="flex flex-wrap items-center gap-x-14 gap-y-6">
         {/* Solved */}
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-7xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
+          <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
             {stats.solved}
           </span>
           <span className="flex flex-col text-base leading-tight text-slate-400">
@@ -23,7 +23,7 @@ export function StatsHero({ stats }: { stats: Stats }) {
         {/* Streak */}
         <div className="flex items-center gap-3">
           <Flame className="h-10 w-10 shrink-0 text-amber-400" />
-          <span className="font-display text-7xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
+          <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
             {stats.streak}
           </span>
           <span className="flex flex-col text-base leading-tight text-slate-400">

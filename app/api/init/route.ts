@@ -16,14 +16,15 @@ export async function GET() {
 
     for (const p of SEED_PROBLEMS) {
       await sql`
-        INSERT INTO problems (title, companies, difficulty, pattern, week, link)
-        VALUES (${p.title}, ${p.companies}, ${p.difficulty}, ${p.pattern}, ${p.week}, ${p.link})
+        INSERT INTO problems (title, companies, difficulty, pattern, week, link, youtube)
+        VALUES (${p.title}, ${p.companies}, ${p.difficulty}, ${p.pattern}, ${p.week}, ${p.link}, ${p.youtube})
         ON CONFLICT (title) DO UPDATE SET
           companies  = EXCLUDED.companies,
           difficulty = EXCLUDED.difficulty,
           pattern    = EXCLUDED.pattern,
           week       = EXCLUDED.week,
-          link       = EXCLUDED.link;
+          link       = EXCLUDED.link,
+          youtube    = EXCLUDED.youtube;
       `;
     }
 

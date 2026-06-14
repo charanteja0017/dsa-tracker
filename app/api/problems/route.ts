@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const rows = await sql`
-    SELECT id, title, companies, difficulty, pattern, week, link, done
+    SELECT id, title, companies, difficulty, pattern, week, link, youtube, done
     FROM problems
     ORDER BY week ASC, companies DESC, title ASC;
   `;

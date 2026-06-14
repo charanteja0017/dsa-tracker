@@ -96,18 +96,26 @@ export function allPatterns(problems: Problem[]): string[] {
   );
 }
 
-// Per-pattern done/total, derived client-side so charts react instantly on toggle.
+// Per-pattern done/total, derived client-side so charts react instantly on
+// toggle. Ordered by the earliest week each pattern appears so the list follows
+// the weekly study progression (not raw frequency).
 export function patternStats(problems: Problem[]): PatternStat[] {
-  const m = new Map<string, { total: number; done: number }>();
+  const m = new Map<string, { total: number; done: number; minWeek: number }>();
   for (const p of problems) {
-    const e = m.get(p.pattern) ?? { total: 0, done: 0 };
+    const e = m.get(p.pattern) ?? { total: 0, done: 0, minWeek: Infinity };
     e.total++;
     if (p.done) e.done++;
+    e.minWeek = Math.min(e.minWeek, p.week);
     m.set(p.pattern, e);
   }
-  return Array.from(m, ([pattern, v]) => ({ pattern, ...v })).sort(
-    (a, b) => b.total - a.total || a.pattern.localeCompare(b.pattern)
-  );
+  return Array.from(m.entries())
+    .sort(
+      (a, b) =>
+        a[1].minWeek - b[1].minWeek ||
+        b[1].total - a[1].total ||
+        a[0].localeCompare(b[0])
+    )
+    .map(([pattern, v]) => ({ pattern, total: v.total, done: v.done }));
 }
 
 // Per-difficulty done/total in EASY/MEDIUM/HARD order.

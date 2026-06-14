@@ -11,6 +11,7 @@ export type Problem = {
   pattern: string;
   week: number;
   link: string;
+  youtube: string | null;
   done: boolean;
 };
 
