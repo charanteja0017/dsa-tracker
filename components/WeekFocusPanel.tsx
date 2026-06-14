@@ -6,6 +6,7 @@ import { WEEK_TOPICS } from "@/lib/study";
 import { Tag } from "./Tag";
 import { Checkbox } from "./Checkbox";
 import { ProgressRing } from "./ProgressRing";
+import { YouTubeIcon } from "./YouTubeIcon";
 
 // Accent-bordered hero: this week's problems as an actionable checklist with
 // dual topic + difficulty tags, a per-week ring, and a next-week hint.
@@ -69,6 +70,18 @@ export function WeekFocusPanel({
               >
                 {p.title}
               </a>
+              {p.youtube && (
+                <a
+                  href={p.youtube}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Watch ${p.title} on YouTube`}
+                  title="Watch on YouTube"
+                  className="shrink-0 text-red-600 transition-opacity hover:opacity-80"
+                >
+                  <YouTubeIcon className="h-4 w-4" />
+                </a>
+              )}
               <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
               <Tag variant="difficulty" value={p.difficulty} />
             </div>

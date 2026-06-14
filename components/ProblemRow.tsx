@@ -1,9 +1,9 @@
 "use client";
 
-import { SquarePlay } from "lucide-react";
 import type { Problem } from "@/lib/types";
 import { Tag } from "./Tag";
 import { Checkbox } from "./Checkbox";
+import { YouTubeIcon } from "./YouTubeIcon";
 
 // Full-width desktop row: checkbox · title→LeetCode · topic tag · difficulty tag
 // · "{companies}co". Both tags inline. Wraps cleanly on narrow screens.
@@ -41,9 +41,9 @@ export function ProblemRow({
             rel="noreferrer"
             aria-label={`Watch ${problem.title} on YouTube`}
             title="Watch on YouTube"
-            className="shrink-0 text-slate-500 transition-colors hover:text-red-500"
+            className="shrink-0 text-red-600 transition-opacity hover:opacity-80"
           >
-            <SquarePlay className="h-4 w-4" />
+            <YouTubeIcon className="h-4 w-4" />
           </a>
         )}
       </div>
