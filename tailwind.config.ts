@@ -12,8 +12,8 @@ export default {
         panel2: "#1a1a24", // elevated / hover surface
         edge: "#1f1f2a", // borders
         accent: {
-          DEFAULT: "#6366f1", // indigo-500
-          fg: "#c7d2fe", // indigo-200 text on accent tints
+          DEFAULT: "#22d3ee", // cyan-400
+          fg: "#a5f3fc", // cyan-200 text on accent tints
         },
       },
       fontFamily: {

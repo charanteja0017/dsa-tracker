@@ -6,7 +6,7 @@
 
 // One accent used sparingly (hero %, hatched bar, pace ACTUAL line, active chips,
 // focus border). Swap this single value to re-theme the accent.
-export const ACCENT = "#6366f1";
+export const ACCENT = "#22d3ee"; // cyan
 
 export const SURFACE = {
   ink: "#0a0a0f",

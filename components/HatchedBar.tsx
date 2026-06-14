@@ -1,19 +1,18 @@
-import { ACCENT, rgba } from "@/lib/tokens";
+import { ACCENT } from "@/lib/tokens";
 
-// Progress bar filled to `percent` with diagonal accent stripes (hatched fill).
+// Progress bar filled to `percent` with diagonal stripes (hatched accent fill)
+// over a dark, outlined track.
 export function HatchedBar({ percent }: { percent: number }) {
   const pct = Math.max(0, Math.min(100, percent));
   return (
-    <div className="h-4 w-full overflow-hidden rounded-full border border-edge bg-panel2">
+    <div className="h-5 w-full overflow-hidden rounded-full border border-edge bg-panel2">
       <div
         className="h-full rounded-full transition-[width] duration-700"
         style={{
           width: `${pct}%`,
-          backgroundColor: rgba(ACCENT, 0.95),
-          backgroundImage: `repeating-linear-gradient(45deg, ${rgba(
-            "#ffffff",
-            0.22
-          )} 0, ${rgba("#ffffff", 0.22)} 2px, transparent 2px, transparent 8px)`,
+          backgroundColor: ACCENT,
+          backgroundImage:
+            "repeating-linear-gradient(45deg, rgba(3,14,24,0.32) 0 7px, transparent 7px 14px)",
         }}
       />
     </div>
