@@ -1,43 +1,20 @@
-import { HEAT_RAMP, heatLevel } from "@/lib/tokens";
+"use client";
 
-const MONTHS = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
+import { useEffect, useRef, useState } from "react";
+import HeatMap from "@uiw/react-heat-map";
+import { HEAT_RAMP } from "@/lib/tokens";
 
-function iso(d: Date): string {
-  return d.toISOString().slice(0, 10);
-}
+// Maps completion counts to the cyan ramp (highest key <= count wins).
+const panelColors: Record<number, string> = {
+  0: HEAT_RAMP[0],
+  1: HEAT_RAMP[1],
+  3: HEAT_RAMP[2],
+  5: HEAT_RAMP[3],
+  7: HEAT_RAMP[4],
+};
 
-type Cell = { key: string; date: string | null; count: number };
-
-// GitHub-style columns (one per week, 7 day-rows Sun→Sat) from start→end.
-function buildWeeks(start: Date, end: Date, map: Map<string, number>): Cell[][] {
-  const weeks: Cell[][] = [];
-  const cur = new Date(start);
-  cur.setUTCDate(cur.getUTCDate() - cur.getUTCDay()); // back up to Sunday
-  let week: Cell[] = [];
-
-  while (cur <= end) {
-    const inRange = cur >= start;
-    const key = iso(cur);
-    week.push({ key, date: inRange ? key : null, count: map.get(key) ?? 0 });
-    if (cur.getUTCDay() === 6) {
-      weeks.push(week);
-      week = [];
-    }
-    cur.setUTCDate(cur.getUTCDate() + 1);
-  }
-  if (week.length > 0) {
-    while (week.length < 7)
-      week.push({ key: `pad-${week.length}`, date: null, count: 0 });
-    weeks.push(week);
-  }
-  return weeks;
-}
-
-// Heatmap of completions per day. Cells flex to fill the panel width (square,
-// capped) so the strip uses the full span.
+// GitHub-style heatmap of completions per day, via @uiw/react-heat-map. The SVG
+// width tracks the panel so cells flex to fill the available space.
 export function ContributionHeatmap({
   daily,
   start,
@@ -47,51 +24,57 @@ export function ContributionHeatmap({
   start: string;
   end: string;
 }) {
-  const map = new Map(daily.map((d) => [d.date, d.count]));
-  const weeks = buildWeeks(new Date(start), new Date(end), map);
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(720);
 
-  const monthLabels = weeks.map((week, i) => {
-    const first = week.find((c) => c.date);
-    if (!first) return "";
-    const m = new Date(first.date as string).getUTCMonth();
-    const prev = weeks[i - 1]?.find((c) => c.date)?.date;
-    const prevM = prev ? new Date(prev).getUTCMonth() : -1;
-    return m !== prevM ? MONTHS[m] : "";
-  });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      setWidth(Math.max(320, Math.floor(entries[0].contentRect.width)));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const weeks =
+    Math.ceil((endDate.getTime() - startDate.getTime()) / (7 * 864e5)) + 1;
+  const space = 3;
+  const gutter = 28; // week-label column
+  const rectSize = Math.max(
+    9,
+    Math.min(22, Math.floor((width - gutter) / weeks) - space)
+  );
+
+  const value = daily.map((d) => ({
+    date: d.date.replace(/-/g, "/"),
+    count: d.count,
+  }));
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex w-full gap-[3px]">
-        {weeks.map((week, wi) => (
-          <div key={wi} className="flex flex-1 flex-col gap-[3px]">
-            {week.map((cell) => (
-              <div
-                key={cell.key}
-                title={
-                  cell.date
-                    ? `${cell.date} · ${cell.count} solved`
-                    : undefined
-                }
-                className="aspect-square w-full rounded-[2px]"
-                style={{
-                  maxWidth: 16,
-                  background: cell.date
-                    ? HEAT_RAMP[heatLevel(cell.count)]
-                    : "transparent",
-                }}
-              />
-            ))}
-          </div>
-        ))}
+    <div className="flex flex-col gap-2">
+      <div ref={ref} className="w-full overflow-hidden">
+        <HeatMap
+          value={value}
+          width={width}
+          startDate={startDate}
+          endDate={endDate}
+          rectSize={rectSize}
+          space={space}
+          legendCellSize={0}
+          panelColors={panelColors}
+          rectProps={{ rx: 2 }}
+          style={{ color: "#94a3b8", fontSize: 10 }}
+          rectRender={(props, data) => (
+            <rect {...props}>
+              <title>{`${data.date} · ${data.count ?? 0} solved`}</title>
+            </rect>
+          )}
+        />
       </div>
-      <div className="flex w-full gap-[3px] text-[10px] text-slate-500">
-        {monthLabels.map((label, i) => (
-          <div key={i} className="flex-1 overflow-visible whitespace-nowrap">
-            {label}
-          </div>
-        ))}
-      </div>
-      <div className="mt-1 flex items-center justify-end gap-1.5 text-[10px] text-slate-500">
+      <div className="flex items-center justify-end gap-1.5 text-[10px] text-slate-500">
         <span>Less</span>
         {HEAT_RAMP.map((c, i) => (
           <span

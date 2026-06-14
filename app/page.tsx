@@ -97,28 +97,13 @@ export default function Home() {
       <Header weekNum={stats?.weekNum} daysToPhase1={stats?.daysToPhase1} />
 
       <DashboardGrid>
-        {/* Row 1 — hero (full width) */}
-        <Span cols={3}>
-          {stats ? <StatsHero stats={stats} /> : <Skeleton className="h-28" />}
-        </Span>
-
-        {/* Row 2 — heatmap (2) + pace (1) */}
+        {/* Row 1 — hero (2) + pace (1) side by side */}
         <Span cols={2}>
-          <Panel title="Activity">
-            {analytics ? (
-              <ContributionHeatmap
-                daily={analytics.daily}
-                start={analytics.range.start}
-                end={analytics.range.phase1}
-              />
-            ) : (
-              <Skeleton className="h-28 border-0" />
-            )}
-          </Panel>
+          {stats ? <StatsHero stats={stats} /> : <Skeleton className="h-44" />}
         </Span>
         <Span cols={1}>
-          <Panel title="Pace" right={paceBadge} className="h-full">
-            <div className="h-[220px]">
+          <Panel title="Pace" right={paceBadge} className="h-full" bodyClassName="flex-1 p-4">
+            <div className="h-full min-h-[160px]">
               {analytics ? (
                 <PaceChart
                   cumulative={analytics.cumulative}
@@ -129,6 +114,21 @@ export default function Home() {
                 <Skeleton className="h-full border-0" />
               )}
             </div>
+          </Panel>
+        </Span>
+
+        {/* Row 2 — activity heatmap (full width) */}
+        <Span cols={3}>
+          <Panel title="Activity">
+            {analytics ? (
+              <ContributionHeatmap
+                daily={analytics.daily}
+                start={analytics.range.start}
+                end={analytics.range.phase1}
+              />
+            ) : (
+              <Skeleton className="h-28 border-0" />
+            )}
           </Panel>
         </Span>
 

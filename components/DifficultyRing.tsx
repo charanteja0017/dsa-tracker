@@ -26,8 +26,8 @@ export function DifficultyRing({
   });
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      <div className="relative" style={{ width: size, height: size }}>
+    <div className="flex items-center justify-center gap-5">
+      <div className="relative shrink-0" style={{ width: size, height: size }}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
           <circle
             cx={center}
@@ -62,11 +62,11 @@ export function DifficultyRing({
         </div>
       </div>
 
-      <div className="flex w-full flex-col gap-1">
+      <div className="flex flex-1 flex-col gap-1.5">
         {byDifficulty.map((d) => (
           <div
             key={d.difficulty}
-            className="flex items-center gap-2 text-xs"
+            className="flex items-center gap-2 text-sm"
           >
             <span
               className="h-2 w-2 shrink-0 rounded-full"
