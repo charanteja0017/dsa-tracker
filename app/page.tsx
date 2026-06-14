@@ -117,22 +117,7 @@ export default function Home() {
           </Panel>
         </Span>
 
-        {/* Row 2 — activity heatmap (full width) */}
-        <Span cols={3}>
-          <Panel title="Activity">
-            {analytics ? (
-              <ContributionHeatmap
-                daily={analytics.daily}
-                start={analytics.range.start}
-                end={analytics.range.phase1}
-              />
-            ) : (
-              <Skeleton className="h-28 border-0" />
-            )}
-          </Panel>
-        </Span>
-
-        {/* Row 3 — focus (2) + pattern bars & difficulty ring (1) */}
+        {/* Row 2 — this week's problems (2) + heatmap & difficulty stacked (1) */}
         <Span cols={2}>
           {stats ? (
             <WeekFocusPanel weekNum={stats.weekNum} problems={problems} onToggle={toggle} />
@@ -141,11 +126,15 @@ export default function Home() {
           )}
         </Span>
         <Span cols={1} className="flex flex-col gap-3.5">
-          <Panel title="By pattern" bodyClassName="p-3 max-h-[300px] overflow-y-auto scroll-thin">
-            {problems.length > 0 ? (
-              <PatternBars byPattern={byPattern} />
+          <Panel title="Activity">
+            {analytics ? (
+              <ContributionHeatmap
+                daily={analytics.daily}
+                start={analytics.range.start}
+                end={analytics.range.phase1}
+              />
             ) : (
-              <Skeleton className="h-40 border-0" />
+              <Skeleton className="h-32 border-0" />
             )}
           </Panel>
           <Panel title="Difficulty">
@@ -153,6 +142,17 @@ export default function Home() {
               <DifficultyRing byDifficulty={byDifficulty} />
             ) : (
               <Skeleton className="h-52 border-0" />
+            )}
+          </Panel>
+        </Span>
+
+        {/* Row 3 — by pattern (full width, two columns) */}
+        <Span cols={3}>
+          <Panel title="By pattern" bodyClassName="p-4">
+            {problems.length > 0 ? (
+              <PatternBars byPattern={byPattern} />
+            ) : (
+              <Skeleton className="h-40 border-0" />
             )}
           </Panel>
         </Span>
