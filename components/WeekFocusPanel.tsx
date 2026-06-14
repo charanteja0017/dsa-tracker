@@ -4,11 +4,11 @@ import { ArrowRight } from "lucide-react";
 import type { Problem } from "@/lib/types";
 import { WEEK_TOPICS } from "@/lib/study";
 import { Tag } from "./Tag";
-import { ProgressRing } from "./ProgressRing";
 import { Checkbox } from "./Checkbox";
+import { ProgressRing } from "./ProgressRing";
 
-// The hero panel opened first every day: this week's problems as an actionable
-// checklist, a progress ring, and a next-week hint. Never renders blank.
+// Accent-bordered hero: this week's problems as an actionable checklist with
+// dual topic + difficulty tags, a per-week ring, and a next-week hint.
 export function WeekFocusPanel({
   weekNum,
   problems,
@@ -35,56 +35,51 @@ export function WeekFocusPanel({
           <h2 className="mt-0.5 truncate text-xl font-semibold text-slate-100">
             Week {weekNum}: {topic}
           </h2>
-          <p className="mt-0.5 font-mono text-xs tabular-nums text-slate-500">
-            {done}/{items.length} done
-          </p>
         </div>
-        <ProgressRing value={done} max={items.length} size={64} />
+        <ProgressRing value={done} max={items.length} size={54} />
       </div>
 
-      <div className="mt-3 max-h-[300px] min-h-0 flex-1 overflow-y-auto scroll-thin pr-1">
+      <div className="mt-3 max-h-[360px] min-h-0 flex-1 space-y-1.5 overflow-y-auto scroll-thin pr-1">
         {items.length === 0 ? (
           <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-4 text-sm text-slate-400">
-            No must-do problems seeded for this week. Focus on{" "}
+            No problems mapped to this week. Focus on{" "}
             <span className="font-medium text-slate-200">{topic}</span> — drill
-            the pattern, revisit notes, and log your reps below.
+            the pattern and revisit your weak spots.
           </div>
         ) : (
-          <ul className="space-y-1.5">
-            {items.map((p) => (
-              <li
-                key={p.id}
-                className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2"
+          items.map((p) => (
+            <div
+              key={p.id}
+              className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2"
+            >
+              <Checkbox
+                checked={p.done}
+                onChange={(v) => onToggle(p.id, v)}
+                label={`Mark ${p.title} done`}
+              />
+              <a
+                href={p.link}
+                target="_blank"
+                rel="noreferrer"
+                className={`min-w-0 flex-1 truncate text-sm ${
+                  p.done
+                    ? "text-slate-600 line-through"
+                    : "text-slate-100 hover:text-accent-fg"
+                }`}
               >
-                <Checkbox
-                  checked={p.done}
-                  onChange={(v) => onToggle(p.id, v)}
-                  label={`Mark ${p.title} done`}
-                />
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`min-w-0 flex-1 truncate text-sm ${
-                    p.done
-                      ? "text-slate-600 line-through"
-                      : "text-slate-100 hover:text-accent-fg"
-                  }`}
-                >
-                  {p.title}
-                </a>
-                <Tag variant="difficulty" value={p.difficulty} />
-              </li>
-            ))}
-          </ul>
+                {p.title}
+              </a>
+              <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
+              <Tag variant="difficulty" value={p.difficulty} />
+            </div>
+          ))
         )}
       </div>
 
       {next && (
         <div className="mt-3 flex items-center gap-1.5 border-t border-edge pt-2.5 text-xs text-slate-500">
           <ArrowRight className="h-3.5 w-3.5 text-slate-600" />
-          Next week:{" "}
-          <span className="font-medium text-slate-300">{next}</span>
+          Next week: <span className="font-medium text-slate-300">{next}</span>
         </div>
       )}
     </section>

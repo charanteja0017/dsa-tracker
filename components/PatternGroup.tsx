@@ -4,7 +4,7 @@ import type { PatternGroup as PatternGroupType } from "@/lib/types";
 import { ProblemRow } from "./ProblemRow";
 import { Tag } from "./Tag";
 
-// A pattern sub-group inside a week: labelled header + its problem rows.
+// A pattern sub-group inside a week: topic-tag header + count, then its rows.
 export function PatternGroup({
   group,
   onToggleProblem,
@@ -15,7 +15,7 @@ export function PatternGroup({
   return (
     <div>
       <div className="flex items-center gap-2 px-1 pb-1.5 pt-1">
-        <Tag variant="pattern" value={group.pattern} />
+        <Tag variant="topic" value={group.pattern} />
         <span className="font-mono text-xs tabular-nums text-slate-500">
           {group.done}/{group.total}
         </span>

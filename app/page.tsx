@@ -1,29 +1,19 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { Analytics, DailyDraft, Problem, Recruiter, Stats } from "@/lib/types";
-import { COLORS } from "@/lib/colors";
+import type { Analytics, Problem, Recruiter, Stats } from "@/lib/types";
 import { difficultyStats, patternStats } from "@/lib/study";
 import { Header } from "@/components/Header";
-import { DashboardGrid } from "@/components/DashboardGrid";
+import { DashboardGrid, Span } from "@/components/DashboardGrid";
 import { Panel } from "@/components/Panel";
-import { WeekFocusPanel } from "@/components/WeekFocusPanel";
-import { StatsGrid } from "@/components/StatsGrid";
+import { StatsHero } from "@/components/StatsHero";
 import { ContributionHeatmap } from "@/components/ContributionHeatmap";
 import { PaceChart } from "@/components/PaceChart";
-import { PatternBarChart } from "@/components/PatternBarChart";
-import { DifficultyDonut } from "@/components/DifficultyDonut";
-import { DailyLog } from "@/components/DailyLog";
-import { FullProblemList } from "@/components/FullProblemList";
+import { WeekFocusPanel } from "@/components/WeekFocusPanel";
+import { PatternBars } from "@/components/PatternBars";
+import { DifficultyRing } from "@/components/DifficultyRing";
+import { StudyPlan } from "@/components/StudyPlan";
 import { RecruiterList } from "@/components/RecruiterList";
-
-const EMPTY_DRAFT: DailyDraft = {
-  solved: "",
-  minutes: "",
-  confidence: "",
-  topic: "",
-  notes: "",
-};
 
 function Skeleton({ className = "" }: { className?: string }) {
   return (
@@ -36,9 +26,6 @@ export default function Home() {
   const [problems, setProblems] = useState<Problem[]>([]);
   const [recruiters, setRecruiters] = useState<Recruiter[]>([]);
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
-
-  const [today, setToday] = useState<DailyDraft>(EMPTY_DRAFT);
-  const [saved, setSaved] = useState(false);
 
   const load = useCallback(async () => {
     const [s, p, r, a] = await Promise.all([
@@ -57,60 +44,66 @@ export default function Home() {
     load();
   }, [load]);
 
-  // Optimistic only: update local problems immediately (which re-derives the
-  // pattern chart, donut, focus ring and list counts) and persist in the
-  // background — no full refetch, so nothing flashes or re-animates.
-  const toggle = useCallback(async (id: number, done: boolean) => {
-    setProblems((prev) => prev.map((x) => (x.id === id ? { ...x, done } : x)));
-    await fetch("/api/problems", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, done }),
-    });
-  }, []);
+  // Optimistic only: update local problems immediately so the hero, pattern
+  // bars, difficulty ring, focus ring and list counts all react instantly.
+  // Stats/analytics (heatmap, pace, streak) refresh in the background.
+  const toggle = useCallback(
+    async (id: number, done: boolean) => {
+      setProblems((prev) => prev.map((x) => (x.id === id ? { ...x, done } : x)));
+      await fetch("/api/problems", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, done }),
+      });
+      load();
+    },
+    [load]
+  );
 
   // Problem-derived series — recompute instantly on every toggle.
   const byPattern = useMemo(() => patternStats(problems), [problems]);
   const byDifficulty = useMemo(() => difficultyStats(problems), [problems]);
 
-  async function saveDay() {
-    const d = new Date().toISOString().slice(0, 10);
-    await fetch("/api/log", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        date: d,
-        solved: Number(today.solved) || 0,
-        minutes: Number(today.minutes) || 0,
-        confidence: today.confidence ? Number(today.confidence) : null,
-        topic: today.topic || null,
-        notes: today.notes || null,
-      }),
-    });
-    setSaved(true);
-    setTimeout(() => setSaved(false), 1500);
-    load(); // refresh stats + analytics so the heatmap cell updates immediately
-  }
+  // Local stats fall back to derived values before the first fetch resolves, so
+  // the hero shows live numbers immediately on toggle.
+  const solved = stats?.solved ?? problems.filter((p) => p.done).length;
+  const total = analytics?.range.total ?? problems.length;
+
+  // Ahead/behind vs the ideal linear pace today.
+  const paceBadge = (() => {
+    if (!analytics) return null;
+    const { start, phase1 } = analytics.range;
+    const startTs = new Date(start).getTime();
+    const span = new Date(phase1).getTime() - startTs || 1;
+    const frac = Math.min(1, Math.max(0, (Date.now() - startTs) / span));
+    const idealToday = Math.round(total * frac);
+    const diff = solved - idealToday;
+    const ahead = diff >= 0;
+    return (
+      <span
+        className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+          ahead
+            ? "bg-emerald-500/15 text-emerald-300"
+            : "bg-amber-500/15 text-amber-300"
+        }`}
+      >
+        {ahead ? `+${diff} ahead` : `${Math.abs(diff)} behind`}
+      </span>
+    );
+  })();
 
   return (
     <>
       <Header weekNum={stats?.weekNum} daysToPhase1={stats?.daysToPhase1} />
 
       <DashboardGrid>
-        {/* Top zone: focus + stats, side by side */}
-        <div className="col-span-12 md:col-span-7 xl:col-span-8">
-          {stats ? (
-            <WeekFocusPanel weekNum={stats.weekNum} problems={problems} onToggle={toggle} />
-          ) : (
-            <Skeleton className="h-72" />
-          )}
-        </div>
-        <div className="col-span-12 md:col-span-5 xl:col-span-4">
-          {stats ? <StatsGrid stats={stats} analytics={analytics} /> : <Skeleton className="h-72" />}
-        </div>
+        {/* Row 1 — hero (full width) */}
+        <Span cols={3}>
+          {stats ? <StatsHero stats={stats} /> : <Skeleton className="h-28" />}
+        </Span>
 
-        {/* Data-viz row */}
-        <div className="col-span-12 xl:col-span-7">
+        {/* Row 2 — heatmap (2) + pace (1) */}
+        <Span cols={2}>
           <Panel title="Activity">
             {analytics ? (
               <ContributionHeatmap
@@ -122,82 +115,68 @@ export default function Home() {
               <Skeleton className="h-28 border-0" />
             )}
           </Panel>
-        </div>
-        <div className="col-span-12 md:col-span-6 xl:col-span-5">
-          <Panel
-            title="Pace to 271"
-            right={
-              <span className="flex items-center gap-3 text-[11px] text-slate-500">
-                <span className="flex items-center gap-1">
-                  <span className="h-0.5 w-3" style={{ background: COLORS.accent }} />
-                  Actual
-                </span>
-                <span className="flex items-center gap-1">
-                  <span className="h-0.5 w-3" style={{ background: COLORS.muted }} />
-                  Ideal
-                </span>
-              </span>
-            }
-          >
+        </Span>
+        <Span cols={1}>
+          <Panel title="Pace" right={paceBadge} className="h-full">
             <div className="h-[220px]">
               {analytics ? (
-                <PaceChart cumulative={analytics.cumulative} range={analytics.range} />
+                <PaceChart
+                  cumulative={analytics.cumulative}
+                  range={analytics.range}
+                  solved={solved}
+                />
               ) : (
                 <Skeleton className="h-full border-0" />
               )}
             </div>
           </Panel>
-        </div>
-        <div className="col-span-12 md:col-span-6 xl:col-span-6">
-          <Panel title="By pattern" bodyClassName="p-3">
-            <div className="max-h-[320px] overflow-y-auto scroll-thin">
-              {problems.length > 0 ? (
-                <PatternBarChart byPattern={byPattern} />
-              ) : (
-                <Skeleton className="h-56 border-0" />
-              )}
-            </div>
-          </Panel>
-        </div>
-        <div className="col-span-12 md:col-span-6 xl:col-span-3">
-          <Panel title="Difficulty">
+        </Span>
+
+        {/* Row 3 — focus (2) + pattern bars & difficulty ring (1) */}
+        <Span cols={2}>
+          {stats ? (
+            <WeekFocusPanel weekNum={stats.weekNum} problems={problems} onToggle={toggle} />
+          ) : (
+            <Skeleton className="h-80" />
+          )}
+        </Span>
+        <Span cols={1} className="flex flex-col gap-3.5">
+          <Panel title="By pattern" bodyClassName="p-3 max-h-[300px] overflow-y-auto scroll-thin">
             {problems.length > 0 ? (
-              <DifficultyDonut byDifficulty={byDifficulty} />
+              <PatternBars byPattern={byPattern} />
             ) : (
-              <Skeleton className="h-44 border-0" />
+              <Skeleton className="h-40 border-0" />
             )}
           </Panel>
-        </div>
-        <div className="col-span-12 md:col-span-6 xl:col-span-3">
-          <Panel title="Log today">
-            <DailyLog
-              value={today}
-              onField={(key, v) => setToday((t) => ({ ...t, [key]: v }))}
-              onSave={saveDay}
-              saved={saved}
-            />
+          <Panel title="Difficulty">
+            {problems.length > 0 ? (
+              <DifficultyRing byDifficulty={byDifficulty} />
+            ) : (
+              <Skeleton className="h-52 border-0" />
+            )}
           </Panel>
-        </div>
+        </Span>
 
-        {/* Lower zone: full list + recruiters, side by side */}
-        <div className="col-span-12 xl:col-span-8">
-          <FullProblemList
+        {/* Row 4 — study plan (2) + recruiters (1) */}
+        <Span cols={2}>
+          <StudyPlan
             problems={problems}
             currentWeek={stats?.weekNum}
             onToggleProblem={toggle}
           />
-        </div>
-        <div className="col-span-12 xl:col-span-4">
+        </Span>
+        <Span cols={1}>
           {recruiters.length > 0 ? (
             <RecruiterList recruiters={recruiters} />
           ) : (
             <Skeleton className="h-72" />
           )}
-        </div>
+        </Span>
       </DashboardGrid>
 
       <footer className="mx-auto max-w-[1600px] px-6 pb-8 pt-2 text-center text-xs text-slate-600">
-        First run? Visit <code className="text-slate-400">/api/init</code> once to set up the database.
+        First run or new seed? Visit{" "}
+        <code className="text-slate-400">/api/init</code> to load / refresh problems.
       </footer>
     </>
   );

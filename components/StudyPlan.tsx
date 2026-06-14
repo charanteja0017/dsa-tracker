@@ -7,8 +7,8 @@ import { FilterBar } from "./FilterBar";
 import { WeekSection } from "./WeekSection";
 
 // Self-contained study list: owns its filter + accordion state (filters affect
-// only this list). Toggling a problem bubbles up so the page can refresh stats.
-export function FullProblemList({
+// only this list). Toggling a problem bubbles up so the page can update stats.
+export function StudyPlan({
   problems,
   currentWeek,
   onToggleProblem,
@@ -25,24 +25,30 @@ export function FullProblemList({
 
   const patterns = useMemo(() => allPatterns(problems), [problems]);
   const weekGroups = useMemo(
-    () => groupProblems(problems, { difficulties, patterns: selectedPatterns, hideCompleted }),
+    () =>
+      groupProblems(problems, {
+        difficulties,
+        patterns: selectedPatterns,
+        hideCompleted,
+      }),
     [problems, difficulties, selectedPatterns, hideCompleted]
   );
 
-  // Auto-expand the current week once data + current week are known.
   useEffect(() => {
     if (didInit.current || currentWeek === undefined || problems.length === 0) return;
     didInit.current = true;
     setOpenWeeks(new Set([currentWeek]));
   }, [currentWeek, problems]);
 
-  const toggleSet = <T,>(setter: (fn: (prev: Set<T>) => Set<T>) => void) => (v: T) =>
-    setter((prev) => {
-      const next = new Set(prev);
-      if (next.has(v)) next.delete(v);
-      else next.add(v);
-      return next;
-    });
+  const toggleSet =
+    <T,>(setter: (fn: (prev: Set<T>) => Set<T>) => void) =>
+    (v: T) =>
+      setter((prev) => {
+        const next = new Set(prev);
+        if (next.has(v)) next.delete(v);
+        else next.add(v);
+        return next;
+      });
 
   const doneTotal = problems.filter((p) => p.done).length;
 

@@ -4,7 +4,8 @@ import type { Problem } from "@/lib/types";
 import { Tag } from "./Tag";
 import { Checkbox } from "./Checkbox";
 
-// Full-width desktop row: checkbox · title→LeetCode · pattern · difficulty · co.
+// Full-width desktop row: checkbox · title→LeetCode · topic tag · difficulty tag
+// · "{companies}co". Both tags inline. Wraps cleanly on narrow screens.
 export function ProblemRow({
   problem,
   onToggle,
@@ -31,6 +32,7 @@ export function ProblemRow({
       >
         {problem.title}
       </a>
+      <Tag variant="topic" value={problem.pattern} className="hidden xl:inline-flex" />
       <Tag variant="difficulty" value={problem.difficulty} />
       <span className="w-9 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
         {problem.companies}co

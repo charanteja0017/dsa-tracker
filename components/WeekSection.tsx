@@ -5,9 +5,8 @@ import type { WeekGroup } from "@/lib/types";
 import { PatternGroup } from "./PatternGroup";
 import { ProgressBar } from "./ProgressBar";
 
-// One week accordion in the full study list. Header: "W{n} · {topic}" + done/
-// total + mini bar. Body groups by pattern, or shows topic guidance when the
-// week has no seeded problems (or a "no match" note when filtered empty).
+// One week accordion. Header: "W{n} · {topic}" + done/total + mini bar. Body
+// groups by pattern, or shows topic guidance for empty / filtered-out weeks.
 export function WeekSection({
   group,
   open,
@@ -54,7 +53,7 @@ export function WeekSection({
             barClass={complete ? "bg-emerald-500" : "bg-accent"}
           />
         </div>
-        <span className="w-10 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
+        <span className="w-12 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
           {group.done}/{group.total}
         </span>
       </button>
@@ -63,7 +62,7 @@ export function WeekSection({
         <div className="space-y-3 border-t border-edge px-3 py-3">
           {group.total === 0 ? (
             <p className="rounded-md border border-dashed border-edge bg-panel/40 px-3 py-2.5 text-xs text-slate-500">
-              No seeded problems — focus on{" "}
+              No problems mapped — focus on{" "}
               <span className="text-slate-300">{group.topic}</span> pattern
               practice this week.
             </p>

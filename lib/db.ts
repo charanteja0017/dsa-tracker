@@ -4,14 +4,15 @@ import { neon } from "@neondatabase/serverless";
 // Neon integration. Locally, put it in .env (see .env.example).
 export const sql = neon(process.env.DATABASE_URL!);
 
-// Plan constants derived from your 23-week roadmap.
+// Plan constants. The problem-count target is dynamic (COUNT(problems)), so
+// there is no hardcoded total here — only the roadmap dates.
 export const PLAN = {
   startDate: "2026-06-22",
   phase1Date: "2026-12-01",
-  targetProblems: 271,
 };
 
-// Creates tables if they don't exist. Safe to call repeatedly.
+// Creates tables if they don't exist. Safe to call repeatedly. Completion state
+// (done / done_at) is the single input now; there is no daily_log.
 export async function initSchema() {
   await sql`
     CREATE TABLE IF NOT EXISTS problems (
@@ -24,17 +25,6 @@ export async function initSchema() {
       link        TEXT,
       done        BOOLEAN NOT NULL DEFAULT FALSE,
       done_at     TIMESTAMPTZ
-    );
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS daily_log (
-      id          SERIAL PRIMARY KEY,
-      log_date    DATE NOT NULL UNIQUE,
-      solved      INT  NOT NULL DEFAULT 0,
-      minutes     INT  NOT NULL DEFAULT 0,
-      confidence  INT,
-      topic       TEXT,
-      notes       TEXT
     );
   `;
   await sql`

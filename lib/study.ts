@@ -1,37 +1,18 @@
 import type {
   Difficulty,
+  DifficultyStat,
   Filters,
   PatternGroup,
+  PatternStat,
   Problem,
   WeekGroup,
 } from "./types";
 import { WEEK_TOPICS } from "./seedData";
+import { DIFFICULTIES } from "./tokens";
 
 // Single source of truth for week labels lives in seedData.ts; re-exported here
 // so UI code can import topic + grouping helpers from one module.
 export { WEEK_TOPICS };
-
-export const DIFFICULTIES: Difficulty[] = ["EASY", "MEDIUM", "HARD"];
-
-export const DIFF_LABEL: Record<Difficulty, string> = {
-  EASY: "Easy",
-  MEDIUM: "Med",
-  HARD: "Hard",
-};
-
-// Text color for a difficulty badge on a problem row.
-export const DIFF_TEXT: Record<string, string> = {
-  EASY: "text-emerald-400",
-  MEDIUM: "text-amber-400",
-  HARD: "text-rose-400",
-};
-
-// Chip styling for the active state of a difficulty filter.
-export const DIFF_CHIP: Record<Difficulty, string> = {
-  EASY: "bg-emerald-500/20 text-emerald-200 border-emerald-500/50",
-  MEDIUM: "bg-amber-500/20 text-amber-200 border-amber-500/50",
-  HARD: "bg-rose-500/20 text-rose-200 border-rose-500/50",
-};
 
 // Groups a flat problem list into WEEK → PATTERN → PROBLEM for ALL 23 roadmap
 // weeks (plus any extra weeks present in the data). Header counts (done/total)
@@ -67,7 +48,6 @@ export function groupProblems(
     if (matches(p)) agg.problems.push(p);
   }
 
-  // Full week set: every roadmap week plus any unexpected week in the data.
   const allWeeks = new Set<number>([
     ...Object.keys(WEEK_TOPICS).map(Number),
     ...weeks.keys(),
@@ -107,18 +87,17 @@ export function groupProblems(
   return result;
 }
 
-// Returns the sorted set of distinct patterns across all problems.
+// Distinct patterns across all problems, sorted by frequency desc.
 export function allPatterns(problems: Problem[]): string[] {
-  return Array.from(new Set(problems.map((p) => p.pattern))).sort((a, b) =>
-    a.localeCompare(b)
+  const counts = new Map<string, number>();
+  for (const p of problems) counts.set(p.pattern, (counts.get(p.pattern) ?? 0) + 1);
+  return Array.from(counts.keys()).sort(
+    (a, b) => (counts.get(b) ?? 0) - (counts.get(a) ?? 0) || a.localeCompare(b)
   );
 }
 
-// Per-pattern done/total, derived client-side from the problems array so the
-// pattern chart updates instantly when a checkbox is toggled (no refetch).
-export function patternStats(
-  problems: Problem[]
-): { pattern: string; total: number; done: number }[] {
+// Per-pattern done/total, derived client-side so charts react instantly on toggle.
+export function patternStats(problems: Problem[]): PatternStat[] {
   const m = new Map<string, { total: number; done: number }>();
   for (const p of problems) {
     const e = m.get(p.pattern) ?? { total: 0, done: 0 };
@@ -131,11 +110,8 @@ export function patternStats(
   );
 }
 
-// Per-difficulty done/total (always EASY/MEDIUM/HARD order), derived client-side
-// so the donut updates instantly on toggle.
-export function difficultyStats(
-  problems: Problem[]
-): { difficulty: Difficulty; total: number; done: number }[] {
+// Per-difficulty done/total in EASY/MEDIUM/HARD order.
+export function difficultyStats(problems: Problem[]): DifficultyStat[] {
   const m = new Map<string, { total: number; done: number }>();
   for (const p of problems) {
     const e = m.get(p.difficulty) ?? { total: 0, done: 0 };

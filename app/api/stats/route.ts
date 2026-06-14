@@ -1,60 +1,44 @@
 import { sql, PLAN } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+// Hits the database, so it must never be prerendered/executed at build time.
+export const dynamic = "force-dynamic";
+
+// All stats derive from problems.done_at — there is no daily_log anymore.
 export async function GET() {
-  // Problems done out of the must-do 60
-  const [{ done }] = await sql`SELECT COUNT(*)::int AS done FROM problems WHERE done = TRUE;`;
-  const [{ total }] = await sql`SELECT COUNT(*)::int AS total FROM problems;`;
+  const [{ solved, total }] = await sql`
+    SELECT COUNT(*) FILTER (WHERE done)::int AS solved,
+           COUNT(*)::int AS total
+    FROM problems;
+  `;
+  const percent = total > 0 ? Math.round((solved / total) * 100) : 0;
 
-  // Per-pattern progress
-  const byPattern = await sql`
-    SELECT pattern,
-           COUNT(*)::int AS total,
-           COUNT(*) FILTER (WHERE done)::int AS done
+  // Distinct UTC calendar days that have at least one completion, newest first.
+  const rows = await sql`
+    SELECT DISTINCT (done_at AT TIME ZONE 'UTC')::date AS d
     FROM problems
-    GROUP BY pattern
-    ORDER BY total DESC;
+    WHERE done AND done_at IS NOT NULL
+    ORDER BY d DESC;
   `;
 
-  // Daily log aggregates
-  const [agg] = await sql`
-    SELECT COALESCE(SUM(solved),0)::int AS total_solved,
-           COALESCE(SUM(minutes),0)::int AS total_minutes,
-           COUNT(*)::int AS days_logged
-    FROM daily_log;
-  `;
-
-  // Streak: count consecutive days up to today with solved > 0
-  const logDates = await sql`
-    SELECT log_date FROM daily_log WHERE solved > 0 ORDER BY log_date DESC;
-  `;
+  // Streak: consecutive days ending today (UTC) with >= 1 completion.
+  const dayMs = 864e5;
+  const todayUtc = Math.floor(Date.now() / dayMs) * dayMs;
   let streak = 0;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  for (let i = 0; i < logDates.length; i++) {
-    const d = new Date(logDates[i].log_date);
-    d.setHours(0, 0, 0, 0);
-    const expected = new Date(today);
-    expected.setDate(today.getDate() - i);
-    if (d.getTime() === expected.getTime()) streak++;
+  for (let i = 0; i < rows.length; i++) {
+    const d = new Date(rows[i].d).getTime();
+    if (d === todayUtc - i * dayMs) streak++;
     else break;
   }
 
-  // Week number relative to plan start
-  const start = new Date(PLAN.startDate);
-  const weekNum = Math.max(1, Math.floor((today.getTime() - start.getTime()) / (7 * 864e5)) + 1);
-  const daysToPhase1 = Math.ceil((new Date(PLAN.phase1Date).getTime() - today.getTime()) / 864e5);
+  const start = new Date(PLAN.startDate).getTime();
+  const weekNum = Math.max(
+    1,
+    Math.floor((Date.now() - start) / (7 * dayMs)) + 1
+  );
+  const daysToPhase1 = Math.ceil(
+    (new Date(PLAN.phase1Date).getTime() - Date.now()) / dayMs
+  );
 
-  return NextResponse.json({
-    mustDoDone: done,
-    mustDoTotal: total,
-    totalSolved: agg.total_solved,
-    totalMinutes: agg.total_minutes,
-    daysLogged: agg.days_logged,
-    streak,
-    weekNum,
-    daysToPhase1,
-    target: PLAN.targetProblems,
-    byPattern,
-  });
+  return NextResponse.json({ solved, total, percent, streak, weekNum, daysToPhase1 });
 }

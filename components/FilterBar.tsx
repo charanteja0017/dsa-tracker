@@ -1,11 +1,10 @@
 "use client";
 
 import type { Difficulty } from "@/lib/types";
-import { DIFFICULTIES, DIFF_CHIP, DIFF_LABEL } from "@/lib/study";
+import { DIFFICULTIES, DIFF_LABEL, DIFF_TAG, topicColor, rgba } from "@/lib/tokens";
 
-// Sticky filter bar for the full list: difficulty chips, pattern chips, and a
-// "hide completed" switch. No selection in a group means "all". Applies to the
-// list only (not the Week Focus panel).
+// Sticky filter bar: difficulty chips, topic-colored pattern chips, and a
+// "hide completed" switch. No selection in a group means "all".
 export function FilterBar({
   difficulties,
   onToggleDifficulty,
@@ -36,7 +35,7 @@ export function FilterBar({
               onClick={() => onToggleDifficulty(d)}
               className={`rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${
                 active
-                  ? DIFF_CHIP[d]
+                  ? DIFF_TAG[d]
                   : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
               }`}
             >
@@ -73,19 +72,21 @@ export function FilterBar({
         <div className="flex flex-wrap items-center gap-1.5">
           {patterns.map((p) => {
             const active = selectedPatterns.has(p);
+            const c = topicColor(p);
             return (
               <button
                 key={p}
                 type="button"
                 aria-pressed={active}
                 onClick={() => onTogglePattern(p)}
-                className={`rounded-md border px-2 py-0.5 text-xs transition-colors ${
+                className="rounded-md border px-2 py-0.5 text-xs transition-colors"
+                style={
                   active
-                    ? "border-accent/50 bg-accent/15 text-accent-fg"
-                    : "border-edge text-slate-500 hover:border-slate-600 hover:text-slate-300"
-                }`}
+                    ? { color: c, backgroundColor: rgba(c, 0.15), borderColor: rgba(c, 0.45) }
+                    : undefined
+                }
               >
-                {p}
+                <span className={active ? "" : "text-slate-500"}>{p}</span>
               </button>
             );
           })}

@@ -4,19 +4,30 @@ import { NextResponse } from "next/server";
 // Hits the database, so it must never be prerendered/executed at build time.
 export const dynamic = "force-dynamic";
 
-// Aggregated series for the dashboard's data-viz row. All computed in SQL.
+// Aggregated series for the dashboard, all derived from problems.done_at.
 export async function GET() {
+  const [{ total }] = await sql`SELECT COUNT(*)::int AS total FROM problems;`;
+
+  // Per-day completion counts (UTC calendar day).
   const daily = await sql`
-    SELECT to_char(log_date, 'YYYY-MM-DD') AS date, solved, minutes
-    FROM daily_log
-    ORDER BY log_date;
+    SELECT to_char((done_at AT TIME ZONE 'UTC')::date, 'YYYY-MM-DD') AS date,
+           COUNT(*)::int AS count
+    FROM problems
+    WHERE done AND done_at IS NOT NULL
+    GROUP BY 1
+    ORDER BY 1;
   `;
 
+  // Cumulative solved over time (running total of the per-day counts).
   const cumulative = await sql`
-    SELECT to_char(log_date, 'YYYY-MM-DD') AS date,
-           SUM(solved) OVER (ORDER BY log_date)::int AS total
-    FROM daily_log
-    ORDER BY log_date;
+    SELECT date, SUM(count) OVER (ORDER BY date)::int AS total
+    FROM (
+      SELECT (done_at AT TIME ZONE 'UTC')::date AS date, COUNT(*)::int AS count
+      FROM problems
+      WHERE done AND done_at IS NOT NULL
+      GROUP BY 1
+    ) d
+    ORDER BY date;
   `;
 
   const byPattern = await sql`
@@ -37,13 +48,12 @@ export async function GET() {
   `;
 
   return NextResponse.json({
-    range: {
-      start: PLAN.startDate,
-      phase1: PLAN.phase1Date,
-      target: PLAN.targetProblems,
-    },
+    range: { start: PLAN.startDate, phase1: PLAN.phase1Date, total },
     daily,
-    cumulative,
+    cumulative: cumulative.map((c) => ({
+      date: String(c.date).slice(0, 10),
+      total: c.total,
+    })),
     byPattern,
     byDifficulty,
   });

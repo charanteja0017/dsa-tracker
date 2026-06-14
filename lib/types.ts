@@ -14,16 +14,14 @@ export type Problem = {
   done: boolean;
 };
 
+// All stats derive from problems.done_at (no daily_log).
 export type Stats = {
-  mustDoDone: number;
-  mustDoTotal: number;
-  totalSolved: number;
-  totalMinutes: number;
+  solved: number;
+  total: number; // dynamic — COUNT(problems)
+  percent: number;
   streak: number;
   weekNum: number;
   daysToPhase1: number;
-  target: number;
-  byPattern: { pattern: string; total: number; done: number }[];
 };
 
 export type Recruiter = {
@@ -33,6 +31,18 @@ export type Recruiter = {
   dsa_bar: string;
   pattern: string;
   focus: string;
+};
+
+export type PatternStat = { pattern: string; total: number; done: number };
+export type DifficultyStat = { difficulty: Difficulty; total: number; done: number };
+
+// Aggregated series from GET /api/analytics.
+export type Analytics = {
+  range: { start: string; phase1: string; total: number };
+  daily: { date: string; count: number }[];
+  cumulative: { date: string; total: number }[];
+  byPattern: PatternStat[];
+  byDifficulty: DifficultyStat[];
 };
 
 // Derived shapes for the WEEK → PATTERN → PROBLEM hierarchy.
@@ -55,32 +65,4 @@ export type Filters = {
   difficulties: Set<Difficulty>; // empty = all difficulties
   patterns: Set<string>; // empty = all patterns
   hideCompleted: boolean;
-};
-
-// Draft state for the "log today" form.
-export type DailyDraft = {
-  solved: string;
-  minutes: string;
-  confidence: string;
-  topic: string;
-  notes: string;
-};
-
-// A persisted daily_log row (as returned by GET /api/log).
-export type DailyLogRow = {
-  log_date: string;
-  solved: number;
-  minutes: number;
-  confidence: number | null;
-  topic: string | null;
-  notes: string | null;
-};
-
-// Aggregated series for the data-viz row, from GET /api/analytics.
-export type Analytics = {
-  range: { start: string; phase1: string; target: number };
-  daily: { date: string; solved: number; minutes: number }[];
-  cumulative: { date: string; total: number }[];
-  byPattern: { pattern: string; total: number; done: number }[];
-  byDifficulty: { difficulty: Difficulty; total: number; done: number }[];
 };
