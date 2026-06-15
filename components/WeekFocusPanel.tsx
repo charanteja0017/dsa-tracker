@@ -2,14 +2,15 @@
 
 import { ArrowRight } from "lucide-react";
 import type { Problem } from "@/lib/types";
-import { WEEK_TOPICS } from "@/lib/study";
+import { WEEK_TOPICS, focusProblems } from "@/lib/study";
 import { Tag } from "./Tag";
 import { Checkbox } from "./Checkbox";
 import { ProgressRing } from "./ProgressRing";
 import { YouTubeIcon } from "./YouTubeIcon";
 
-// Accent-bordered hero: this week's problems as an actionable checklist with
-// dual topic + difficulty tags, a per-week ring, and a next-week hint.
+// Accent-bordered hero: an adaptive checklist — the current week's problems,
+// plus carried-over incompletes from earlier weeks, plus next week's once the
+// current week is finished early. Ring tracks the current week's completion.
 export function WeekFocusPanel({
   weekNum,
   problems,
@@ -21,10 +22,9 @@ export function WeekFocusPanel({
   onToggle: (id: number, done: boolean) => void;
   canEdit?: boolean;
 }) {
-  const items = problems
-    .filter((p) => p.week === weekNum)
-    .sort((a, b) => b.companies - a.companies || a.title.localeCompare(b.title));
-  const done = items.filter((p) => p.done).length;
+  const items = focusProblems(problems, weekNum);
+  const weekItems = problems.filter((p) => p.week === weekNum);
+  const done = weekItems.filter((p) => p.done).length;
   const topic = WEEK_TOPICS[weekNum] ?? "Pattern practice";
   const next = WEEK_TOPICS[weekNum + 1];
 
@@ -39,7 +39,7 @@ export function WeekFocusPanel({
             Week {weekNum}: {topic}
           </h2>
         </div>
-        <ProgressRing value={done} max={items.length} size={54} />
+        <ProgressRing value={done} max={weekItems.length} size={54} />
       </div>
 
       <div className="mt-3 max-h-[360px] min-h-0 flex-1 space-y-1.5 overflow-y-auto scroll-thin pr-1">
@@ -84,6 +84,22 @@ export function WeekFocusPanel({
                 >
                   <YouTubeIcon className="h-4 w-4" />
                 </a>
+              )}
+              {p.week !== weekNum && (
+                <span
+                  className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+                    p.week < weekNum
+                      ? "bg-amber-500/15 text-amber-300"
+                      : "bg-slate-500/15 text-slate-300"
+                  }`}
+                  title={
+                    p.week < weekNum
+                      ? `Carried over from week ${p.week}`
+                      : `From week ${p.week} (ahead)`
+                  }
+                >
+                  W{p.week}
+                </span>
               )}
               <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
               <Tag variant="difficulty" value={p.difficulty} />

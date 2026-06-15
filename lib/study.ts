@@ -96,6 +96,35 @@ export function allPatterns(problems: Problem[]): string[] {
   );
 }
 
+// Adaptive "this week" focus set:
+//  - the current week's problems (done + not done),
+//  - plus still-incomplete problems carried over from earlier weeks,
+//  - and once everything up to the current week is done (finished early), the
+//    next week that has problems is pulled in so there's always something next.
+// Sorted: incomplete first, oldest week first, then completed at the bottom.
+export function focusProblems(problems: Problem[], weekNum: number): Problem[] {
+  let set = problems.filter(
+    (p) => p.week === weekNum || (p.week < weekNum && !p.done)
+  );
+  const caughtUp = !set.some((p) => !p.done);
+  if (caughtUp) {
+    const nextWeek = problems
+      .filter((p) => p.week > weekNum)
+      .map((p) => p.week)
+      .sort((a, b) => a - b)[0];
+    if (nextWeek !== undefined) {
+      set = set.concat(problems.filter((p) => p.week === nextWeek));
+    }
+  }
+  return set.sort(
+    (a, b) =>
+      Number(a.done) - Number(b.done) ||
+      a.week - b.week ||
+      b.companies - a.companies ||
+      a.title.localeCompare(b.title)
+  );
+}
+
 // Per-pattern done/total, derived client-side so charts react instantly on
 // toggle. Ordered by the earliest week each pattern appears so the list follows
 // the weekly study progression (not raw frequency).

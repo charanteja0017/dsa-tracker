@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Analytics, Problem, Recruiter, Stats } from "@/lib/types";
 import { difficultyStats, patternStats } from "@/lib/study";
+import { celebrate } from "@/lib/celebrate";
 import { Header } from "@/components/Header";
 import { DashboardGrid, Span } from "@/components/DashboardGrid";
 import { Panel } from "@/components/Panel";
@@ -79,6 +80,7 @@ export default function Home() {
         if (res.status === 401) setCanEdit(false);
         return;
       }
+      if (done) celebrate(); // 🎉 confetti + chime on completing a problem
       load();
     },
     [load, canEdit]
