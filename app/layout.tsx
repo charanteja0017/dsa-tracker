@@ -23,8 +23,8 @@ const display = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: "DSA Placement Tracker",
-  description: "23-week placement prep tracker",
+  title: "CDSA",
+  description: "23-week DSA placement prep tracker",
 };
 
 export default function RootLayout({
