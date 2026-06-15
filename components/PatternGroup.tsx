@@ -8,9 +8,11 @@ import { Tag } from "./Tag";
 export function PatternGroup({
   group,
   onToggleProblem,
+  canEdit = true,
 }: {
   group: PatternGroupType;
   onToggleProblem: (id: number, done: boolean) => void;
+  canEdit?: boolean;
 }) {
   return (
     <div>
@@ -22,7 +24,12 @@ export function PatternGroup({
       </div>
       <div className="space-y-1">
         {group.problems.map((p) => (
-          <ProblemRow key={p.id} problem={p} onToggle={onToggleProblem} />
+          <ProblemRow
+            key={p.id}
+            problem={p}
+            onToggle={onToggleProblem}
+            canEdit={canEdit}
+          />
         ))}
       </div>
     </div>

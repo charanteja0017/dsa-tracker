@@ -1,6 +1,7 @@
 import { sql, initSchema } from "@/lib/db";
 import { SEED_PROBLEMS } from "@/lib/seedData";
 import { SEED_RECRUITERS } from "@/lib/recruiterData";
+import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 // Hits the database, so it must never be prerendered/executed at build time.
@@ -10,7 +11,10 @@ export const dynamic = "force-dynamic";
 // and UPSERT the problems & recruiters. Re-running refreshes metadata
 // (companies/difficulty/pattern/week/link) but NEVER touches done / done_at,
 // so completion state survives re-seeds.
-export async function GET() {
+export async function GET(req: Request) {
+  const denied = requireAuth(req);
+  if (denied) return denied;
+
   try {
     await initSchema();
 

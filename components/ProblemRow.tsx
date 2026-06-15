@@ -10,9 +10,11 @@ import { YouTubeIcon } from "./YouTubeIcon";
 export function ProblemRow({
   problem,
   onToggle,
+  canEdit = true,
 }: {
   problem: Problem;
   onToggle: (id: number, done: boolean) => void;
+  canEdit?: boolean;
 }) {
   return (
     <div className="group flex items-center gap-3 rounded-lg border border-edge/70 bg-panel/40 px-3 py-2 transition-colors hover:bg-panel2/60">
@@ -20,6 +22,7 @@ export function ProblemRow({
         checked={problem.done}
         onChange={(v) => onToggle(problem.id, v)}
         label={`Mark ${problem.title} done`}
+        disabled={!canEdit}
       />
       <div className="flex min-w-0 flex-1 items-center gap-2">
         <a

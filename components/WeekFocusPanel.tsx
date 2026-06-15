@@ -14,10 +14,12 @@ export function WeekFocusPanel({
   weekNum,
   problems,
   onToggle,
+  canEdit = true,
 }: {
   weekNum: number;
   problems: Problem[];
   onToggle: (id: number, done: boolean) => void;
+  canEdit?: boolean;
 }) {
   const items = problems
     .filter((p) => p.week === weekNum)
@@ -57,6 +59,7 @@ export function WeekFocusPanel({
                 checked={p.done}
                 onChange={(v) => onToggle(p.id, v)}
                 label={`Mark ${p.title} done`}
+                disabled={!canEdit}
               />
               <a
                 href={p.link}

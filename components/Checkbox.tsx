@@ -6,19 +6,23 @@ export function Checkbox({
   checked,
   onChange,
   label,
+  disabled = false,
 }: {
   checked: boolean;
   onChange: (checked: boolean) => void;
   label?: string;
+  disabled?: boolean;
 }) {
   return (
     <span className="relative inline-flex h-4 w-4 shrink-0">
       <input
         type="checkbox"
         checked={checked}
+        disabled={disabled}
         onChange={(e) => onChange(e.target.checked)}
         aria-label={label}
-        className="peer h-4 w-4 cursor-pointer appearance-none rounded-[5px] border border-slate-600 bg-panel2 transition-colors checked:border-emerald-500 checked:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40"
+        title={disabled ? "Unlock to edit" : undefined}
+        className="peer h-4 w-4 appearance-none rounded-[5px] border border-slate-600 bg-panel2 transition-colors checked:border-emerald-500 checked:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
       />
       <Check
         strokeWidth={3.5}

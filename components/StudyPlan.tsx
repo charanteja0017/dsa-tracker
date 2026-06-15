@@ -12,10 +12,12 @@ export function StudyPlan({
   problems,
   currentWeek,
   onToggleProblem,
+  canEdit = true,
 }: {
   problems: Problem[];
   currentWeek?: number;
   onToggleProblem: (id: number, done: boolean) => void;
+  canEdit?: boolean;
 }) {
   const [difficulties, setDifficulties] = useState<Set<Difficulty>>(new Set());
   const [selectedPatterns, setSelectedPatterns] = useState<Set<string>>(new Set());
@@ -83,6 +85,7 @@ export function StudyPlan({
               isCurrent={g.week === currentWeek}
               onToggle={toggleSet<number>(setOpenWeeks)}
               onToggleProblem={onToggleProblem}
+              canEdit={canEdit}
             />
           ))}
         </div>

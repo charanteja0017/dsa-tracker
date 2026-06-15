@@ -27,6 +27,21 @@ export default function Home() {
   const [recruiters, setRecruiters] = useState<Recruiter[]>([]);
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
 
+  // Edit gate: canEdit unlocks the checkboxes; configured tells the lock UI
+  // whether EDIT_PASSWORD is set on the server.
+  const [canEdit, setCanEdit] = useState(false);
+  const [configured, setConfigured] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/auth")
+      .then((res) => res.json() as Promise<{ authed: boolean; configured: boolean }>)
+      .then((a) => {
+        setCanEdit(a.authed);
+        setConfigured(a.configured);
+      })
+      .catch(() => {});
+  }, []);
+
   const load = useCallback(async () => {
     const [s, p, r, a] = await Promise.all([
       fetch("/api/stats").then((res) => res.json() as Promise<Stats>),
@@ -49,15 +64,24 @@ export default function Home() {
   // Stats/analytics (heatmap, pace, streak) refresh in the background.
   const toggle = useCallback(
     async (id: number, done: boolean) => {
+      if (!canEdit) return; // locked — checkboxes are disabled, but guard anyway
       setProblems((prev) => prev.map((x) => (x.id === id ? { ...x, done } : x)));
-      await fetch("/api/problems", {
+      const res = await fetch("/api/problems", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, done }),
       });
+      if (!res.ok) {
+        // Revert the optimistic flip; relock if the session expired.
+        setProblems((prev) =>
+          prev.map((x) => (x.id === id ? { ...x, done: !done } : x))
+        );
+        if (res.status === 401) setCanEdit(false);
+        return;
+      }
       load();
     },
-    [load]
+    [load, canEdit]
   );
 
   // Problem-derived series — recompute instantly on every toggle.
@@ -94,7 +118,13 @@ export default function Home() {
 
   return (
     <>
-      <Header weekNum={stats?.weekNum} daysToPhase1={stats?.daysToPhase1} />
+      <Header
+        weekNum={stats?.weekNum}
+        daysToPhase1={stats?.daysToPhase1}
+        authed={canEdit}
+        configured={configured}
+        onAuthChange={setCanEdit}
+      />
 
       <DashboardGrid>
         {/* Row 1 — hero (2) + pace (1) side by side */}
@@ -120,7 +150,12 @@ export default function Home() {
         {/* Row 2 — this week's problems (2) + heatmap & difficulty stacked (1) */}
         <Span cols={2}>
           {stats ? (
-            <WeekFocusPanel weekNum={stats.weekNum} problems={problems} onToggle={toggle} />
+            <WeekFocusPanel
+              weekNum={stats.weekNum}
+              problems={problems}
+              onToggle={toggle}
+              canEdit={canEdit}
+            />
           ) : (
             <Skeleton className="h-80" />
           )}
@@ -167,6 +202,7 @@ export default function Home() {
             problems={problems}
             currentWeek={stats?.weekNum}
             onToggleProblem={toggle}
+            canEdit={canEdit}
           />
         </Span>
         <Span cols={1}>

@@ -1,13 +1,20 @@
 import { CalendarDays } from "lucide-react";
+import { EditLock } from "./EditLock";
 
-// Compact sticky header: title, today's date, and a "Week N of 23 · X days to
-// Phase 1" pill. Quiet by design.
+// Compact sticky header: title, today's date, the "Week N of 23 · X days to
+// Phase 1" pill, and the edit lock control. Quiet by design.
 export function Header({
   weekNum,
   daysToPhase1,
+  authed,
+  configured,
+  onAuthChange,
 }: {
   weekNum?: number;
   daysToPhase1?: number;
+  authed: boolean;
+  configured: boolean;
+  onAuthChange: (authed: boolean) => void;
 }) {
   const date = new Date().toLocaleDateString("en-US", {
     weekday: "short",
@@ -30,22 +37,29 @@ export function Header({
           {date}
         </span>
 
-        {weekNum !== undefined && (
-          <span className="ml-auto inline-flex items-center gap-2 rounded-full border border-edge bg-panel px-3 py-1 text-xs">
-            <span className="font-medium text-slate-200">
-              Week {weekNum} <span className="text-slate-500">of 23</span>
+        <div className="ml-auto flex items-center gap-3">
+          {weekNum !== undefined && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-edge bg-panel px-3 py-1 text-xs">
+              <span className="font-medium text-slate-200">
+                Week {weekNum} <span className="text-slate-500">of 23</span>
+              </span>
+              {daysToPhase1 !== undefined && (
+                <>
+                  <span className="h-3 w-px bg-edge" aria-hidden />
+                  <span className="font-mono tabular-nums text-accent-fg">
+                    {daysToPhase1}d
+                  </span>
+                  <span className="text-slate-500">to Phase 1</span>
+                </>
+              )}
             </span>
-            {daysToPhase1 !== undefined && (
-              <>
-                <span className="h-3 w-px bg-edge" aria-hidden />
-                <span className="font-mono tabular-nums text-accent-fg">
-                  {daysToPhase1}d
-                </span>
-                <span className="text-slate-500">to Phase 1</span>
-              </>
-            )}
-          </span>
-        )}
+          )}
+          <EditLock
+            authed={authed}
+            configured={configured}
+            onChange={onAuthChange}
+          />
+        </div>
       </div>
     </header>
   );

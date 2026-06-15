@@ -13,12 +13,14 @@ export function WeekSection({
   isCurrent,
   onToggle,
   onToggleProblem,
+  canEdit = true,
 }: {
   group: WeekGroup;
   open: boolean;
   isCurrent: boolean;
   onToggle: (week: number) => void;
   onToggleProblem: (id: number, done: boolean) => void;
+  canEdit?: boolean;
 }) {
   const complete = group.total > 0 && group.done === group.total;
 
@@ -76,6 +78,7 @@ export function WeekSection({
                 key={pg.pattern}
                 group={pg}
                 onToggleProblem={onToggleProblem}
+                canEdit={canEdit}
               />
             ))
           )}

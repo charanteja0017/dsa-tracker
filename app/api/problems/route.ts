@@ -1,4 +1,5 @@
 import { sql } from "@/lib/db";
+import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -12,6 +13,9 @@ export async function GET() {
 
 // Toggle a problem's done state. Body: { id: number, done: boolean }
 export async function PATCH(req: Request) {
+  const denied = requireAuth(req);
+  if (denied) return denied;
+
   const { id, done } = await req.json();
   await sql`
     UPDATE problems
