@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import type { Problem } from "@/lib/types";
 import { WEEK_TOPICS, focusProblems } from "@/lib/study";
 import { Tag } from "./Tag";
@@ -10,7 +11,8 @@ import { YouTubeIcon } from "./YouTubeIcon";
 
 // Accent-bordered hero: an adaptive checklist — the current week's problems,
 // plus carried-over incompletes from earlier weeks, plus next week's once the
-// current week is finished early. Ring tracks the current week's completion.
+// current week is finished early. Completed problems tuck into a collapsible
+// section so the list stays about what's left. Ring tracks the current week.
 export function WeekFocusPanel({
   weekNum,
   problems,
@@ -27,6 +29,66 @@ export function WeekFocusPanel({
   const done = weekItems.filter((p) => p.done).length;
   const topic = WEEK_TOPICS[weekNum] ?? "Pattern practice";
   const next = WEEK_TOPICS[weekNum + 1];
+
+  const active = items.filter((p) => !p.done);
+  const completed = items.filter((p) => p.done);
+  const [showDone, setShowDone] = useState(false);
+
+  const renderRow = (p: Problem) => (
+    <div
+      key={p.id}
+      className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2 transition-colors hover:border-slate-700 hover:bg-panel2/70"
+    >
+      <Checkbox
+        checked={p.done}
+        onChange={(v) => onToggle(p.id, v)}
+        label={`Mark ${p.title} done`}
+        disabled={!canEdit}
+      />
+      <a
+        href={p.link}
+        target="_blank"
+        rel="noreferrer"
+        className={`min-w-0 flex-1 truncate text-sm ${
+          p.done
+            ? "text-slate-600 line-through"
+            : "text-slate-100 hover:text-accent-fg"
+        }`}
+      >
+        {p.title}
+      </a>
+      {p.youtube && (
+        <a
+          href={p.youtube}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Watch ${p.title} on YouTube`}
+          title="Watch on YouTube"
+          className="shrink-0 text-red-600 transition-opacity hover:opacity-80"
+        >
+          <YouTubeIcon className="h-4 w-4" />
+        </a>
+      )}
+      {p.week !== weekNum && (
+        <span
+          className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+            p.week < weekNum
+              ? "bg-amber-500/15 text-amber-300"
+              : "bg-slate-500/15 text-slate-300"
+          }`}
+          title={
+            p.week < weekNum
+              ? `Carried over from week ${p.week}`
+              : `From week ${p.week} (ahead)`
+          }
+        >
+          W{p.week}
+        </span>
+      )}
+      <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
+      <Tag variant="difficulty" value={p.difficulty} />
+    </div>
+  );
 
   return (
     <section className="flex h-full flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-4 shadow-card ring-1 ring-accent/10">
@@ -50,61 +112,40 @@ export function WeekFocusPanel({
             the pattern and revisit your weak spots.
           </div>
         ) : (
-          items.map((p) => (
-            <div
-              key={p.id}
-              className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2 transition-colors hover:border-slate-700 hover:bg-panel2/70"
-            >
-              <Checkbox
-                checked={p.done}
-                onChange={(v) => onToggle(p.id, v)}
-                label={`Mark ${p.title} done`}
-                disabled={!canEdit}
-              />
-              <a
-                href={p.link}
-                target="_blank"
-                rel="noreferrer"
-                className={`min-w-0 flex-1 truncate text-sm ${
-                  p.done
-                    ? "text-slate-600 line-through"
-                    : "text-slate-100 hover:text-accent-fg"
-                }`}
-              >
-                {p.title}
-              </a>
-              {p.youtube && (
-                <a
-                  href={p.youtube}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Watch ${p.title} on YouTube`}
-                  title="Watch on YouTube"
-                  className="shrink-0 text-red-600 transition-opacity hover:opacity-80"
+          <>
+            {active.length === 0 && completed.length > 0 && (
+              <div className="rounded-lg border border-dashed border-edge bg-panel/40 px-3 py-2.5 text-sm text-slate-400">
+                Nothing left for now — nice work. 🎉
+              </div>
+            )}
+
+            {active.map(renderRow)}
+
+            {completed.length > 0 && (
+              <div className="overflow-hidden rounded-lg border border-edge bg-panel/40">
+                <button
+                  type="button"
+                  aria-expanded={showDone}
+                  onClick={() => setShowDone((v) => !v)}
+                  className="flex w-full items-center gap-2 px-2.5 py-2 text-left text-xs font-medium text-slate-400 transition-colors hover:text-slate-200"
                 >
-                  <YouTubeIcon className="h-4 w-4" />
-                </a>
-              )}
-              {p.week !== weekNum && (
-                <span
-                  className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold ${
-                    p.week < weekNum
-                      ? "bg-amber-500/15 text-amber-300"
-                      : "bg-slate-500/15 text-slate-300"
-                  }`}
-                  title={
-                    p.week < weekNum
-                      ? `Carried over from week ${p.week}`
-                      : `From week ${p.week} (ahead)`
-                  }
-                >
-                  W{p.week}
-                </span>
-              )}
-              <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
-              <Tag variant="difficulty" value={p.difficulty} />
-            </div>
-          ))
+                  <ChevronRight
+                    className={`h-3.5 w-3.5 shrink-0 transition-transform ${
+                      showDone ? "rotate-90" : ""
+                    }`}
+                  />
+                  <span className="text-emerald-400">✓</span>
+                  Completed
+                  <span className="text-slate-500">({completed.length})</span>
+                </button>
+                {showDone && (
+                  <div className="space-y-1.5 border-t border-edge p-2">
+                    {completed.map(renderRow)}
+                  </div>
+                )}
+              </div>
+            )}
+          </>
         )}
       </div>
 
