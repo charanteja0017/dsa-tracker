@@ -39,8 +39,8 @@ export function WeekFocusPanel({
   const next = WEEK_TOPICS[weekNum + 1];
 
   // Group the focus set by week; header counts reflect the real week totals.
+  // Active weeks first (in week order); fully-completed weeks sink to the bottom.
   const groups: Group[] = Array.from(new Set(items.map((p) => p.week)))
-    .sort((a, b) => a - b)
     .map((w) => ({
       week: w,
       topic: WEEK_TOPICS[w] ?? "Pattern practice",
@@ -54,7 +54,12 @@ export function WeekFocusPanel({
         ),
       total: problems.filter((p) => p.week === w).length,
       done: problems.filter((p) => p.week === w && p.done).length,
-    }));
+    }))
+    .sort((a, b) => {
+      const ac = a.total > 0 && a.done === a.total ? 1 : 0;
+      const bc = b.total > 0 && b.done === b.total ? 1 : 0;
+      return ac - bc || a.week - b.week;
+    });
 
   // Open by default when a week still has incomplete problems; collapse a fully
   // done week. User clicks override that default for the session.
