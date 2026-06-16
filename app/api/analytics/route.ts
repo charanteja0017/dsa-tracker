@@ -1,4 +1,4 @@
-import { sql, PLAN } from "@/lib/db";
+import { sql, PLAN, APP_TZ } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 // Hits the database, so it must never be prerendered/executed at build time.
@@ -8,9 +8,9 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const [{ total }] = await sql`SELECT COUNT(*)::int AS total FROM problems;`;
 
-  // Per-day completion counts (UTC calendar day).
+  // Per-day completion counts (local-timezone calendar day).
   const daily = await sql`
-    SELECT to_char((done_at AT TIME ZONE 'UTC')::date, 'YYYY-MM-DD') AS date,
+    SELECT to_char((done_at AT TIME ZONE ${APP_TZ})::date, 'YYYY-MM-DD') AS date,
            COUNT(*)::int AS count
     FROM problems
     WHERE done AND done_at IS NOT NULL
@@ -20,9 +20,10 @@ export async function GET() {
 
   // Cumulative solved over time (running total of the per-day counts).
   const cumulative = await sql`
-    SELECT date, SUM(count) OVER (ORDER BY date)::int AS total
+    SELECT to_char(date, 'YYYY-MM-DD') AS date,
+           SUM(count) OVER (ORDER BY date)::int AS total
     FROM (
-      SELECT (done_at AT TIME ZONE 'UTC')::date AS date, COUNT(*)::int AS count
+      SELECT (done_at AT TIME ZONE ${APP_TZ})::date AS date, COUNT(*)::int AS count
       FROM problems
       WHERE done AND done_at IS NOT NULL
       GROUP BY 1

@@ -1,8 +1,15 @@
-import { sql, PLAN } from "@/lib/db";
+import { sql, PLAN, APP_TZ } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 // Hits the database, so it must never be prerendered/executed at build time.
 export const dynamic = "force-dynamic";
+
+// Step a YYYY-MM-DD string by whole days (UTC math, safe for date-only values).
+function shiftDay(day: string, delta: number): string {
+  const d = new Date(`${day}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + delta);
+  return d.toISOString().slice(0, 10);
+}
 
 // All stats derive from problems.done_at — there is no daily_log anymore.
 export async function GET() {
@@ -13,24 +20,31 @@ export async function GET() {
   `;
   const percent = total > 0 ? Math.round((solved / total) * 100) : 0;
 
-  // Distinct UTC calendar days that have at least one completion, newest first.
+  // Distinct local-timezone days (as strings) that have >= 1 completion.
   const rows = await sql`
-    SELECT DISTINCT (done_at AT TIME ZONE 'UTC')::date AS d
+    SELECT DISTINCT to_char((done_at AT TIME ZONE ${APP_TZ})::date, 'YYYY-MM-DD') AS d
     FROM problems
-    WHERE done AND done_at IS NOT NULL
-    ORDER BY d DESC;
+    WHERE done AND done_at IS NOT NULL;
   `;
+  const days = new Set(rows.map((r) => r.d as string));
 
-  // Streak: consecutive days ending today (UTC) with >= 1 completion.
-  const dayMs = 864e5;
-  const todayUtc = Math.floor(Date.now() / dayMs) * dayMs;
+  // Streak: consecutive days with >= 1 completion, ending today — with a 1-day
+  // grace so it doesn't read 0 just because today isn't logged yet.
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: APP_TZ }).format(
+    new Date()
+  );
+  let cursor: string | null = days.has(today)
+    ? today
+    : days.has(shiftDay(today, -1))
+      ? shiftDay(today, -1)
+      : null;
   let streak = 0;
-  for (let i = 0; i < rows.length; i++) {
-    const d = new Date(rows[i].d).getTime();
-    if (d === todayUtc - i * dayMs) streak++;
-    else break;
+  while (cursor && days.has(cursor)) {
+    streak++;
+    cursor = shiftDay(cursor, -1);
   }
 
+  const dayMs = 864e5;
   const start = new Date(PLAN.startDate).getTime();
   const weekNum = Math.max(
     1,

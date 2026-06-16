@@ -11,6 +11,10 @@ export const PLAN = {
   phase1Date: "2026-12-01",
 };
 
+// Timezone that defines "a day" for the streak + activity heatmap. Defaults to
+// IST; override with APP_TZ (an IANA name like "America/New_York").
+export const APP_TZ = process.env.APP_TZ || "Asia/Kolkata";
+
 // Creates tables if they don't exist. Safe to call repeatedly. Completion state
 // (done / done_at) is the single input now; there is no daily_log.
 export async function initSchema() {
