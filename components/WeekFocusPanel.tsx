@@ -9,10 +9,18 @@ import { Checkbox } from "./Checkbox";
 import { ProgressRing } from "./ProgressRing";
 import { YouTubeIcon } from "./YouTubeIcon";
 
-// Accent-bordered hero: an adaptive checklist — the current week's problems,
-// plus carried-over incompletes from earlier weeks, plus next week's once the
-// current week is finished early. Completed problems tuck into a collapsible
-// section so the list stays about what's left. Ring tracks the current week.
+type Group = {
+  week: number;
+  topic: string;
+  problems: Problem[];
+  done: number;
+  total: number;
+};
+
+// Accent-bordered hero: an adaptive checklist grouped into collapsible week
+// sections (like the study plan). The current week, carried-over incompletes,
+// and next week (once caught up) each get a section. A fully completed week
+// collapses by default so the list stays about what's left.
 export function WeekFocusPanel({
   weekNum,
   problems,
@@ -26,13 +34,35 @@ export function WeekFocusPanel({
 }) {
   const items = focusProblems(problems, weekNum);
   const weekItems = problems.filter((p) => p.week === weekNum);
-  const done = weekItems.filter((p) => p.done).length;
+  const ringDone = weekItems.filter((p) => p.done).length;
   const topic = WEEK_TOPICS[weekNum] ?? "Pattern practice";
   const next = WEEK_TOPICS[weekNum + 1];
 
-  const active = items.filter((p) => !p.done);
-  const completed = items.filter((p) => p.done);
-  const [showDone, setShowDone] = useState(false);
+  // Group the focus set by week; header counts reflect the real week totals.
+  const groups: Group[] = Array.from(new Set(items.map((p) => p.week)))
+    .sort((a, b) => a - b)
+    .map((w) => ({
+      week: w,
+      topic: WEEK_TOPICS[w] ?? "Pattern practice",
+      problems: items
+        .filter((p) => p.week === w)
+        .sort(
+          (a, b) =>
+            Number(a.done) - Number(b.done) ||
+            b.companies - a.companies ||
+            a.title.localeCompare(b.title)
+        ),
+      total: problems.filter((p) => p.week === w).length,
+      done: problems.filter((p) => p.week === w && p.done).length,
+    }));
+
+  // Open by default when a week still has incomplete problems; collapse a fully
+  // done week. User clicks override that default for the session.
+  const [overrides, setOverrides] = useState<Record<number, boolean>>({});
+  const defaultOpen = (g: Group) => g.problems.some((p) => !p.done);
+  const isOpen = (g: Group) => overrides[g.week] ?? defaultOpen(g);
+  const toggleWeek = (g: Group) =>
+    setOverrides((o) => ({ ...o, [g.week]: !(o[g.week] ?? defaultOpen(g)) }));
 
   const renderRow = (p: Problem) => (
     <div
@@ -69,22 +99,6 @@ export function WeekFocusPanel({
           <YouTubeIcon className="h-4 w-4" />
         </a>
       )}
-      {p.week !== weekNum && (
-        <span
-          className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-semibold ${
-            p.week < weekNum
-              ? "bg-amber-500/15 text-amber-300"
-              : "bg-slate-500/15 text-slate-300"
-          }`}
-          title={
-            p.week < weekNum
-              ? `Carried over from week ${p.week}`
-              : `From week ${p.week} (ahead)`
-          }
-        >
-          W{p.week}
-        </span>
-      )}
       <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
       <Tag variant="difficulty" value={p.difficulty} />
     </div>
@@ -101,51 +115,60 @@ export function WeekFocusPanel({
             Week {weekNum}: {topic}
           </h2>
         </div>
-        <ProgressRing value={done} max={weekItems.length} size={54} />
+        <ProgressRing value={ringDone} max={weekItems.length} size={54} />
       </div>
 
-      <div className="mt-3 max-h-[360px] min-h-0 flex-1 space-y-1.5 overflow-y-auto scroll-thin pr-1">
-        {items.length === 0 ? (
+      <div className="mt-3 max-h-[360px] min-h-0 flex-1 space-y-2 overflow-y-auto scroll-thin pr-1">
+        {groups.length === 0 ? (
           <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-4 text-sm text-slate-400">
             No problems mapped to this week. Focus on{" "}
             <span className="font-medium text-slate-200">{topic}</span> — drill
             the pattern and revisit your weak spots.
           </div>
         ) : (
-          <>
-            {active.length === 0 && completed.length > 0 && (
-              <div className="rounded-lg border border-dashed border-edge bg-panel/40 px-3 py-2.5 text-sm text-slate-400">
-                Nothing left for now — nice work. 🎉
-              </div>
-            )}
-
-            {active.map(renderRow)}
-
-            {completed.length > 0 && (
-              <div className="overflow-hidden rounded-lg border border-edge bg-panel/40">
+          groups.map((g) => {
+            const open = isOpen(g);
+            const complete = g.total > 0 && g.done === g.total;
+            return (
+              <div
+                key={g.week}
+                className="overflow-hidden rounded-lg border border-edge bg-panel/30"
+              >
                 <button
                   type="button"
-                  aria-expanded={showDone}
-                  onClick={() => setShowDone((v) => !v)}
-                  className="flex w-full items-center gap-2 px-2.5 py-2 text-left text-xs font-medium text-slate-400 transition-colors hover:text-slate-200"
+                  aria-expanded={open}
+                  onClick={() => toggleWeek(g)}
+                  className="flex w-full items-center gap-2 px-2.5 py-2 text-left transition-colors hover:bg-panel2/50"
                 >
                   <ChevronRight
-                    className={`h-3.5 w-3.5 shrink-0 transition-transform ${
-                      showDone ? "rotate-90" : ""
+                    className={`h-4 w-4 shrink-0 text-slate-500 transition-transform ${
+                      open ? "rotate-90" : ""
                     }`}
                   />
-                  <span className="text-emerald-400">✓</span>
-                  Completed
-                  <span className="text-slate-500">({completed.length})</span>
+                  <span className="shrink-0 font-mono text-xs font-semibold text-accent-fg">
+                    W{g.week}
+                  </span>
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-200">
+                    {g.topic}
+                  </span>
+                  {g.week === weekNum && (
+                    <span className="hidden shrink-0 rounded-full bg-accent/20 px-1.5 py-0.5 text-[10px] font-medium text-accent-fg sm:inline">
+                      current
+                    </span>
+                  )}
+                  {complete && <span className="shrink-0 text-emerald-400">✓</span>}
+                  <span className="shrink-0 font-mono text-xs tabular-nums text-slate-500">
+                    {g.done}/{g.total}
+                  </span>
                 </button>
-                {showDone && (
+                {open && (
                   <div className="space-y-1.5 border-t border-edge p-2">
-                    {completed.map(renderRow)}
+                    {g.problems.map(renderRow)}
                   </div>
                 )}
               </div>
-            )}
-          </>
+            );
+          })
         )}
       </div>
 
