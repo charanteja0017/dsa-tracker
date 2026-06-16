@@ -1,6 +1,6 @@
-import { Flame } from "lucide-react";
 import type { Stats } from "@/lib/types";
 import { HatchedBar } from "./HatchedBar";
+import { StreakFlame } from "./StreakFlame";
 
 // Hero card: oversized solved + streak numbers on top, then a PROGRESS row
 // (label left, big % right) above a full-width hatched bar.
@@ -22,7 +22,7 @@ export function StatsHero({ stats }: { stats: Stats }) {
 
         {/* Streak */}
         <div className="flex items-center gap-3">
-          <Flame className="h-10 w-10 shrink-0 text-amber-400" />
+          <StreakFlame streak={stats.streak} />
           <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
             {stats.streak}
           </span>

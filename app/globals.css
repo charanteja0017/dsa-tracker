@@ -30,3 +30,32 @@ body {
 .scroll-thin::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* Streak flame: each nested layer "licks" upward from its base, swaying. */
+@keyframes flame-flicker {
+  0%,
+  100% {
+    transform: scaleY(1) scaleX(1) rotate(-1deg);
+  }
+  20% {
+    transform: scaleY(1.12) scaleX(0.95) rotate(1.5deg);
+  }
+  45% {
+    transform: scaleY(0.94) scaleX(1.04) rotate(-1.5deg);
+  }
+  70% {
+    transform: scaleY(1.08) scaleX(0.98) rotate(1deg);
+  }
+}
+.flame-flicker {
+  transform-origin: bottom center;
+  animation-name: flame-flicker;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flame-flicker {
+    animation: none;
+  }
+}
