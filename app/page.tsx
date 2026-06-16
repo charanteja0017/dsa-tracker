@@ -25,6 +25,9 @@ const MILESTONE_LOTTIE: Record<number, string> = {
   100: "/animations/winner-badge.lottie",
 };
 
+// Streak day-counts that trigger the fire celebration.
+const STREAK_MILESTONES = [3, 7, 14, 30, 50, 100];
+
 function Skeleton({ className = "" }: { className?: string }) {
   return (
     <div className={`animate-pulse rounded-xl border border-edge bg-panel/60 ${className}`} />
@@ -49,6 +52,7 @@ export default function Home() {
   const [celebration, setCelebration] = useState<string | null>(null);
   const prevPct = useRef<number | null>(null);
   const prevWeekDone = useRef<boolean | null>(null);
+  const prevStreak = useRef<number | null>(null);
 
   useEffect(() => {
     fetch("/api/auth")
@@ -120,11 +124,13 @@ export default function Home() {
     const wk = stats?.weekNum;
     const weekProblems = wk ? problems.filter((p) => p.week === wk) : [];
     const weekDone = weekProblems.length > 0 && weekProblems.every((p) => p.done);
+    const streak = stats?.streak ?? 0;
 
     // First data load: record baseline without firing.
     if (prevPct.current === null) {
       prevPct.current = pct;
       prevWeekDone.current = weekDone;
+      prevStreak.current = streak;
       return;
     }
 
@@ -133,18 +139,25 @@ export default function Home() {
       setCelebration(src);
     };
 
+    const crossedPct = [100, 75, 50, 25].find(
+      (m) => pct >= m && (prevPct.current ?? 0) < m
+    );
+    const crossedStreak = STREAK_MILESTONES.find(
+      (m) => streak >= m && (prevStreak.current ?? 0) < m
+    );
+
     if (weekDone && prevWeekDone.current === false) {
       fire("/animations/trophy.lottie");
-    } else {
-      const crossed = [100, 75, 50, 25].find(
-        (m) => pct >= m && (prevPct.current ?? 0) < m
-      );
-      if (crossed) fire(MILESTONE_LOTTIE[crossed]);
+    } else if (crossedPct) {
+      fire(MILESTONE_LOTTIE[crossedPct]);
+    } else if (crossedStreak) {
+      fire("/animations/fire.lottie");
     }
 
     prevPct.current = pct;
     prevWeekDone.current = weekDone;
-  }, [problems, analytics?.range.total, stats?.weekNum]);
+    prevStreak.current = streak;
+  }, [problems, analytics?.range.total, stats?.weekNum, stats?.streak]);
 
   // Auto-dismiss the celebration after it plays.
   useEffect(() => {
