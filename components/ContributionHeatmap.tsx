@@ -59,9 +59,16 @@ export function ContributionHeatmap({
     count: d.count,
   }));
 
+  const [tip, setTip] = useState<{
+    x: number;
+    y: number;
+    w: number;
+    label: string;
+  } | null>(null);
+
   return (
     <div className="flex flex-col gap-2">
-      <div ref={ref} className="w-full overflow-hidden">
+      <div ref={ref} className="relative w-full">
         <HeatMap
           value={value}
           width={width}
@@ -74,11 +81,29 @@ export function ContributionHeatmap({
           rectProps={{ rx: 2 }}
           style={{ color: "#94a3b8", fontSize: 10 }}
           rectRender={(props, data) => (
-            <rect {...props}>
-              <title>{`${data.date} · ${data.count ?? 0} solved`}</title>
-            </rect>
+            <rect
+              {...props}
+              className="heat-cell"
+              onMouseEnter={() =>
+                setTip({
+                  x: Number(props.x),
+                  y: Number(props.y),
+                  w: Number(props.width),
+                  label: `${data.date} · ${data.count ?? 0} solved`,
+                })
+              }
+              onMouseLeave={() => setTip(null)}
+            />
           )}
         />
+        {tip && (
+          <div
+            className="heat-tip"
+            style={{ left: tip.x + tip.w / 2, top: tip.y }}
+          >
+            {tip.label}
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-end gap-1.5 text-[10px] text-slate-500">
         <span>Less</span>
