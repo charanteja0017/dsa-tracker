@@ -1,6 +1,7 @@
 import { CalendarDays } from "lucide-react";
 import { APP_TZ } from "@/lib/tz";
 import { EditLock } from "./EditLock";
+import { ShareButton } from "./ShareButton";
 
 // Compact sticky header: title, today's date, the "Week N of 23 · X days to
 // Phase 1" pill, and the edit lock control. Quiet by design.
@@ -56,6 +57,7 @@ export function Header({
               )}
             </span>
           )}
+          <ShareButton />
           <EditLock
             authed={authed}
             configured={configured}
