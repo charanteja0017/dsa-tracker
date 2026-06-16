@@ -9,6 +9,7 @@
     "seed": "node --loader ts-node/esm scripts/seed.ts"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.19.4",
     "@neondatabase/serverless": "^0.10.4",
     "@uiw/react-heat-map": "^2.3.4",
     "canvas-confetti": "^1.9.4",

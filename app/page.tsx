@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Analytics, Problem, Recruiter, Stats } from "@/lib/types";
 import { difficultyStats, patternStats } from "@/lib/study";
 import { celebrate } from "@/lib/celebrate";
@@ -15,6 +15,15 @@ import { PatternBars } from "@/components/PatternBars";
 import { DifficultyRing } from "@/components/DifficultyRing";
 import { StudyPlan } from "@/components/StudyPlan";
 import { RecruiterList } from "@/components/RecruiterList";
+import { Celebration } from "@/components/Celebration";
+
+// Percent milestones → which Lottie plays when crossed (upward).
+const MILESTONE_LOTTIE: Record<number, string> = {
+  25: "/animations/confetti.lottie",
+  50: "/animations/success-burst.lottie",
+  75: "/animations/confetti.lottie",
+  100: "/animations/winner-badge.lottie",
+};
 
 function Skeleton({ className = "" }: { className?: string }) {
   return (
@@ -35,6 +44,11 @@ export default function Home() {
 
   // Pace chart view: near-term window vs. the full plan.
   const [paceMode, setPaceMode] = useState<"near" | "full">("near");
+
+  // Milestone celebration overlay (a Lottie that plays once).
+  const [celebration, setCelebration] = useState<string | null>(null);
+  const prevPct = useRef<number | null>(null);
+  const prevWeekDone = useRef<boolean | null>(null);
 
   useEffect(() => {
     fetch("/api/auth")
@@ -98,6 +112,47 @@ export default function Home() {
   const solved = stats?.solved ?? problems.filter((p) => p.done).length;
   const total = analytics?.range.total ?? problems.length;
 
+  // Fire a celebration when a week is finished or a % milestone is crossed.
+  useEffect(() => {
+    const totalLive = analytics?.range.total ?? problems.length;
+    const solvedLive = problems.filter((p) => p.done).length;
+    const pct = totalLive > 0 ? Math.round((solvedLive / totalLive) * 100) : 0;
+    const wk = stats?.weekNum;
+    const weekProblems = wk ? problems.filter((p) => p.week === wk) : [];
+    const weekDone = weekProblems.length > 0 && weekProblems.every((p) => p.done);
+
+    // First data load: record baseline without firing.
+    if (prevPct.current === null) {
+      prevPct.current = pct;
+      prevWeekDone.current = weekDone;
+      return;
+    }
+
+    const fire = (src: string) => {
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+      setCelebration(src);
+    };
+
+    if (weekDone && prevWeekDone.current === false) {
+      fire("/animations/trophy.lottie");
+    } else {
+      const crossed = [100, 75, 50, 25].find(
+        (m) => pct >= m && (prevPct.current ?? 0) < m
+      );
+      if (crossed) fire(MILESTONE_LOTTIE[crossed]);
+    }
+
+    prevPct.current = pct;
+    prevWeekDone.current = weekDone;
+  }, [problems, analytics?.range.total, stats?.weekNum]);
+
+  // Auto-dismiss the celebration after it plays.
+  useEffect(() => {
+    if (!celebration) return;
+    const t = setTimeout(() => setCelebration(null), 2800);
+    return () => clearTimeout(t);
+  }, [celebration]);
+
   // Ahead/behind vs the ideal linear pace today.
   const paceBadge = (() => {
     if (!analytics) return null;
@@ -123,6 +178,8 @@ export default function Home() {
 
   return (
     <>
+      {celebration && <Celebration src={celebration} />}
+
       <Header
         weekNum={stats?.weekNum}
         daysToPhase1={stats?.daysToPhase1}
