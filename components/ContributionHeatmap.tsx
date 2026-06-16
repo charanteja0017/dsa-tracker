@@ -37,7 +37,13 @@ export function ContributionHeatmap({
     return () => ro.disconnect();
   }, []);
 
-  const startDate = new Date(start);
+  // Extend the window back to cover any activity logged before the plan start
+  // (e.g. prep done before the official start date) so those cells are visible.
+  const earliest = daily.reduce(
+    (min, d) => (d.date < min ? d.date : min),
+    start
+  );
+  const startDate = new Date(earliest);
   const endDate = new Date(end);
   const weeks =
     Math.ceil((endDate.getTime() - startDate.getTime()) / (7 * 864e5)) + 1;
