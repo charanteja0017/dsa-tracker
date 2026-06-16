@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import { APP_TZ as DEFAULT_TZ } from "./tz";
 
 // Single shared SQL client. On Vercel, DATABASE_URL is injected by the
 // Neon integration. Locally, put it in .env (see .env.example).
@@ -12,8 +13,8 @@ export const PLAN = {
 };
 
 // Timezone that defines "a day" for the streak + activity heatmap. Defaults to
-// IST; override with APP_TZ (an IANA name like "America/New_York").
-export const APP_TZ = process.env.APP_TZ || "Asia/Kolkata";
+// IST (shared in lib/tz); override with the APP_TZ env (an IANA name).
+export const APP_TZ = process.env.APP_TZ || DEFAULT_TZ;
 
 // Creates tables if they don't exist. Safe to call repeatedly. Completion state
 // (done / done_at) is the single input now; there is no daily_log.

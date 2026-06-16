@@ -1,4 +1,5 @@
 import { CalendarDays } from "lucide-react";
+import { APP_TZ } from "@/lib/tz";
 import { EditLock } from "./EditLock";
 
 // Compact sticky header: title, today's date, the "Week N of 23 · X days to
@@ -17,6 +18,7 @@ export function Header({
   onAuthChange: (authed: boolean) => void;
 }) {
   const date = new Date().toLocaleDateString("en-US", {
+    timeZone: APP_TZ,
     weekday: "short",
     month: "short",
     day: "numeric",
