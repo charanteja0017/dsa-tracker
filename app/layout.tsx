@@ -22,9 +22,21 @@ const display = Archivo({
   display: "swap",
 });
 
+const vercelHost =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+const siteUrl = vercelHost ? `https://${vercelHost}` : "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "CDSA",
   description: "23-week DSA placement prep tracker",
+  openGraph: {
+    title: "CDSA — DSA Placement Tracker",
+    description:
+      "Live progress: problems solved, current streak, and pace to the goal.",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

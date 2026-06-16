@@ -53,7 +53,7 @@ export function WeekFocusPanel({
           items.map((p) => (
             <div
               key={p.id}
-              className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2"
+              className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2 transition-colors hover:border-slate-700 hover:bg-panel2/70"
             >
               <Checkbox
                 checked={p.done}
