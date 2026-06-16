@@ -24,6 +24,7 @@ const fmtDay = (t: number) => {
   const d = new Date(t);
   return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}`;
 };
+const fmtMonth = (t: number) => MONTHS[new Date(t).getUTCMonth()];
 const fmtFull = (t: number) => {
   const d = new Date(t);
   return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
@@ -36,17 +37,41 @@ function addDays(day: string, n: number): string {
 const minDay = (a: string, b: string) => (a < b ? a : b);
 const maxDay = (a: string, b: string) => (a > b ? a : b);
 
-// Near-term cumulative-solved (actual) vs the ideal pace line, zoomed to a few
-// days back through next week. One point per day so hover shows that day's
-// target + solved, and the actual line steps up with each completion.
+function dayTicks(start: string, end: string, step: number): number[] {
+  const out: number[] = [];
+  for (let day = start; day <= end; day = addDays(day, step)) out.push(ts(day));
+  return out;
+}
+function monthTicks(start: string, end: string): number[] {
+  const out: number[] = [];
+  const s = new Date(`${start}T00:00:00Z`);
+  let cur = Date.UTC(s.getUTCFullYear(), s.getUTCMonth(), 1);
+  while (cur < ts(start)) {
+    const d = new Date(cur);
+    cur = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+  }
+  while (cur <= ts(end)) {
+    out.push(cur);
+    const d = new Date(cur);
+    cur = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+  }
+  return out;
+}
+
+// Cumulative solved (actual) vs the ideal pace line. `mode` switches between a
+// near-term rolling window (a few days back → next week) and the full plan
+// (start → Phase 1). One point per day, so hover shows each day's target +
+// solved, and the actual line steps up with every completion.
 export function PaceChart({
   cumulative,
   range,
   solved,
+  mode = "near",
 }: {
   cumulative: Analytics["cumulative"];
   range: Analytics["range"];
   solved: number;
+  mode?: "near" | "full";
 }) {
   const planStartTs = ts(range.start);
   const phase1Ts = ts(range.phase1);
@@ -59,12 +84,13 @@ export function PaceChart({
   );
   const earliest = cumulative.length ? cumulative[0].date : today;
 
-  // Window: ~2 days back (or first activity, capped at a week back) → 1 week ahead.
-  const windowStart = maxDay(
-    addDays(today, -7),
-    minDay(addDays(today, -2), earliest)
-  );
-  const windowEnd = minDay(range.phase1, addDays(today, 7));
+  const full = mode === "full";
+  const windowStart = full
+    ? minDay(earliest, range.start)
+    : maxDay(addDays(today, -7), minDay(addDays(today, -2), earliest));
+  const windowEnd = full
+    ? range.phase1
+    : minDay(range.phase1, addDays(today, 7));
 
   const data: { t: number; ideal: number; actual: number | null }[] = [];
   let di = 0;
@@ -82,13 +108,12 @@ export function PaceChart({
 
   const todayTs = ts(today);
   const solvedNow = Math.max(running, solved);
-  const yMax = Math.max(5, solvedNow, idealAt(ts(windowEnd)));
-  const niceMax = Math.ceil((yMax + 1) / 5) * 5;
-
-  const ticks: number[] = [];
-  for (let day = windowStart; day <= windowEnd; day = addDays(day, 2)) {
-    ticks.push(ts(day));
-  }
+  const niceMax = full
+    ? range.total
+    : Math.ceil((Math.max(5, solvedNow, idealAt(ts(windowEnd))) + 1) / 5) * 5;
+  const ticks = full
+    ? monthTicks(windowStart, windowEnd)
+    : dayTicks(windowStart, windowEnd, 2);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -99,7 +124,7 @@ export function PaceChart({
           type="number"
           domain={[ts(windowStart), ts(windowEnd)]}
           ticks={ticks}
-          tickFormatter={fmtDay}
+          tickFormatter={full ? fmtMonth : fmtDay}
           tick={{ fill: TEXT.muted, fontSize: 11 }}
           stroke={TEXT.grid}
           minTickGap={16}
@@ -141,7 +166,7 @@ export function PaceChart({
           name="actual"
           stroke={ACCENT}
           strokeWidth={2.5}
-          dot={{ r: 2.5, fill: ACCENT, strokeWidth: 0 }}
+          dot={full ? false : { r: 2.5, fill: ACCENT, strokeWidth: 0 }}
           connectNulls={false}
           isAnimationActive={false}
         />

@@ -33,6 +33,9 @@ export default function Home() {
   const [canEdit, setCanEdit] = useState(false);
   const [configured, setConfigured] = useState(true);
 
+  // Pace chart view: near-term window vs. the full plan.
+  const [paceMode, setPaceMode] = useState<"near" | "full">("near");
+
   useEffect(() => {
     fetch("/api/auth")
       .then((res) => res.json() as Promise<{ authed: boolean; configured: boolean }>)
@@ -134,13 +137,39 @@ export default function Home() {
           {stats ? <StatsHero stats={stats} /> : <Skeleton className="h-44" />}
         </Span>
         <Span cols={1}>
-          <Panel title="Pace" right={paceBadge} className="h-full" bodyClassName="flex-1 p-4">
+          <Panel
+            title="Pace"
+            right={
+              <div className="flex items-center gap-2">
+                <div className="flex rounded-md border border-edge p-0.5 text-[11px]">
+                  {(["near", "full"] as const).map((m) => (
+                    <button
+                      key={m}
+                      type="button"
+                      onClick={() => setPaceMode(m)}
+                      className={`rounded px-2 py-0.5 font-medium transition-colors ${
+                        paceMode === m
+                          ? "bg-accent/20 text-accent-fg"
+                          : "text-slate-500 hover:text-slate-300"
+                      }`}
+                    >
+                      {m === "near" ? "Week" : "Full"}
+                    </button>
+                  ))}
+                </div>
+                {paceBadge}
+              </div>
+            }
+            className="h-full"
+            bodyClassName="flex-1 p-4"
+          >
             <div className="h-full min-h-[160px]">
               {analytics ? (
                 <PaceChart
                   cumulative={analytics.cumulative}
                   range={analytics.range}
                   solved={solved}
+                  mode={paceMode}
                 />
               ) : (
                 <Skeleton className="h-full border-0" />
