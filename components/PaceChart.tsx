@@ -139,7 +139,7 @@ export function PaceChart({
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data} margin={{ top: 34, right: 16, bottom: 24, left: -14 }}>
+      <LineChart data={data} margin={{ top: 36, right: 16, bottom: 42, left: -14 }}>
         <CartesianGrid stroke={TEXT.grid} strokeDasharray="3 3" vertical={false} />
         <XAxis
           dataKey="t"
