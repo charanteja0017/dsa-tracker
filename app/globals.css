@@ -196,6 +196,45 @@ body {
   animation-delay: 0.32s;
 }
 
+/* Company popover: the card lifts in, then chips pop in one after another. */
+@keyframes company-pop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-100% - 2px)) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, calc(-100% - 8px)) scale(1);
+  }
+}
+.company-pop {
+  transform: translate(-50%, calc(-100% - 8px));
+  transform-origin: bottom center;
+  animation: company-pop 0.16s ease-out both;
+}
+@keyframes company-chip {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.company-chip {
+  animation: company-chip 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .company-pop {
+    animation: none;
+    transform: translate(-50%, calc(-100% - 8px));
+  }
+  .company-chip {
+    animation: none;
+  }
+}
+
 /* Heatmap cells fade/scale in once, swept left→right (delay set per-cell). */
 @keyframes heat-cell-in {
   from {
