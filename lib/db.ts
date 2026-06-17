@@ -62,3 +62,46 @@ export async function initSchema() {
     );
   `;
 }
+
+// EXAM MODE — completely separate tables from the study plan. Creating or
+// (re)seeding these NEVER touches `problems`/`done`/`done_at`. exam_pool holds
+// the A2Z question bank + cooldown bookkeeping (times_used/last_used_at); exams
+// and exam_items hold generated, reproducible exams and their solved state.
+export async function initExamSchema() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS exam_pool (
+      external_id  INT PRIMARY KEY,
+      title        TEXT NOT NULL,
+      topic        TEXT NOT NULL,
+      difficulty   TEXT NOT NULL,
+      most_asked   BOOLEAN NOT NULL DEFAULT FALSE,
+      weight       INT NOT NULL DEFAULT 1,
+      youtube      TEXT,
+      article      TEXT,
+      times_used   INT NOT NULL DEFAULT 0,
+      last_used_at TIMESTAMPTZ
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS exams (
+      id         TEXT PRIMARY KEY,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      size       INT NOT NULL,
+      status     TEXT NOT NULL DEFAULT 'active',
+      seed       TEXT NOT NULL
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS exam_items (
+      id          SERIAL PRIMARY KEY,
+      exam_id     TEXT NOT NULL REFERENCES exams(id) ON DELETE CASCADE,
+      external_id INT  NOT NULL REFERENCES exam_pool(external_id),
+      position    INT  NOT NULL,
+      solved      BOOLEAN NOT NULL DEFAULT FALSE,
+      solved_at   TIMESTAMPTZ
+    );
+  `;
+  await sql`
+    CREATE INDEX IF NOT EXISTS exam_items_exam_id_idx ON exam_items (exam_id);
+  `;
+}

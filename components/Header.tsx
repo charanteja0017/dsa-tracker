@@ -1,4 +1,5 @@
-import { CalendarDays } from "lucide-react";
+import Link from "next/link";
+import { CalendarDays, GraduationCap } from "lucide-react";
 import type { Problem } from "@/lib/types";
 import { APP_TZ } from "@/lib/tz";
 import { EditLock } from "./EditLock";
@@ -61,6 +62,14 @@ export function Header({
               )}
             </span>
           )}
+          <Link
+            href="/exam"
+            title="Exam mode — unseen A2Z practice"
+            className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent-fg transition duration-150 hover:bg-accent/20 active:scale-95"
+          >
+            <GraduationCap className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Exam</span>
+          </Link>
           {problems.length > 0 && <MockTest problems={problems} />}
           <ShareButton />
           <EditLock

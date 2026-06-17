@@ -77,10 +77,32 @@ export const TOPIC_COLORS: Record<string, string> = {
   "Final polish": "#eab308",
 };
 
+// Exam-mode topics (Striver A2Z) — their own color set, distinct from the
+// study-plan patterns above. Reused by exam Tags so colors stay consistent.
+export const EXAM_TOPIC_COLORS: Record<string, string> = {
+  "Basics & Maths": "#60a5fa",
+  Sorting: "#34d399",
+  Arrays: "#22d3ee",
+  "Binary Search": "#a3e635",
+  Strings: "#facc15",
+  "Linked List": "#fb923c",
+  "Recursion & Backtracking": "#f472b6",
+  "Bit Manipulation": "#5eead4",
+  "Stacks & Queues": "#4ade80",
+  "Sliding Window & Two Pointer": "#2dd4bf",
+  "Heaps & Priority Queue": "#f97316",
+  Greedy: "#38bdf8",
+  "Binary Trees": "#c084fc",
+  "Binary Search Trees": "#a78bfa",
+  Graphs: "#e879f9",
+  "Dynamic Programming": "#818cf8",
+  "Tries & Strings (Advanced)": "#fbbf24",
+};
+
 const TOPIC_FALLBACK = "#94a3b8";
 
 export function topicColor(pattern: string): string {
-  return TOPIC_COLORS[pattern] ?? TOPIC_FALLBACK;
+  return TOPIC_COLORS[pattern] ?? EXAM_TOPIC_COLORS[pattern] ?? TOPIC_FALLBACK;
 }
 
 // Heatmap intensity ramp (0 → 4); level 0 is just above the card so empty days
