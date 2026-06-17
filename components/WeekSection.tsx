@@ -14,6 +14,7 @@ export function WeekSection({
   isCurrent,
   onToggle,
   onToggleProblem,
+  onToggleStar,
   canEdit = true,
 }: {
   group: WeekGroup;
@@ -21,6 +22,7 @@ export function WeekSection({
   isCurrent: boolean;
   onToggle: (week: number) => void;
   onToggleProblem: (id: number, done: boolean) => void;
+  onToggleStar?: (id: number, starred: boolean) => void;
   canEdit?: boolean;
 }) {
   const complete = group.total > 0 && group.done === group.total;
@@ -79,6 +81,7 @@ export function WeekSection({
                 key={pg.pattern}
                 group={pg}
                 onToggleProblem={onToggleProblem}
+                onToggleStar={onToggleStar}
                 canEdit={canEdit}
               />
             ))

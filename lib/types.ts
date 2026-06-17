@@ -13,6 +13,7 @@ export type Problem = {
   link: string;
   youtube: string | null;
   done: boolean;
+  starred: boolean;
 };
 
 // All stats derive from problems.done_at (no daily_log).
@@ -66,4 +67,5 @@ export type Filters = {
   difficulties: Set<Difficulty>; // empty = all difficulties
   patterns: Set<string>; // empty = all patterns
   hideCompleted: boolean;
+  starred: boolean; // true = only problems starred for revision
 };

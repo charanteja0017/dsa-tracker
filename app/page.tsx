@@ -110,6 +110,29 @@ export default function Home() {
     [load, canEdit]
   );
 
+  // Star/unstar a problem for revision. Optimistic; doesn't affect stats so no
+  // reload needed.
+  const toggleStar = useCallback(
+    async (id: number, starred: boolean) => {
+      if (!canEdit) return;
+      setProblems((prev) =>
+        prev.map((x) => (x.id === id ? { ...x, starred } : x))
+      );
+      const res = await fetch("/api/problems", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, starred }),
+      });
+      if (!res.ok) {
+        setProblems((prev) =>
+          prev.map((x) => (x.id === id ? { ...x, starred: !starred } : x))
+        );
+        if (res.status === 401) setCanEdit(false);
+      }
+    },
+    [canEdit]
+  );
+
   // Problem-derived series — recompute instantly on every toggle.
   const byPattern = useMemo(() => patternStats(problems), [problems]);
   const byDifficulty = useMemo(() => difficultyStats(problems), [problems]);
@@ -209,6 +232,7 @@ export default function Home() {
       <Header
         weekNum={stats?.weekNum}
         daysToPhase1={stats?.daysToPhase1}
+        problems={problems}
         authed={canEdit}
         configured={configured}
         onAuthChange={setCanEdit}
@@ -282,6 +306,7 @@ export default function Home() {
               weekNum={stats.weekNum}
               problems={problems}
               onToggle={toggle}
+              onToggleStar={toggleStar}
               canEdit={canEdit}
             />
           ) : (
@@ -330,6 +355,7 @@ export default function Home() {
             problems={problems}
             currentWeek={stats?.weekNum}
             onToggleProblem={toggle}
+            onToggleStar={toggleStar}
             canEdit={canEdit}
           />
         </Span>

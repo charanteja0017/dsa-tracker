@@ -1,19 +1,23 @@
 import { CalendarDays } from "lucide-react";
+import type { Problem } from "@/lib/types";
 import { APP_TZ } from "@/lib/tz";
 import { EditLock } from "./EditLock";
 import { ShareButton } from "./ShareButton";
+import { MockTest } from "./MockTest";
 
 // Compact sticky header: title, today's date, the "Week N of 23 · X days to
-// Phase 1" pill, and the edit lock control. Quiet by design.
+// Phase 1" pill, the mock-test launcher, share, and the edit lock control.
 export function Header({
   weekNum,
   daysToPhase1,
+  problems,
   authed,
   configured,
   onAuthChange,
 }: {
   weekNum?: number;
   daysToPhase1?: number;
+  problems: Problem[];
   authed: boolean;
   configured: boolean;
   onAuthChange: (authed: boolean) => void;
@@ -57,6 +61,7 @@ export function Header({
               )}
             </span>
           )}
+          {problems.length > 0 && <MockTest problems={problems} />}
           <ShareButton />
           <EditLock
             authed={authed}

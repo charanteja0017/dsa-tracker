@@ -8,10 +8,12 @@ import { Tag } from "./Tag";
 export function PatternGroup({
   group,
   onToggleProblem,
+  onToggleStar,
   canEdit = true,
 }: {
   group: PatternGroupType;
   onToggleProblem: (id: number, done: boolean) => void;
+  onToggleStar?: (id: number, starred: boolean) => void;
   canEdit?: boolean;
 }) {
   return (
@@ -28,6 +30,7 @@ export function PatternGroup({
             key={p.id}
             problem={p}
             onToggle={onToggleProblem}
+            onToggleStar={onToggleStar}
             canEdit={canEdit}
           />
         ))}

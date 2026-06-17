@@ -12,16 +12,19 @@ export function StudyPlan({
   problems,
   currentWeek,
   onToggleProblem,
+  onToggleStar,
   canEdit = true,
 }: {
   problems: Problem[];
   currentWeek?: number;
   onToggleProblem: (id: number, done: boolean) => void;
+  onToggleStar?: (id: number, starred: boolean) => void;
   canEdit?: boolean;
 }) {
   const [difficulties, setDifficulties] = useState<Set<Difficulty>>(new Set());
   const [selectedPatterns, setSelectedPatterns] = useState<Set<string>>(new Set());
   const [hideCompleted, setHideCompleted] = useState(false);
+  const [starredOnly, setStarredOnly] = useState(false);
   const [openWeeks, setOpenWeeks] = useState<Set<number>>(new Set());
   const didInit = useRef(false);
 
@@ -32,8 +35,9 @@ export function StudyPlan({
         difficulties,
         patterns: selectedPatterns,
         hideCompleted,
+        starred: starredOnly,
       }),
-    [problems, difficulties, selectedPatterns, hideCompleted]
+    [problems, difficulties, selectedPatterns, hideCompleted, starredOnly]
   );
 
   useEffect(() => {
@@ -73,6 +77,8 @@ export function StudyPlan({
             onTogglePattern={toggleSet<string>(setSelectedPatterns)}
             hideCompleted={hideCompleted}
             onToggleHideCompleted={() => setHideCompleted((v) => !v)}
+            starredOnly={starredOnly}
+            onToggleStarred={() => setStarredOnly((v) => !v)}
           />
         </div>
 
@@ -85,6 +91,7 @@ export function StudyPlan({
               isCurrent={g.week === currentWeek}
               onToggle={toggleSet<number>(setOpenWeeks)}
               onToggleProblem={onToggleProblem}
+              onToggleStar={onToggleStar}
               canEdit={canEdit}
             />
           ))}

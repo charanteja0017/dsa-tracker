@@ -10,6 +10,7 @@ import { ProgressRing } from "./ProgressRing";
 import { YouTubeIcon } from "./YouTubeIcon";
 import { Collapse } from "./Collapse";
 import { CompanyBadge } from "./CompanyBadge";
+import { StarButton } from "./StarButton";
 
 type Group = {
   week: number;
@@ -27,11 +28,13 @@ export function WeekFocusPanel({
   weekNum,
   problems,
   onToggle,
+  onToggleStar,
   canEdit = true,
 }: {
   weekNum: number;
   problems: Problem[];
   onToggle: (id: number, done: boolean) => void;
+  onToggleStar?: (id: number, starred: boolean) => void;
   canEdit?: boolean;
 }) {
   const items = focusProblems(problems, weekNum);
@@ -125,6 +128,13 @@ export function WeekFocusPanel({
       {p.companies > 0 && <CompanyBadge count={p.companies} />}
       <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
       <Tag variant="difficulty" value={p.difficulty} />
+      {onToggleStar && (
+        <StarButton
+          starred={p.starred}
+          onToggle={(v) => onToggleStar(p.id, v)}
+          disabled={!canEdit}
+        />
+      )}
     </div>
   );
 

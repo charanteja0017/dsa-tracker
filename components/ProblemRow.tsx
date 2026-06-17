@@ -4,16 +4,19 @@ import type { Problem } from "@/lib/types";
 import { Tag } from "./Tag";
 import { Checkbox } from "./Checkbox";
 import { YouTubeIcon } from "./YouTubeIcon";
+import { StarButton } from "./StarButton";
 
 // Full-width desktop row: checkbox · title→LeetCode · topic tag · difficulty tag
-// · "{companies}co". Both tags inline. Wraps cleanly on narrow screens.
+// · "{companies}co" · star. Both tags inline. Wraps cleanly on narrow screens.
 export function ProblemRow({
   problem,
   onToggle,
+  onToggleStar,
   canEdit = true,
 }: {
   problem: Problem;
   onToggle: (id: number, done: boolean) => void;
+  onToggleStar?: (id: number, starred: boolean) => void;
   canEdit?: boolean;
 }) {
   return (
@@ -55,6 +58,13 @@ export function ProblemRow({
       <span className="w-9 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
         {problem.companies}co
       </span>
+      {onToggleStar && (
+        <StarButton
+          starred={problem.starred}
+          onToggle={(v) => onToggleStar(problem.id, v)}
+          disabled={!canEdit}
+        />
+      )}
     </div>
   );
 }

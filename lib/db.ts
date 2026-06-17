@@ -16,6 +16,18 @@ export const PLAN = {
 // IST (shared in lib/tz); override with the APP_TZ env (an IANA name).
 export const APP_TZ = process.env.APP_TZ || DEFAULT_TZ;
 
+// Lightweight, idempotent column migrations that run on demand (memoized per
+// serverless instance) so feature columns appear WITHOUT re-running /api/init —
+// existing rows keep their done/done_at. ADD COLUMN IF NOT EXISTS is a no-op
+// once the column is there.
+let columnsReady: Promise<unknown> | null = null;
+export function ensureColumns(): Promise<unknown> {
+  columnsReady ??= sql`
+    ALTER TABLE problems ADD COLUMN IF NOT EXISTS starred BOOLEAN NOT NULL DEFAULT FALSE;
+  `;
+  return columnsReady;
+}
+
 // Creates tables if they don't exist. Safe to call repeatedly. Completion state
 // (done / done_at) is the single input now; there is no daily_log.
 export async function initSchema() {
@@ -30,11 +42,13 @@ export async function initSchema() {
       link        TEXT,
       youtube     TEXT,
       done        BOOLEAN NOT NULL DEFAULT FALSE,
-      done_at     TIMESTAMPTZ
+      done_at     TIMESTAMPTZ,
+      starred     BOOLEAN NOT NULL DEFAULT FALSE
     );
   `;
-  // Migrate existing tables that predate the youtube column.
+  // Migrate existing tables that predate later columns.
   await sql`ALTER TABLE problems ADD COLUMN IF NOT EXISTS youtube TEXT;`;
+  await sql`ALTER TABLE problems ADD COLUMN IF NOT EXISTS starred BOOLEAN NOT NULL DEFAULT FALSE;`;
   await sql`
     CREATE TABLE IF NOT EXISTS recruiters (
       id        SERIAL PRIMARY KEY,

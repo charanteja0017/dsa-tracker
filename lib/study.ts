@@ -27,7 +27,8 @@ export function groupProblems(
     (filters.difficulties.size === 0 ||
       filters.difficulties.has(p.difficulty as Difficulty)) &&
     (filters.patterns.size === 0 || filters.patterns.has(p.pattern)) &&
-    (!filters.hideCompleted || !p.done);
+    (!filters.hideCompleted || !p.done) &&
+    (!filters.starred || p.starred);
 
   type Agg = { total: number; done: number; problems: Problem[] };
   const weeks = new Map<number, Map<string, Agg>>();
