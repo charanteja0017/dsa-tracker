@@ -217,7 +217,7 @@ export default function Home() {
                       key={m}
                       type="button"
                       onClick={() => setPaceMode(m)}
-                      className={`rounded px-2 py-0.5 font-medium transition-colors ${
+                      className={`rounded px-2 py-0.5 font-medium transition duration-150 active:scale-95 ${
                         paceMode === m
                           ? "bg-accent/20 text-accent-fg"
                           : "text-slate-500 hover:text-slate-300"

@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 export function DashboardGrid({ children }: { children: ReactNode }) {
   return (
     <div className="mx-auto max-w-[1600px] px-4 py-4 sm:px-6">
-      <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="dash-grid grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-3">
         {children}
       </div>
     </div>

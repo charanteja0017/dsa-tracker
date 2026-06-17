@@ -120,3 +120,121 @@ body {
 .celeb-pop {
   animation: celeb-pop 0.35s ease-out;
 }
+
+/* Checkbox: the tick pops in (scale + settle) when a problem is completed. */
+@keyframes check-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-12deg);
+  }
+  60% {
+    transform: scale(1.15) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+.check-pop {
+  animation: check-pop 0.2s ease-out;
+}
+/* The box itself gives a quick squeeze when it fills. */
+@keyframes cbx-fill {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(0.82);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.cbx-fill {
+  animation: cbx-fill 0.18s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .check-pop,
+  .cbx-fill {
+    animation: none;
+  }
+}
+
+/* Page entrance: sections rise + fade in once, top-to-bottom. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.dash-grid > * {
+  animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.dash-grid > *:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.dash-grid > *:nth-child(2) {
+  animation-delay: 0.07s;
+}
+.dash-grid > *:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.dash-grid > *:nth-child(4) {
+  animation-delay: 0.17s;
+}
+.dash-grid > *:nth-child(5) {
+  animation-delay: 0.22s;
+}
+.dash-grid > *:nth-child(6) {
+  animation-delay: 0.27s;
+}
+.dash-grid > *:nth-child(n + 7) {
+  animation-delay: 0.32s;
+}
+
+/* Heatmap cells fade/scale in once, swept left→right (delay set per-cell). */
+@keyframes heat-cell-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.heat-cell-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: heat-cell-in 0.32s ease-out both;
+}
+/* Today's cell carries a soft pulsing outline. */
+@keyframes heat-today-pulse {
+  0%,
+  100% {
+    stroke-opacity: 0.35;
+  }
+  50% {
+    stroke-opacity: 1;
+  }
+}
+.heat-today {
+  stroke: #5eead4;
+  stroke-width: 1.5px;
+  paint-order: stroke;
+  animation: heat-today-pulse 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dash-grid > *,
+  .heat-cell-in {
+    animation: none;
+  }
+  .heat-today {
+    animation: none;
+    stroke-opacity: 0.8;
+  }
+}

@@ -8,6 +8,7 @@ import { Tag } from "./Tag";
 import { Checkbox } from "./Checkbox";
 import { ProgressRing } from "./ProgressRing";
 import { YouTubeIcon } from "./YouTubeIcon";
+import { Collapse } from "./Collapse";
 
 type Group = {
   week: number;
@@ -166,11 +167,11 @@ export function WeekFocusPanel({
                     {g.done}/{g.total}
                   </span>
                 </button>
-                {open && (
+                <Collapse open={open}>
                   <div className="space-y-1.5 border-t border-edge p-2">
                     {g.problems.map(renderRow)}
                   </div>
-                )}
+                </Collapse>
               </div>
             );
           })

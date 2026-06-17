@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import type { Recruiter } from "@/lib/types";
 import { Tag } from "./Tag";
+import { Collapse } from "./Collapse";
 
 // Self-contained card: expandable per-company interview pattern + prep focus.
 // Internal scroll so its height aligns with the study-list column.
@@ -49,7 +50,7 @@ export function RecruiterList({ recruiters }: { recruiters: Recruiter[] }) {
                 </span>
               </button>
 
-              {isOpen && (
+              <Collapse open={isOpen}>
                 <div className="space-y-2 border-t border-edge px-3 py-2.5 text-sm">
                   <p className="text-xs text-slate-500">
                     DSA bar:{" "}
@@ -68,7 +69,7 @@ export function RecruiterList({ recruiters }: { recruiters: Recruiter[] }) {
                     <p className="mt-0.5 text-slate-200">{r.focus}</p>
                   </div>
                 </div>
-              )}
+              </Collapse>
             </div>
           );
         })}

@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 import type { WeekGroup } from "@/lib/types";
 import { PatternGroup } from "./PatternGroup";
 import { ProgressBar } from "./ProgressBar";
+import { Collapse } from "./Collapse";
 
 // One week accordion. Header: "W{n} · {topic}" + done/total + mini bar. Body
 // groups by pattern, or shows topic guidance for empty / filtered-out weeks.
@@ -60,7 +61,7 @@ export function WeekSection({
         </span>
       </button>
 
-      {open && (
+      <Collapse open={open}>
         <div className="space-y-3 border-t border-edge px-3 py-3">
           {group.total === 0 ? (
             <p className="rounded-md border border-dashed border-edge bg-panel/40 px-3 py-2.5 text-xs text-slate-500">
@@ -83,7 +84,7 @@ export function WeekSection({
             ))
           )}
         </div>
-      )}
+      </Collapse>
     </section>
   );
 }

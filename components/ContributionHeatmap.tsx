@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import HeatMap from "@uiw/react-heat-map";
 import { HEAT_RAMP } from "@/lib/tokens";
+import { APP_TZ } from "@/lib/tz";
 
 // Maps completion counts to the cyan ramp (highest key <= count wins).
 const panelColors: Record<number, string> = {
@@ -36,6 +37,24 @@ export function ContributionHeatmap({
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  // One-time intro sweep: cells fade/scale in left→right, then we stop tagging
+  // them so later data refreshes (on toggles) don't re-animate. Skipped under
+  // reduced motion.
+  const [intro, setIntro] = useState(true);
+  useEffect(() => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setIntro(false);
+      return;
+    }
+    const t = setTimeout(() => setIntro(false), 900);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Today in the app timezone, in @uiw's slash format, to mark/pulse its cell.
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: APP_TZ })
+    .format(new Date())
+    .replace(/-/g, "/");
 
   // Extend the window back to cover any activity logged before the plan start
   // (e.g. prep done before the official start date) so those cells are visible.
@@ -80,21 +99,30 @@ export function ContributionHeatmap({
           panelColors={panelColors}
           rectProps={{ rx: 2 }}
           style={{ color: "#94a3b8", fontSize: 10 }}
-          rectRender={(props, data) => (
-            <rect
-              {...props}
-              className="heat-cell"
-              onMouseEnter={() =>
-                setTip({
-                  x: Number(props.x),
-                  y: Number(props.y),
-                  w: Number(props.width),
-                  label: `${data.date} · ${data.count ?? 0} solved`,
-                })
-              }
-              onMouseLeave={() => setTip(null)}
-            />
-          )}
+          rectRender={(props, data) => {
+            const isToday = data.date === today;
+            const delay = intro
+              ? Math.min(500, (Number(props.x) / Math.max(1, width)) * 500)
+              : 0;
+            return (
+              <rect
+                {...props}
+                className={`heat-cell${intro ? " heat-cell-in" : ""}${
+                  isToday ? " heat-today" : ""
+                }`}
+                style={intro ? { animationDelay: `${delay}ms` } : undefined}
+                onMouseEnter={() =>
+                  setTip({
+                    x: Number(props.x),
+                    y: Number(props.y),
+                    w: Number(props.width),
+                    label: `${data.date} · ${data.count ?? 0} solved`,
+                  })
+                }
+                onMouseLeave={() => setTip(null)}
+              />
+            );
+          }}
         />
         {tip && (
           <div

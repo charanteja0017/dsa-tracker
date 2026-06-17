@@ -1,10 +1,18 @@
+"use client";
+
 import type { Stats } from "@/lib/types";
+import { useCountUp } from "@/lib/useCountUp";
 import { HatchedBar } from "./HatchedBar";
 import { StreakFlame } from "./StreakFlame";
 
 // Hero card: oversized solved + streak numbers on top, then a PROGRESS row
-// (label left, big % right) above a full-width hatched bar.
+// (label left, big % right) above a full-width hatched bar. The numbers count
+// up on mount and tick from the old value to the new one on every toggle.
 export function StatsHero({ stats }: { stats: Stats }) {
+  const solved = useCountUp(stats.solved);
+  const streak = useCountUp(stats.streak);
+  const percent = useCountUp(stats.percent);
+
   return (
     <div className="flex h-full flex-col justify-center gap-8 rounded-xl border border-edge bg-panel px-7 py-6 shadow-card">
       {/* Numbers */}
@@ -12,7 +20,7 @@ export function StatsHero({ stats }: { stats: Stats }) {
         {/* Solved */}
         <div className="flex items-baseline gap-3">
           <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
-            {stats.solved}
+            {solved}
           </span>
           <span className="flex flex-col text-base leading-tight text-slate-400">
             <span className="font-semibold text-slate-200">solved</span>
@@ -24,7 +32,7 @@ export function StatsHero({ stats }: { stats: Stats }) {
         <div className="flex items-center gap-3">
           <StreakFlame streak={stats.streak} />
           <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
-            {stats.streak}
+            {streak}
           </span>
           <span className="flex flex-col text-base leading-tight text-slate-400">
             <span>day</span>
@@ -40,7 +48,7 @@ export function StatsHero({ stats }: { stats: Stats }) {
             Progress
           </span>
           <span className="font-display text-5xl font-black leading-none tracking-tighter text-accent tabular-nums">
-            {stats.percent}%
+            {percent}%
           </span>
         </div>
         <HatchedBar percent={stats.percent} />

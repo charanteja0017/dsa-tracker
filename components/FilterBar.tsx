@@ -33,7 +33,7 @@ export function FilterBar({
               type="button"
               aria-pressed={active}
               onClick={() => onToggleDifficulty(d)}
-              className={`rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${
+              className={`rounded-md border px-2.5 py-1 text-xs font-medium transition duration-150 active:scale-95 ${
                 active
                   ? DIFF_TAG[d]
                   : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
@@ -51,7 +51,7 @@ export function FilterBar({
           role="switch"
           aria-checked={hideCompleted}
           onClick={onToggleHideCompleted}
-          className="flex items-center gap-2 rounded-md border border-edge px-2.5 py-1 text-xs font-medium text-slate-300 hover:border-slate-600"
+          className="flex items-center gap-2 rounded-md border border-edge px-2.5 py-1 text-xs font-medium text-slate-300 transition duration-150 hover:border-slate-600 active:scale-95"
         >
           <span
             className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors ${
@@ -79,7 +79,7 @@ export function FilterBar({
                 type="button"
                 aria-pressed={active}
                 onClick={() => onTogglePattern(p)}
-                className="rounded-md border px-2 py-0.5 text-xs transition-colors"
+                className="rounded-md border px-2 py-0.5 text-xs transition duration-150 active:scale-95"
                 style={
                   active
                     ? { color: c, backgroundColor: rgba(c, 0.15), borderColor: rgba(c, 0.45) }

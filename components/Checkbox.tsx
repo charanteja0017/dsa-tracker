@@ -22,11 +22,11 @@ export function Checkbox({
         onChange={(e) => onChange(e.target.checked)}
         aria-label={label}
         title={disabled ? "Unlock to edit" : undefined}
-        className="peer h-4 w-4 appearance-none rounded-[5px] border border-slate-600 bg-panel2 transition-colors checked:border-emerald-500 checked:bg-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+        className="peer h-4 w-4 appearance-none rounded-[5px] border border-slate-600 bg-panel2 transition-colors checked:border-emerald-500 checked:bg-emerald-500 checked:[animation:cbx-fill_.18s_ease-out] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:checked:animate-none"
       />
       <Check
         strokeWidth={3.5}
-        className="pointer-events-none absolute inset-0 m-auto h-3 w-3 text-white opacity-0 peer-checked:opacity-100"
+        className="pointer-events-none absolute inset-0 m-auto h-3 w-3 text-white opacity-0 peer-checked:opacity-100 peer-checked:[animation:check-pop_.2s_ease-out] motion-reduce:peer-checked:animate-none"
       />
     </span>
   );

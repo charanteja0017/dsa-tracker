@@ -18,7 +18,7 @@ export function Panel({
 }) {
   return (
     <section
-      className={`flex flex-col rounded-xl border border-edge bg-panel shadow-card ${className}`}
+      className={`flex flex-col rounded-xl border border-edge bg-panel shadow-card transition-colors duration-200 hover:border-slate-700/70 ${className}`}
     >
       {title && (
         <div className="flex items-center justify-between gap-3 border-b border-edge px-4 py-2.5">
