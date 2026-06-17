@@ -24,9 +24,11 @@ export function ProjectionNote({
   projection: Projection;
   phase1: string;
 }) {
+  const shadow = "[text-shadow:0_1px_6px_rgba(8,8,14,0.95)]";
+
   if (projection.daysToFinish === 0) {
     return (
-      <div className="mt-2 border-t border-edge pt-2 text-xs font-medium text-emerald-300">
+      <div className={`text-xs font-medium text-emerald-300 ${shadow}`}>
         All solved — every problem done. 🎉
       </div>
     );
@@ -34,7 +36,7 @@ export function ProjectionNote({
 
   if (!projection.finishDate) {
     return (
-      <div className="mt-2 border-t border-edge pt-2 text-xs text-slate-500">
+      <div className={`text-xs text-slate-400 ${shadow}`}>
         Projected finish — solve a few problems to estimate the pace.
       </div>
     );
@@ -44,18 +46,18 @@ export function ProjectionNote({
   const early = slack >= 0;
 
   return (
-    <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 border-t border-edge pt-2 text-xs">
-      <span className="text-slate-400">
+    <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
+      <span className={`text-slate-400 ${shadow}`}>
         Projected finish{" "}
         <span className="font-semibold text-slate-100">
           {fmt(projection.finishDate)}
         </span>
       </span>
       <span
-        className={`rounded-md px-1.5 py-0.5 font-medium ${
+        className={`rounded-md px-1.5 py-0.5 font-medium backdrop-blur-sm ${
           early
-            ? "bg-emerald-500/15 text-emerald-300"
-            : "bg-amber-500/15 text-amber-300"
+            ? "bg-emerald-500/20 text-emerald-300"
+            : "bg-amber-500/20 text-amber-300"
         }`}
       >
         {early ? `${slack}d before` : `${Math.abs(slack)}d after`} Phase 1 ·{" "}

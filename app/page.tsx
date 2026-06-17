@@ -191,10 +191,10 @@ export default function Home() {
     const ahead = diff >= 0;
     return (
       <span
-        className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+        className={`rounded-md px-2 py-0.5 text-xs font-medium backdrop-blur-sm ${
           ahead
-            ? "bg-emerald-500/15 text-emerald-300"
-            : "bg-amber-500/15 text-amber-300"
+            ? "bg-emerald-500/20 text-emerald-300"
+            : "bg-amber-500/20 text-amber-300"
         }`}
       >
         {ahead ? `+${diff} ahead` : `${Math.abs(diff)} behind`}
@@ -220,11 +220,29 @@ export default function Home() {
           {stats ? <StatsHero stats={stats} /> : <Skeleton className="h-44" />}
         </Span>
         <Span cols={1}>
-          <Panel
-            title="Pace"
-            right={
-              <div className="flex items-center gap-2">
-                <div className="flex rounded-md border border-edge p-0.5 text-[11px]">
+          <section className="relative flex h-full min-h-[240px] flex-col overflow-hidden rounded-xl border border-edge bg-panel shadow-card transition-colors duration-200 hover:border-slate-700/70">
+            {/* Chart fills the whole card; labels float on top of it. */}
+            <div className="absolute inset-0">
+              {analytics ? (
+                <PaceChart
+                  cumulative={analytics.cumulative}
+                  range={analytics.range}
+                  solved={solved}
+                  mode={paceMode}
+                  projectedFinish={projection?.finishDate ?? null}
+                />
+              ) : (
+                <Skeleton className="h-full rounded-none border-0 bg-transparent" />
+              )}
+            </div>
+
+            {/* Floating header: title + Week/Full toggle + ahead badge. */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between gap-2 px-4 py-3">
+              <h3 className="text-sm font-semibold text-slate-200 [text-shadow:0_1px_6px_rgba(8,8,14,0.95)]">
+                Pace
+              </h3>
+              <div className="pointer-events-auto flex items-center gap-2">
+                <div className="flex rounded-md border border-edge bg-ink/70 p-0.5 text-[11px] backdrop-blur">
                   {(["near", "full"] as const).map((m) => (
                     <button
                       key={m}
@@ -242,30 +260,18 @@ export default function Home() {
                 </div>
                 {paceBadge}
               </div>
-            }
-            className="h-full"
-            bodyClassName="flex flex-1 flex-col p-4"
-          >
-            <div className="min-h-[160px] flex-1">
-              {analytics ? (
-                <PaceChart
-                  cumulative={analytics.cumulative}
-                  range={analytics.range}
-                  solved={solved}
-                  mode={paceMode}
-                  projectedFinish={projection?.finishDate ?? null}
-                />
-              ) : (
-                <Skeleton className="h-full border-0" />
-              )}
             </div>
+
+            {/* Floating footer: projected-finish caption. */}
             {analytics && projection && (
-              <ProjectionNote
-                projection={projection}
-                phase1={analytics.range.phase1}
-              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-4 py-3">
+                <ProjectionNote
+                  projection={projection}
+                  phase1={analytics.range.phase1}
+                />
+              </div>
             )}
-          </Panel>
+          </section>
         </Span>
 
         {/* Row 2 — this week's problems (2) + heatmap & difficulty stacked (1) */}
