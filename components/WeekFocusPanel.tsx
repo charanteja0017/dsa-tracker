@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, Building2, ChevronRight } from "lucide-react";
 import type { Problem } from "@/lib/types";
 import { WEEK_TOPICS, focusProblems } from "@/lib/study";
 import { Tag } from "./Tag";
@@ -120,6 +120,15 @@ export function WeekFocusPanel({
         >
           <YouTubeIcon className="h-4 w-4" />
         </a>
+      )}
+      {p.companies > 0 && (
+        <span
+          className="hidden shrink-0 items-center gap-1 rounded-md border border-edge bg-panel2/60 px-1.5 py-0.5 text-[11px] font-medium tabular-nums text-slate-400 sm:inline-flex"
+          title={`Asked at ~${p.companies} companies`}
+        >
+          <Building2 className="h-3 w-3" />
+          {p.companies}
+        </span>
       )}
       <Tag variant="topic" value={p.pattern} className="hidden lg:inline-flex" />
       <Tag variant="difficulty" value={p.difficulty} />

@@ -22,12 +22,17 @@ export function PatternBars({ byPattern }: { byPattern: PatternStat[] }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-x-8 gap-y-2.5 md:grid-cols-2">
+    // Multi-column so the list fills the FIRST column top-to-bottom, then the
+    // second (column-major), instead of snaking left↔right row by row.
+    <div className="columns-1 gap-x-8 md:columns-2">
       {byPattern.map((p, i) => {
         const c = topicColor(p.pattern);
         const ratio = p.total > 0 ? p.done / p.total : 0;
         return (
-          <div key={p.pattern} className="flex items-center gap-3 text-sm">
+          <div
+            key={p.pattern}
+            className="mb-2.5 flex items-center gap-3 break-inside-avoid text-sm"
+          >
             <span
               className="w-52 shrink-0 truncate text-slate-300"
               title={p.pattern}

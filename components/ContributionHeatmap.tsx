@@ -66,7 +66,7 @@ export function ContributionHeatmap({
   const endDate = new Date(end);
   const weeks =
     Math.ceil((endDate.getTime() - startDate.getTime()) / (7 * 864e5)) + 1;
-  const space = 3;
+  const space = 4; // gap between cells — a touch more breathing room
   const gutter = 28; // week-label column
   const rectSize = Math.max(
     9,
@@ -86,7 +86,7 @@ export function ContributionHeatmap({
   } | null>(null);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3 py-1">
       <div ref={ref} className="relative w-full">
         <HeatMap
           value={value}
