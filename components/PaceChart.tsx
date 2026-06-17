@@ -139,7 +139,7 @@ export function PaceChart({
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data} margin={{ top: 36, right: 34, bottom: 42, left: 10 }}>
+      <LineChart data={data} margin={{ top: 40, right: 34, bottom: 42, left: 10 }}>
         <CartesianGrid stroke={TEXT.grid} strokeDasharray="3 3" vertical={false} />
         <XAxis
           dataKey="t"
@@ -172,8 +172,8 @@ export function PaceChart({
             name === "ideal"
               ? "Target"
               : name === "projected"
-              ? "Projected"
-              : "Solved",
+                ? "Projected"
+                : "Solved",
           ]}
         />
         <Line
