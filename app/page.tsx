@@ -221,9 +221,9 @@ export default function Home() {
         </Span>
         <Span cols={1}>
           <section className="relative flex h-full min-h-[240px] flex-col overflow-hidden rounded-xl border border-edge bg-panel shadow-card transition-colors duration-200 hover:border-slate-700/70">
-            {/* Chart fills the card (inset slightly so it doesn't run to the
-                rounded edge); labels float on top of it. */}
-            <div className="absolute inset-y-0 left-0 right-2">
+            {/* Chart fills the card but is squashed in from the sides so it
+                doesn't run to the rounded edges; labels float on top of it. */}
+            <div className="absolute inset-y-0 left-2 right-3">
               {analytics ? (
                 <PaceChart
                   cumulative={analytics.cumulative}
