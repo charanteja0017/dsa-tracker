@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Analytics, Problem, Recruiter, Stats } from "@/lib/types";
 import { difficultyStats, patternStats } from "@/lib/study";
+import { projectCompletion } from "@/lib/projection";
+import { APP_TZ } from "@/lib/tz";
 import { celebrate } from "@/lib/celebrate";
 import { Header } from "@/components/Header";
 import { DashboardGrid, Span } from "@/components/DashboardGrid";
@@ -16,6 +18,7 @@ import { DifficultyRing } from "@/components/DifficultyRing";
 import { StudyPlan } from "@/components/StudyPlan";
 import { RecruiterList } from "@/components/RecruiterList";
 import { Celebration } from "@/components/Celebration";
+import { ProjectionNote } from "@/components/ProjectionNote";
 
 // Percent milestones → which Lottie plays when crossed (upward).
 const MILESTONE_LOTTIE: Record<number, string> = {
@@ -115,6 +118,16 @@ export default function Home() {
   // the hero shows live numbers immediately on toggle.
   const solved = stats?.solved ?? problems.filter((p) => p.done).length;
   const total = analytics?.range.total ?? problems.length;
+
+  // Forecast finish date from a recency-weighted solving rate (recomputes live
+  // as you solve, since `solved` updates optimistically).
+  const projection = useMemo(() => {
+    if (!analytics) return null;
+    const today = new Intl.DateTimeFormat("en-CA", { timeZone: APP_TZ }).format(
+      new Date()
+    );
+    return projectCompletion(analytics.daily, today, solved, total);
+  }, [analytics, solved, total]);
 
   // Fire a celebration when a week is finished or a % milestone is crossed.
   useEffect(() => {
@@ -231,20 +244,27 @@ export default function Home() {
               </div>
             }
             className="h-full"
-            bodyClassName="flex-1 p-4"
+            bodyClassName="flex flex-1 flex-col p-4"
           >
-            <div className="h-full min-h-[160px]">
+            <div className="min-h-[160px] flex-1">
               {analytics ? (
                 <PaceChart
                   cumulative={analytics.cumulative}
                   range={analytics.range}
                   solved={solved}
                   mode={paceMode}
+                  projectedFinish={projection?.finishDate ?? null}
                 />
               ) : (
                 <Skeleton className="h-full border-0" />
               )}
             </div>
+            {analytics && projection && (
+              <ProjectionNote
+                projection={projection}
+                phase1={analytics.range.phase1}
+              />
+            )}
           </Panel>
         </Span>
 

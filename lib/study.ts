@@ -99,23 +99,27 @@ export function allPatterns(problems: Problem[]): string[] {
 // Adaptive "this week" focus set:
 //  - the current week's problems (done + not done),
 //  - plus still-incomplete problems carried over from earlier weeks,
-//  - and once everything up to the current week is done (finished early), the
-//    next week that has problems is pulled in so there's always something next.
+//  - and once everything queued is done (finished early), the NEXT week is
+//    pulled in — and if that week is already done too (working several weeks
+//    ahead), the one after it, and so on, until a week with real work is found
+//    or the roadmap runs out. So there's always something actionable on top.
 // Sorted: incomplete first, oldest week first, then completed at the bottom.
 export function focusProblems(problems: Problem[], weekNum: number): Problem[] {
-  let set = problems.filter(
+  const set = problems.filter(
     (p) => p.week === weekNum || (p.week < weekNum && !p.done)
   );
-  const caughtUp = !set.some((p) => !p.done);
-  if (caughtUp) {
-    const nextWeek = problems
-      .filter((p) => p.week > weekNum)
-      .map((p) => p.week)
-      .sort((a, b) => a - b)[0];
-    if (nextWeek !== undefined) {
-      set = set.concat(problems.filter((p) => p.week === nextWeek));
-    }
+
+  // Upcoming weeks (beyond the current one) in chronological order.
+  const laterWeeks = Array.from(
+    new Set(problems.filter((p) => p.week > weekNum).map((p) => p.week))
+  ).sort((a, b) => a - b);
+
+  // Keep pulling in the next week while everything queued is complete.
+  for (const w of laterWeeks) {
+    if (set.some((p) => !p.done)) break;
+    set.push(...problems.filter((p) => p.week === w));
   }
+
   return set.sort(
     (a, b) =>
       Number(a.done) - Number(b.done) ||

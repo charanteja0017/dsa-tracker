@@ -67,11 +67,13 @@ export function PaceChart({
   range,
   solved,
   mode = "near",
+  projectedFinish = null,
 }: {
   cumulative: Analytics["cumulative"];
   range: Analytics["range"];
   solved: number;
   mode?: "near" | "full";
+  projectedFinish?: string | null;
 }) {
   const planStartTs = ts(range.start);
   const phase1Ts = ts(range.phase1);
@@ -85,14 +87,28 @@ export function PaceChart({
   const earliest = cumulative.length ? cumulative[0].date : today;
 
   const full = mode === "full";
+  // In the full view, trace a dashed projection from today to the forecast
+  // finish (extending the axis past Phase 1 if you're trending late). Cap how
+  // far it can stretch the axis so a very slow pace can't blow up the chart —
+  // the caption below still reports the true date.
+  const projCap = addDays(range.phase1, 180);
+  const projFinish =
+    full && projectedFinish && projectedFinish <= projCap
+      ? maxDay(projectedFinish, today)
+      : null;
   const windowStart = full
     ? minDay(earliest, range.start)
     : maxDay(addDays(today, -7), minDay(addDays(today, -2), earliest));
   const windowEnd = full
-    ? range.phase1
+    ? maxDay(range.phase1, projFinish ?? range.phase1)
     : minDay(range.phase1, addDays(today, 7));
 
-  const data: { t: number; ideal: number; actual: number | null }[] = [];
+  const data: {
+    t: number;
+    ideal: number;
+    actual: number | null;
+    projected: number | null;
+  }[] = [];
   let di = 0;
   let running = 0;
   for (let day = windowStart; day <= windowEnd; day = addDays(day, 1)) {
@@ -102,8 +118,14 @@ export function PaceChart({
     }
     const t = ts(day);
     let actual: number | null = day > today ? null : running;
-    if (day === today) actual = Math.max(running, solved); // live count
-    data.push({ t, ideal: idealAt(t), actual });
+    let projected: number | null = null;
+    if (day === today) {
+      actual = Math.max(running, solved); // live count
+      if (projFinish) projected = actual; // projection starts at today's total
+    } else if (projFinish && day === projFinish) {
+      projected = range.total; // …and ends when everything is solved
+    }
+    data.push({ t, ideal: idealAt(t), actual, projected });
   }
 
   const todayTs = ts(today);
@@ -147,7 +169,11 @@ export function PaceChart({
           labelFormatter={(t) => fmtFull(t as number)}
           formatter={(value, name) => [
             value as number,
-            name === "ideal" ? "Target" : "Solved",
+            name === "ideal"
+              ? "Target"
+              : name === "projected"
+              ? "Projected"
+              : "Solved",
           ]}
         />
         <Line
@@ -160,6 +186,20 @@ export function PaceChart({
           dot={false}
           isAnimationActive={false}
         />
+        {projFinish && (
+          <Line
+            type="linear"
+            dataKey="projected"
+            name="projected"
+            stroke={ACCENT}
+            strokeWidth={1.5}
+            strokeDasharray="2 5"
+            strokeOpacity={0.55}
+            dot={false}
+            connectNulls
+            isAnimationActive={false}
+          />
+        )}
         <Line
           type="monotone"
           dataKey="actual"
@@ -170,6 +210,16 @@ export function PaceChart({
           connectNulls={false}
           isAnimationActive={false}
         />
+        {projFinish && (
+          <ReferenceDot
+            x={ts(projFinish)}
+            y={range.total}
+            r={3.5}
+            fill="#0a0a0f"
+            stroke={ACCENT}
+            strokeWidth={1.5}
+          />
+        )}
         <ReferenceDot
           x={todayTs}
           y={solvedNow}

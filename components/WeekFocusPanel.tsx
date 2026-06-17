@@ -34,10 +34,26 @@ export function WeekFocusPanel({
   canEdit?: boolean;
 }) {
   const items = focusProblems(problems, weekNum);
-  const weekItems = problems.filter((p) => p.week === weekNum);
+
+  // The week you're actually working on: the earliest week in the focus set
+  // that still has incomplete problems (you may be ahead of the calendar week).
+  // The header, ring, and "next week" hint all track this active week so the
+  // progress reflects what's left, not a week you already finished.
+  const focusWeeks = Array.from(new Set(items.map((p) => p.week))).sort(
+    (a, b) => a - b
+  );
+  const activeWeek =
+    focusWeeks.find((w) =>
+      problems.some((p) => p.week === w && !p.done)
+    ) ??
+    focusWeeks[focusWeeks.length - 1] ??
+    weekNum;
+  const lastFocusWeek = focusWeeks[focusWeeks.length - 1] ?? weekNum;
+
+  const weekItems = problems.filter((p) => p.week === activeWeek);
   const ringDone = weekItems.filter((p) => p.done).length;
-  const topic = WEEK_TOPICS[weekNum] ?? "Pattern practice";
-  const next = WEEK_TOPICS[weekNum + 1];
+  const topic = WEEK_TOPICS[activeWeek] ?? "Pattern practice";
+  const next = WEEK_TOPICS[lastFocusWeek + 1];
 
   // Group the focus set by week; header counts reflect the real week totals.
   // Active weeks first (in week order); fully-completed weeks sink to the bottom.
@@ -118,7 +134,7 @@ export function WeekFocusPanel({
             This week · focus
           </div>
           <h2 className="mt-0.5 truncate text-xl font-semibold text-slate-100">
-            Week {weekNum}: {topic}
+            Week {activeWeek}: {topic}
           </h2>
         </div>
         <ProgressRing value={ringDone} max={weekItems.length} size={54} />
