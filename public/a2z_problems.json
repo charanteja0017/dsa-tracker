@@ -7,7 +7,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Digits+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Digits"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-digits"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Reverse+a+Number+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Reverse+a+Number"
+    "article": "https://takeuforward.org/plus/dsa/problems/reverse-a-number"
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+Palindrome+Number+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+Palindrome+Number"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-palindrome-number"
   },
   {
     "id": 4,
@@ -37,7 +37,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+GCD+or+HCF+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+GCD+or+HCF"
+    "article": "https://takeuforward.org/plus/dsa/problems/gcd-or-hcf"
   },
   {
     "id": 5,
@@ -47,7 +47,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Armstrong+Number+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Armstrong+Number"
+    "article": "https://takeuforward.org/plus/dsa/problems/armstrong-number"
   },
   {
     "id": 6,
@@ -57,7 +57,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Print+All+Divisors+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Print+All+Divisors"
+    "article": "https://takeuforward.org/plus/dsa/problems/print-all-divisors"
   },
   {
     "id": 7,
@@ -67,7 +67,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+Prime+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+Prime"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-prime"
   },
   {
     "id": 8,
@@ -77,7 +77,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sum+of+First+N+Numbers+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sum+of+First+N+Numbers"
+    "article": "https://takeuforward.org/plus/dsa/problems/sum-of-first-n-numbers"
   },
   {
     "id": 9,
@@ -87,7 +87,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Selection+Sort+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Selection+Sort"
+    "article": "https://takeuforward.org/plus/dsa/problems/selection-sort"
   },
   {
     "id": 10,
@@ -97,7 +97,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Bubble+Sort+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Bubble+Sort"
+    "article": "https://takeuforward.org/plus/dsa/problems/bubble-sort"
   },
   {
     "id": 11,
@@ -107,7 +107,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Insertion+Sort+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Insertion+Sort"
+    "article": "https://takeuforward.org/plus/dsa/problems/insertion-sort"
   },
   {
     "id": 12,
@@ -117,7 +117,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Merge+Sort+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Merge+Sort"
+    "article": "https://takeuforward.org/plus/dsa/problems/merge-sort"
   },
   {
     "id": 13,
@@ -127,7 +127,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Quick+Sort+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Quick+Sort"
+    "article": "https://takeuforward.org/plus/dsa/problems/quick-sort"
   },
   {
     "id": 14,
@@ -137,7 +137,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Recursive+Bubble+Sort+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Recursive+Bubble+Sort"
+    "article": "https://takeuforward.org/plus/dsa/problems/recursive-bubble-sort"
   },
   {
     "id": 15,
@@ -147,7 +147,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Largest+Element+in+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Largest+Element+in+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/largest-element-in-array"
   },
   {
     "id": 16,
@@ -157,7 +157,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Second+Largest+Element+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Second+Largest+Element"
+    "article": "https://takeuforward.org/plus/dsa/problems/second-largest-element"
   },
   {
     "id": 17,
@@ -167,7 +167,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+if+Array+Is+Sorted+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+if+Array+Is+Sorted"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-if-array-is-sorted"
   },
   {
     "id": 18,
@@ -177,7 +177,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Remove+Duplicates+from+Sorted+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Remove+Duplicates+from+Sorted+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/remove-duplicates-from-sorted-array"
   },
   {
     "id": 19,
@@ -187,7 +187,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Left+Rotate+Array+by+One+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Left+Rotate+Array+by+One"
+    "article": "https://takeuforward.org/plus/dsa/problems/left-rotate-array-by-one"
   },
   {
     "id": 20,
@@ -197,7 +197,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Left+Rotate+Array+by+K+Places+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Left+Rotate+Array+by+K+Places"
+    "article": "https://takeuforward.org/plus/dsa/problems/left-rotate-array-by-k-places"
   },
   {
     "id": 21,
@@ -207,7 +207,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Move+Zeros+to+End+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Move+Zeros+to+End"
+    "article": "https://takeuforward.org/plus/dsa/problems/move-zeros-to-end"
   },
   {
     "id": 22,
@@ -217,7 +217,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Linear+Search+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Linear+Search"
+    "article": "https://takeuforward.org/plus/dsa/problems/linear-search"
   },
   {
     "id": 23,
@@ -227,7 +227,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Union+of+Two+Sorted+Arrays+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Union+of+Two+Sorted+Arrays"
+    "article": "https://takeuforward.org/plus/dsa/problems/union-of-two-sorted-arrays"
   },
   {
     "id": 24,
@@ -237,7 +237,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Find+Missing+Number+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Find+Missing+Number"
+    "article": "https://takeuforward.org/plus/dsa/problems/find-missing-number"
   },
   {
     "id": 25,
@@ -247,7 +247,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+Consecutive+Ones+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+Consecutive+Ones"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-consecutive-ones"
   },
   {
     "id": 26,
@@ -257,7 +257,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Single+Number+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Single+Number"
+    "article": "https://takeuforward.org/plus/dsa/problems/single-number"
   },
   {
     "id": 27,
@@ -267,7 +267,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Subarray+with+Sum+K+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Subarray+with+Sum+K"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-subarray-with-sum-k"
   },
   {
     "id": 28,
@@ -277,7 +277,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Two+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Two+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/two-sum"
   },
   {
     "id": 29,
@@ -287,7 +287,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sort+0s+1s+and+2s+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sort+0s+1s+and+2s"
+    "article": "https://takeuforward.org/plus/dsa/problems/sort-0s-1s-and-2s"
   },
   {
     "id": 30,
@@ -297,7 +297,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Majority+Element+%28n%2F2%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Majority+Element+%28n%2F2%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/majority-element-n-2"
   },
   {
     "id": 31,
@@ -307,7 +307,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kadane%27s+Algorithm+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kadane%27s+Algorithm"
+    "article": "https://takeuforward.org/plus/dsa/problems/kadane-s-algorithm"
   },
   {
     "id": 32,
@@ -317,7 +317,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Print+Subarray+with+Maximum+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Print+Subarray+with+Maximum+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/print-subarray-with-maximum-sum"
   },
   {
     "id": 33,
@@ -327,7 +327,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Stock+Buy+and+Sell+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Stock+Buy+and+Sell"
+    "article": "https://takeuforward.org/plus/dsa/problems/stock-buy-and-sell"
   },
   {
     "id": 34,
@@ -337,7 +337,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Rearrange+Array+by+Sign+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Rearrange+Array+by+Sign"
+    "article": "https://takeuforward.org/plus/dsa/problems/rearrange-array-by-sign"
   },
   {
     "id": 35,
@@ -347,7 +347,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Next+Permutation+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Next+Permutation"
+    "article": "https://takeuforward.org/plus/dsa/problems/next-permutation"
   },
   {
     "id": 36,
@@ -357,7 +357,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Leaders+in+an+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Leaders+in+an+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/leaders-in-an-array"
   },
   {
     "id": 37,
@@ -367,7 +367,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Consecutive+Sequence+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Consecutive+Sequence"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-consecutive-sequence"
   },
   {
     "id": 38,
@@ -377,7 +377,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Set+Matrix+Zeroes+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Set+Matrix+Zeroes"
+    "article": "https://takeuforward.org/plus/dsa/problems/set-matrix-zeroes"
   },
   {
     "id": 39,
@@ -387,7 +387,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Rotate+Matrix+by+90+Degrees+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Rotate+Matrix+by+90+Degrees"
+    "article": "https://takeuforward.org/plus/dsa/problems/rotate-matrix-by-90-degrees"
   },
   {
     "id": 40,
@@ -397,7 +397,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Spiral+Traversal+of+Matrix+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Spiral+Traversal+of+Matrix"
+    "article": "https://takeuforward.org/plus/dsa/problems/spiral-traversal-of-matrix"
   },
   {
     "id": 41,
@@ -407,7 +407,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Subarrays+with+Sum+K+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Subarrays+with+Sum+K"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-subarrays-with-sum-k"
   },
   {
     "id": 42,
@@ -417,7 +417,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Pascal%27s+Triangle+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Pascal%27s+Triangle"
+    "article": "https://takeuforward.org/plus/dsa/problems/pascal-s-triangle"
   },
   {
     "id": 43,
@@ -427,7 +427,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Majority+Element+%28n%2F3%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Majority+Element+%28n%2F3%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/majority-element-n-3"
   },
   {
     "id": 44,
@@ -437,7 +437,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+3+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+3+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/3-sum"
   },
   {
     "id": 45,
@@ -447,7 +447,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+4+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+4+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/4-sum"
   },
   {
     "id": 46,
@@ -457,7 +457,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Largest+Subarray+with+Zero+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Largest+Subarray+with+Zero+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/largest-subarray-with-zero-sum"
   },
   {
     "id": 47,
@@ -467,7 +467,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Merge+Overlapping+Intervals+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Merge+Overlapping+Intervals"
+    "article": "https://takeuforward.org/plus/dsa/problems/merge-overlapping-intervals"
   },
   {
     "id": 48,
@@ -477,7 +477,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Merge+Two+Sorted+Arrays+Without+Extra+Space+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Merge+Two+Sorted+Arrays+Without+Extra+Space"
+    "article": "https://takeuforward.org/plus/dsa/problems/merge-two-sorted-arrays-without-extra-space"
   },
   {
     "id": 49,
@@ -487,7 +487,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Find+Repeating+and+Missing+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Find+Repeating+and+Missing"
+    "article": "https://takeuforward.org/plus/dsa/problems/find-repeating-and-missing"
   },
   {
     "id": 50,
@@ -497,7 +497,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Inversions+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Inversions"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-inversions"
   },
   {
     "id": 51,
@@ -507,7 +507,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Reverse+Pairs+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Reverse+Pairs"
+    "article": "https://takeuforward.org/plus/dsa/problems/reverse-pairs"
   },
   {
     "id": 52,
@@ -517,7 +517,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+Product+Subarray+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+Product+Subarray"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-product-subarray"
   },
   {
     "id": 53,
@@ -527,7 +527,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Binary+Search+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Binary+Search"
+    "article": "https://takeuforward.org/plus/dsa/problems/binary-search"
   },
   {
     "id": 54,
@@ -537,7 +537,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Lower+Bound+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Lower+Bound"
+    "article": "https://takeuforward.org/plus/dsa/problems/lower-bound"
   },
   {
     "id": 55,
@@ -547,7 +547,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Upper+Bound+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Upper+Bound"
+    "article": "https://takeuforward.org/plus/dsa/problems/upper-bound"
   },
   {
     "id": 56,
@@ -557,7 +557,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Search+Insert+Position+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Search+Insert+Position"
+    "article": "https://takeuforward.org/plus/dsa/problems/search-insert-position"
   },
   {
     "id": 57,
@@ -567,7 +567,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Floor+and+Ceil+in+Sorted+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Floor+and+Ceil+in+Sorted+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/floor-and-ceil-in-sorted-array"
   },
   {
     "id": 58,
@@ -577,7 +577,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+First+and+Last+Occurrence+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+First+and+Last+Occurrence"
+    "article": "https://takeuforward.org/plus/dsa/problems/first-and-last-occurrence"
   },
   {
     "id": 59,
@@ -587,7 +587,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Occurrences+in+Sorted+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Occurrences+in+Sorted+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-occurrences-in-sorted-array"
   },
   {
     "id": 60,
@@ -597,7 +597,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Search+in+Rotated+Sorted+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Search+in+Rotated+Sorted+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/search-in-rotated-sorted-array"
   },
   {
     "id": 61,
@@ -607,7 +607,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Search+in+Rotated+Sorted+Array+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Search+in+Rotated+Sorted+Array+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/search-in-rotated-sorted-array-ii"
   },
   {
     "id": 62,
@@ -617,7 +617,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+in+Rotated+Sorted+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+in+Rotated+Sorted+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-in-rotated-sorted-array"
   },
   {
     "id": 63,
@@ -627,7 +627,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Single+Element+in+Sorted+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Single+Element+in+Sorted+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/single-element-in-sorted-array"
   },
   {
     "id": 64,
@@ -637,7 +637,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Peak+Element+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Peak+Element"
+    "article": "https://takeuforward.org/plus/dsa/problems/peak-element"
   },
   {
     "id": 65,
@@ -647,7 +647,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Square+Root+using+Binary+Search+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Square+Root+using+Binary+Search"
+    "article": "https://takeuforward.org/plus/dsa/problems/square-root-using-binary-search"
   },
   {
     "id": 66,
@@ -657,7 +657,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Nth+Root+of+a+Number+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Nth+Root+of+a+Number"
+    "article": "https://takeuforward.org/plus/dsa/problems/nth-root-of-a-number"
   },
   {
     "id": 67,
@@ -667,7 +667,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Koko+Eating+Bananas+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Koko+Eating+Bananas"
+    "article": "https://takeuforward.org/plus/dsa/problems/koko-eating-bananas"
   },
   {
     "id": 68,
@@ -677,7 +677,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Days+to+Make+Bouquets+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Days+to+Make+Bouquets"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-days-to-make-bouquets"
   },
   {
     "id": 69,
@@ -687,7 +687,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Find+the+Smallest+Divisor+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Find+the+Smallest+Divisor"
+    "article": "https://takeuforward.org/plus/dsa/problems/find-the-smallest-divisor"
   },
   {
     "id": 70,
@@ -697,7 +697,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Capacity+to+Ship+Packages+in+D+Days+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Capacity+to+Ship+Packages+in+D+Days"
+    "article": "https://takeuforward.org/plus/dsa/problems/capacity-to-ship-packages-in-d-days"
   },
   {
     "id": 71,
@@ -707,7 +707,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kth+Missing+Positive+Number+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kth+Missing+Positive+Number"
+    "article": "https://takeuforward.org/plus/dsa/problems/kth-missing-positive-number"
   },
   {
     "id": 72,
@@ -717,7 +717,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Aggressive+Cows+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Aggressive+Cows"
+    "article": "https://takeuforward.org/plus/dsa/problems/aggressive-cows"
   },
   {
     "id": 73,
@@ -727,7 +727,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Book+Allocation+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Book+Allocation"
+    "article": "https://takeuforward.org/plus/dsa/problems/book-allocation"
   },
   {
     "id": 74,
@@ -737,7 +737,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Median+of+Two+Sorted+Arrays+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Median+of+Two+Sorted+Arrays"
+    "article": "https://takeuforward.org/plus/dsa/problems/median-of-two-sorted-arrays"
   },
   {
     "id": 75,
@@ -747,7 +747,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Row+with+Maximum+1s+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Row+with+Maximum+1s"
+    "article": "https://takeuforward.org/plus/dsa/problems/row-with-maximum-1s"
   },
   {
     "id": 76,
@@ -757,7 +757,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Search+in+2D+Matrix+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Search+in+2D+Matrix"
+    "article": "https://takeuforward.org/plus/dsa/problems/search-in-2d-matrix"
   },
   {
     "id": 77,
@@ -767,7 +767,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Search+in+2D+Matrix+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Search+in+2D+Matrix+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/search-in-2d-matrix-ii"
   },
   {
     "id": 78,
@@ -777,7 +777,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Find+Peak+Element+in+2D+Matrix+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Find+Peak+Element+in+2D+Matrix"
+    "article": "https://takeuforward.org/plus/dsa/problems/find-peak-element-in-2d-matrix"
   },
   {
     "id": 79,
@@ -787,7 +787,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Remove+Outermost+Parentheses+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Remove+Outermost+Parentheses"
+    "article": "https://takeuforward.org/plus/dsa/problems/remove-outermost-parentheses"
   },
   {
     "id": 80,
@@ -797,7 +797,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Reverse+Words+in+a+String+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Reverse+Words+in+a+String"
+    "article": "https://takeuforward.org/plus/dsa/problems/reverse-words-in-a-string"
   },
   {
     "id": 81,
@@ -807,7 +807,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Largest+Odd+Number+in+String+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Largest+Odd+Number+in+String"
+    "article": "https://takeuforward.org/plus/dsa/problems/largest-odd-number-in-string"
   },
   {
     "id": 82,
@@ -817,7 +817,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Common+Prefix+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Common+Prefix"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-common-prefix"
   },
   {
     "id": 83,
@@ -827,7 +827,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Isomorphic+Strings+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Isomorphic+Strings"
+    "article": "https://takeuforward.org/plus/dsa/problems/isomorphic-strings"
   },
   {
     "id": 84,
@@ -837,7 +837,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+Rotations+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+Rotations"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-rotations"
   },
   {
     "id": 85,
@@ -847,7 +847,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Valid+Anagram+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Valid+Anagram"
+    "article": "https://takeuforward.org/plus/dsa/problems/valid-anagram"
   },
   {
     "id": 86,
@@ -857,7 +857,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sort+Characters+by+Frequency+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sort+Characters+by+Frequency"
+    "article": "https://takeuforward.org/plus/dsa/problems/sort-characters-by-frequency"
   },
   {
     "id": 87,
@@ -867,7 +867,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+Nesting+Depth+of+Parentheses+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+Nesting+Depth+of+Parentheses"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-nesting-depth-of-parentheses"
   },
   {
     "id": 88,
@@ -877,7 +877,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Roman+to+Integer+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Roman+to+Integer"
+    "article": "https://takeuforward.org/plus/dsa/problems/roman-to-integer"
   },
   {
     "id": 89,
@@ -887,7 +887,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+String+to+Integer+%28atoi%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+String+to+Integer+%28atoi%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/string-to-integer-atoi"
   },
   {
     "id": 90,
@@ -897,7 +897,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Palindromic+Substring+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Palindromic+Substring"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-palindromic-substring"
   },
   {
     "id": 91,
@@ -907,7 +907,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sum+of+Beauty+of+All+Substrings+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sum+of+Beauty+of+All+Substrings"
+    "article": "https://takeuforward.org/plus/dsa/problems/sum-of-beauty-of-all-substrings"
   },
   {
     "id": 92,
@@ -917,7 +917,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Number+of+Substrings+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Number+of+Substrings"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-number-of-substrings"
   },
   {
     "id": 93,
@@ -927,7 +927,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Introduction+to+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Introduction+to+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/introduction-to-linked-list"
   },
   {
     "id": 94,
@@ -937,7 +937,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Delete+Node+in+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Delete+Node+in+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/delete-node-in-linked-list"
   },
   {
     "id": 95,
@@ -947,7 +947,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Find+Middle+of+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Find+Middle+of+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/find-middle-of-linked-list"
   },
   {
     "id": 96,
@@ -957,7 +957,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Reverse+a+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Reverse+a+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/reverse-a-linked-list"
   },
   {
     "id": 97,
@@ -967,7 +967,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Detect+Loop+in+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Detect+Loop+in+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/detect-loop-in-linked-list"
   },
   {
     "id": 98,
@@ -977,7 +977,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Starting+Point+of+Loop+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Starting+Point+of+Loop"
+    "article": "https://takeuforward.org/plus/dsa/problems/starting-point-of-loop"
   },
   {
     "id": 99,
@@ -987,7 +987,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Length+of+Loop+in+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Length+of+Loop+in+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/length-of-loop-in-linked-list"
   },
   {
     "id": 100,
@@ -997,7 +997,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+Palindrome+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+Palindrome+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-palindrome-linked-list"
   },
   {
     "id": 101,
@@ -1007,7 +1007,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Segregate+Odd+and+Even+Nodes+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Segregate+Odd+and+Even+Nodes"
+    "article": "https://takeuforward.org/plus/dsa/problems/segregate-odd-and-even-nodes"
   },
   {
     "id": 102,
@@ -1017,7 +1017,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Remove+Nth+Node+from+End+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Remove+Nth+Node+from+End"
+    "article": "https://takeuforward.org/plus/dsa/problems/remove-nth-node-from-end"
   },
   {
     "id": 103,
@@ -1027,7 +1027,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Delete+Middle+Node+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Delete+Middle+Node"
+    "article": "https://takeuforward.org/plus/dsa/problems/delete-middle-node"
   },
   {
     "id": 104,
@@ -1037,7 +1037,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sort+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sort+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/sort-linked-list"
   },
   {
     "id": 105,
@@ -1047,7 +1047,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sort+0s+1s+2s+in+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sort+0s+1s+2s+in+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/sort-0s-1s-2s-in-linked-list"
   },
   {
     "id": 106,
@@ -1057,7 +1057,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Intersection+of+Two+Linked+Lists+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Intersection+of+Two+Linked+Lists"
+    "article": "https://takeuforward.org/plus/dsa/problems/intersection-of-two-linked-lists"
   },
   {
     "id": 107,
@@ -1067,7 +1067,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Add+One+to+Number+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Add+One+to+Number+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/add-one-to-number-linked-list"
   },
   {
     "id": 108,
@@ -1077,7 +1077,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Add+Two+Numbers+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Add+Two+Numbers+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/add-two-numbers-linked-list"
   },
   {
     "id": 109,
@@ -1087,7 +1087,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Reverse+Doubly+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Reverse+Doubly+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/reverse-doubly-linked-list"
   },
   {
     "id": 110,
@@ -1097,7 +1097,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Delete+All+Occurrences+in+DLL+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Delete+All+Occurrences+in+DLL"
+    "article": "https://takeuforward.org/plus/dsa/problems/delete-all-occurrences-in-dll"
   },
   {
     "id": 111,
@@ -1107,7 +1107,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Reverse+Nodes+in+K+Group+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Reverse+Nodes+in+K+Group"
+    "article": "https://takeuforward.org/plus/dsa/problems/reverse-nodes-in-k-group"
   },
   {
     "id": 112,
@@ -1117,7 +1117,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Rotate+a+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Rotate+a+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/rotate-a-linked-list"
   },
   {
     "id": 113,
@@ -1127,7 +1127,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Flatten+a+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Flatten+a+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/flatten-a-linked-list"
   },
   {
     "id": 114,
@@ -1137,7 +1137,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Clone+Linked+List+with+Random+Pointer+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Clone+Linked+List+with+Random+Pointer"
+    "article": "https://takeuforward.org/plus/dsa/problems/clone-linked-list-with-random-pointer"
   },
   {
     "id": 115,
@@ -1147,7 +1147,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Recursive+Implementation+of+atoi+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Recursive+Implementation+of+atoi"
+    "article": "https://takeuforward.org/plus/dsa/problems/recursive-implementation-of-atoi"
   },
   {
     "id": 116,
@@ -1157,7 +1157,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Pow%28x%2C+n%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Pow%28x%2C+n%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/pow-x-n"
   },
   {
     "id": 117,
@@ -1167,7 +1167,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Good+Numbers+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Good+Numbers"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-good-numbers"
   },
   {
     "id": 118,
@@ -1177,7 +1177,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sort+a+Stack+using+Recursion+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sort+a+Stack+using+Recursion"
+    "article": "https://takeuforward.org/plus/dsa/problems/sort-a-stack-using-recursion"
   },
   {
     "id": 119,
@@ -1187,7 +1187,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Generate+All+Binary+Strings+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Generate+All+Binary+Strings"
+    "article": "https://takeuforward.org/plus/dsa/problems/generate-all-binary-strings"
   },
   {
     "id": 120,
@@ -1197,7 +1197,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Generate+Parentheses+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Generate+Parentheses"
+    "article": "https://takeuforward.org/plus/dsa/problems/generate-parentheses"
   },
   {
     "id": 121,
@@ -1207,7 +1207,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Power+Set+%2F+Subsets+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Power+Set+%2F+Subsets"
+    "article": "https://takeuforward.org/plus/dsa/problems/power-set-subsets"
   },
   {
     "id": 122,
@@ -1217,7 +1217,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Subsets+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Subsets+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/subsets-ii"
   },
   {
     "id": 123,
@@ -1227,7 +1227,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Combination+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Combination+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/combination-sum"
   },
   {
     "id": 124,
@@ -1237,7 +1237,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Combination+Sum+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Combination+Sum+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/combination-sum-ii"
   },
   {
     "id": 125,
@@ -1247,7 +1247,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Subset+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Subset+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/subset-sum"
   },
   {
     "id": 126,
@@ -1257,7 +1257,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Permutations+of+a+String%2FArray+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Permutations+of+a+String%2FArray"
+    "article": "https://takeuforward.org/plus/dsa/problems/permutations-of-a-string-array"
   },
   {
     "id": 127,
@@ -1267,7 +1267,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+N-Queens+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+N-Queens"
+    "article": "https://takeuforward.org/plus/dsa/problems/n-queens"
   },
   {
     "id": 128,
@@ -1277,7 +1277,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sudoku+Solver+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sudoku+Solver"
+    "article": "https://takeuforward.org/plus/dsa/problems/sudoku-solver"
   },
   {
     "id": 129,
@@ -1287,7 +1287,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+M-Coloring+Problem+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+M-Coloring+Problem"
+    "article": "https://takeuforward.org/plus/dsa/problems/m-coloring-problem"
   },
   {
     "id": 130,
@@ -1297,7 +1297,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Rat+in+a+Maze+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Rat+in+a+Maze"
+    "article": "https://takeuforward.org/plus/dsa/problems/rat-in-a-maze"
   },
   {
     "id": 131,
@@ -1307,7 +1307,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Word+Search+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Word+Search"
+    "article": "https://takeuforward.org/plus/dsa/problems/word-search"
   },
   {
     "id": 132,
@@ -1317,7 +1317,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Palindrome+Partitioning+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Palindrome+Partitioning"
+    "article": "https://takeuforward.org/plus/dsa/problems/palindrome-partitioning"
   },
   {
     "id": 133,
@@ -1327,7 +1327,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Introduction+to+Bit+Manipulation+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Introduction+to+Bit+Manipulation"
+    "article": "https://takeuforward.org/plus/dsa/problems/introduction-to-bit-manipulation"
   },
   {
     "id": 134,
@@ -1337,7 +1337,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+if+Ith+Bit+Set+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+if+Ith+Bit+Set"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-if-ith-bit-set"
   },
   {
     "id": 135,
@@ -1347,7 +1347,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Set+Bits+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Set+Bits"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-set-bits"
   },
   {
     "id": 136,
@@ -1357,7 +1357,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Set%2FClear%2FToggle+Ith+Bit+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Set%2FClear%2FToggle+Ith+Bit"
+    "article": "https://takeuforward.org/plus/dsa/problems/set-clear-toggle-ith-bit"
   },
   {
     "id": 137,
@@ -1367,7 +1367,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+Power+of+Two+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+Power+of+Two"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-power-of-two"
   },
   {
     "id": 138,
@@ -1377,7 +1377,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Single+Number+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Single+Number+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/single-number-ii"
   },
   {
     "id": 139,
@@ -1387,7 +1387,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Single+Number+III+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Single+Number+III"
+    "article": "https://takeuforward.org/plus/dsa/problems/single-number-iii"
   },
   {
     "id": 140,
@@ -1397,7 +1397,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+XOR+of+Numbers+in+Range+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+XOR+of+Numbers+in+Range"
+    "article": "https://takeuforward.org/plus/dsa/problems/xor-of-numbers-in-range"
   },
   {
     "id": 141,
@@ -1407,7 +1407,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Divide+Two+Integers+without+Division+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Divide+Two+Integers+without+Division"
+    "article": "https://takeuforward.org/plus/dsa/problems/divide-two-integers-without-division"
   },
   {
     "id": 142,
@@ -1417,7 +1417,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Power+Set+using+Bits+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Power+Set+using+Bits"
+    "article": "https://takeuforward.org/plus/dsa/problems/power-set-using-bits"
   },
   {
     "id": 143,
@@ -1427,7 +1427,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Implement+Stack+using+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Implement+Stack+using+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/implement-stack-using-array"
   },
   {
     "id": 144,
@@ -1437,7 +1437,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Implement+Queue+using+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Implement+Queue+using+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/implement-queue-using-array"
   },
   {
     "id": 145,
@@ -1447,7 +1447,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Stack+using+Queue+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Stack+using+Queue"
+    "article": "https://takeuforward.org/plus/dsa/problems/stack-using-queue"
   },
   {
     "id": 146,
@@ -1457,7 +1457,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Queue+using+Stack+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Queue+using+Stack"
+    "article": "https://takeuforward.org/plus/dsa/problems/queue-using-stack"
   },
   {
     "id": 147,
@@ -1467,7 +1467,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Valid+Parentheses+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Valid+Parentheses"
+    "article": "https://takeuforward.org/plus/dsa/problems/valid-parentheses"
   },
   {
     "id": 148,
@@ -1477,7 +1477,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Min+Stack+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Min+Stack"
+    "article": "https://takeuforward.org/plus/dsa/problems/min-stack"
   },
   {
     "id": 149,
@@ -1487,7 +1487,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Infix+to+Postfix+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Infix+to+Postfix"
+    "article": "https://takeuforward.org/plus/dsa/problems/infix-to-postfix"
   },
   {
     "id": 150,
@@ -1497,7 +1497,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Next+Greater+Element+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Next+Greater+Element"
+    "article": "https://takeuforward.org/plus/dsa/problems/next-greater-element"
   },
   {
     "id": 151,
@@ -1507,7 +1507,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Next+Greater+Element+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Next+Greater+Element+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/next-greater-element-ii"
   },
   {
     "id": 152,
@@ -1517,7 +1517,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Previous+Smaller+Element+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Previous+Smaller+Element"
+    "article": "https://takeuforward.org/plus/dsa/problems/previous-smaller-element"
   },
   {
     "id": 153,
@@ -1527,7 +1527,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Trapping+Rainwater+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Trapping+Rainwater"
+    "article": "https://takeuforward.org/plus/dsa/problems/trapping-rainwater"
   },
   {
     "id": 154,
@@ -1537,7 +1537,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sum+of+Subarray+Minimums+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sum+of+Subarray+Minimums"
+    "article": "https://takeuforward.org/plus/dsa/problems/sum-of-subarray-minimums"
   },
   {
     "id": 155,
@@ -1547,7 +1547,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Asteroid+Collision+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Asteroid+Collision"
+    "article": "https://takeuforward.org/plus/dsa/problems/asteroid-collision"
   },
   {
     "id": 156,
@@ -1557,7 +1557,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Largest+Rectangle+in+Histogram+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Largest+Rectangle+in+Histogram"
+    "article": "https://takeuforward.org/plus/dsa/problems/largest-rectangle-in-histogram"
   },
   {
     "id": 157,
@@ -1567,7 +1567,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximal+Rectangle+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximal+Rectangle"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximal-rectangle"
   },
   {
     "id": 158,
@@ -1577,7 +1577,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Remove+K+Digits+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Remove+K+Digits"
+    "article": "https://takeuforward.org/plus/dsa/problems/remove-k-digits"
   },
   {
     "id": 159,
@@ -1587,7 +1587,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sliding+Window+Maximum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sliding+Window+Maximum"
+    "article": "https://takeuforward.org/plus/dsa/problems/sliding-window-maximum"
   },
   {
     "id": 160,
@@ -1597,7 +1597,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Stock+Span+Problem+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Stock+Span+Problem"
+    "article": "https://takeuforward.org/plus/dsa/problems/stock-span-problem"
   },
   {
     "id": 161,
@@ -1607,7 +1607,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+LRU+Cache+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+LRU+Cache"
+    "article": "https://takeuforward.org/plus/dsa/problems/lru-cache"
   },
   {
     "id": 162,
@@ -1617,7 +1617,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+LFU+Cache+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+LFU+Cache"
+    "article": "https://takeuforward.org/plus/dsa/problems/lfu-cache"
   },
   {
     "id": 163,
@@ -1627,7 +1627,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Substring+Without+Repeating+Characters+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Substring+Without+Repeating+Characters"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-substring-without-repeating-characters"
   },
   {
     "id": 164,
@@ -1637,7 +1637,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Max+Consecutive+Ones+III+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Max+Consecutive+Ones+III"
+    "article": "https://takeuforward.org/plus/dsa/problems/max-consecutive-ones-iii"
   },
   {
     "id": 165,
@@ -1647,7 +1647,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Fruit+Into+Baskets+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Fruit+Into+Baskets"
+    "article": "https://takeuforward.org/plus/dsa/problems/fruit-into-baskets"
   },
   {
     "id": 166,
@@ -1657,7 +1657,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Repeating+Character+Replacement+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Repeating+Character+Replacement"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-repeating-character-replacement"
   },
   {
     "id": 167,
@@ -1667,7 +1667,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Binary+Subarrays+with+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Binary+Subarrays+with+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/binary-subarrays-with-sum"
   },
   {
     "id": 168,
@@ -1677,7 +1677,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Number+of+Nice+Subarrays+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Number+of+Nice+Subarrays"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-number-of-nice-subarrays"
   },
   {
     "id": 169,
@@ -1687,7 +1687,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Substrings+Containing+All+Three+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Substrings+Containing+All+Three"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-substrings-containing-all-three"
   },
   {
     "id": 170,
@@ -1697,7 +1697,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Substring+with+At+Most+K+Distinct+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Substring+with+At+Most+K+Distinct"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-substring-with-at-most-k-distinct"
   },
   {
     "id": 171,
@@ -1707,7 +1707,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Subarrays+with+K+Different+Integers+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Subarrays+with+K+Different+Integers"
+    "article": "https://takeuforward.org/plus/dsa/problems/subarrays-with-k-different-integers"
   },
   {
     "id": 172,
@@ -1717,7 +1717,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Window+Substring+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Window+Substring"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-window-substring"
   },
   {
     "id": 173,
@@ -1727,7 +1727,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Min+Heap+and+Max+Heap+Implementation+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Min+Heap+and+Max+Heap+Implementation"
+    "article": "https://takeuforward.org/plus/dsa/problems/min-heap-and-max-heap-implementation"
   },
   {
     "id": 174,
@@ -1737,7 +1737,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+if+Array+Represents+Min+Heap+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+if+Array+Represents+Min+Heap"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-if-array-represents-min-heap"
   },
   {
     "id": 175,
@@ -1747,7 +1747,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kth+Largest+Element+in+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kth+Largest+Element+in+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/kth-largest-element-in-array"
   },
   {
     "id": 176,
@@ -1757,7 +1757,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kth+Smallest+Element+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kth+Smallest+Element"
+    "article": "https://takeuforward.org/plus/dsa/problems/kth-smallest-element"
   },
   {
     "id": 177,
@@ -1767,7 +1767,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Sort+K+Sorted+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Sort+K+Sorted+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/sort-k-sorted-array"
   },
   {
     "id": 178,
@@ -1777,7 +1777,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Merge+K+Sorted+Arrays+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Merge+K+Sorted+Arrays"
+    "article": "https://takeuforward.org/plus/dsa/problems/merge-k-sorted-arrays"
   },
   {
     "id": 179,
@@ -1787,7 +1787,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Merge+K+Sorted+Lists+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Merge+K+Sorted+Lists"
+    "article": "https://takeuforward.org/plus/dsa/problems/merge-k-sorted-lists"
   },
   {
     "id": 180,
@@ -1797,7 +1797,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Top+K+Frequent+Elements+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Top+K+Frequent+Elements"
+    "article": "https://takeuforward.org/plus/dsa/problems/top-k-frequent-elements"
   },
   {
     "id": 181,
@@ -1807,7 +1807,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Task+Scheduler+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Task+Scheduler"
+    "article": "https://takeuforward.org/plus/dsa/problems/task-scheduler"
   },
   {
     "id": 182,
@@ -1817,7 +1817,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Hands+of+Straights+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Hands+of+Straights"
+    "article": "https://takeuforward.org/plus/dsa/problems/hands-of-straights"
   },
   {
     "id": 183,
@@ -1827,7 +1827,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Find+Median+from+Data+Stream+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Find+Median+from+Data+Stream"
+    "article": "https://takeuforward.org/plus/dsa/problems/find-median-from-data-stream"
   },
   {
     "id": 184,
@@ -1837,7 +1837,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kth+Largest+in+a+Stream+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kth+Largest+in+a+Stream"
+    "article": "https://takeuforward.org/plus/dsa/problems/kth-largest-in-a-stream"
   },
   {
     "id": 185,
@@ -1847,7 +1847,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Assign+Cookies+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Assign+Cookies"
+    "article": "https://takeuforward.org/plus/dsa/problems/assign-cookies"
   },
   {
     "id": 186,
@@ -1857,7 +1857,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Fractional+Knapsack+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Fractional+Knapsack"
+    "article": "https://takeuforward.org/plus/dsa/problems/fractional-knapsack"
   },
   {
     "id": 187,
@@ -1867,7 +1867,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Coins+%28Greedy%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Coins+%28Greedy%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-coins-greedy"
   },
   {
     "id": 188,
@@ -1877,7 +1877,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Lemonade+Change+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Lemonade+Change"
+    "article": "https://takeuforward.org/plus/dsa/problems/lemonade-change"
   },
   {
     "id": 189,
@@ -1887,7 +1887,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Valid+Parenthesis+String+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Valid+Parenthesis+String"
+    "article": "https://takeuforward.org/plus/dsa/problems/valid-parenthesis-string"
   },
   {
     "id": 190,
@@ -1897,7 +1897,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+N+Meetings+in+One+Room+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+N+Meetings+in+One+Room"
+    "article": "https://takeuforward.org/plus/dsa/problems/n-meetings-in-one-room"
   },
   {
     "id": 191,
@@ -1907,7 +1907,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Jump+Game+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Jump+Game"
+    "article": "https://takeuforward.org/plus/dsa/problems/jump-game"
   },
   {
     "id": 192,
@@ -1917,7 +1917,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Jump+Game+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Jump+Game+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/jump-game-ii"
   },
   {
     "id": 193,
@@ -1927,7 +1927,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Job+Sequencing+Problem+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Job+Sequencing+Problem"
+    "article": "https://takeuforward.org/plus/dsa/problems/job-sequencing-problem"
   },
   {
     "id": 194,
@@ -1937,7 +1937,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Candy+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Candy"
+    "article": "https://takeuforward.org/plus/dsa/problems/candy"
   },
   {
     "id": 195,
@@ -1947,7 +1947,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Insert+Interval+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Insert+Interval"
+    "article": "https://takeuforward.org/plus/dsa/problems/insert-interval"
   },
   {
     "id": 196,
@@ -1957,7 +1957,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Merge+Intervals+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Merge+Intervals"
+    "article": "https://takeuforward.org/plus/dsa/problems/merge-intervals"
   },
   {
     "id": 197,
@@ -1967,7 +1967,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Non-overlapping+Intervals+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Non-overlapping+Intervals"
+    "article": "https://takeuforward.org/plus/dsa/problems/non-overlapping-intervals"
   },
   {
     "id": 198,
@@ -1977,7 +1977,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Preorder+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Preorder+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/preorder-traversal"
   },
   {
     "id": 199,
@@ -1987,7 +1987,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Inorder+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Inorder+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/inorder-traversal"
   },
   {
     "id": 200,
@@ -1997,7 +1997,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Postorder+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Postorder+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/postorder-traversal"
   },
   {
     "id": 201,
@@ -2007,7 +2007,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Level+Order+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Level+Order+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/level-order-traversal"
   },
   {
     "id": 202,
@@ -2017,7 +2017,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Height+of+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Height+of+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/height-of-binary-tree"
   },
   {
     "id": 203,
@@ -2027,7 +2027,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+Balanced+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+Balanced+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-balanced-binary-tree"
   },
   {
     "id": 204,
@@ -2037,7 +2037,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Diameter+of+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Diameter+of+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/diameter-of-binary-tree"
   },
   {
     "id": 205,
@@ -2047,7 +2047,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+Path+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+Path+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-path-sum"
   },
   {
     "id": 206,
@@ -2057,7 +2057,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Check+Two+Trees+Identical+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Check+Two+Trees+Identical"
+    "article": "https://takeuforward.org/plus/dsa/problems/check-two-trees-identical"
   },
   {
     "id": 207,
@@ -2067,7 +2067,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Zigzag+Level+Order+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Zigzag+Level+Order+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/zigzag-level-order-traversal"
   },
   {
     "id": 208,
@@ -2077,7 +2077,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Boundary+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Boundary+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/boundary-traversal"
   },
   {
     "id": 209,
@@ -2087,7 +2087,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Vertical+Order+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Vertical+Order+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/vertical-order-traversal"
   },
   {
     "id": 210,
@@ -2097,7 +2097,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Top+View+of+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Top+View+of+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/top-view-of-binary-tree"
   },
   {
     "id": 211,
@@ -2107,7 +2107,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Bottom+View+of+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Bottom+View+of+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/bottom-view-of-binary-tree"
   },
   {
     "id": 212,
@@ -2117,7 +2117,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Right%2FLeft+View+of+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Right%2FLeft+View+of+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/right-left-view-of-binary-tree"
   },
   {
     "id": 213,
@@ -2127,7 +2127,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Symmetric+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Symmetric+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/symmetric-binary-tree"
   },
   {
     "id": 214,
@@ -2137,7 +2137,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Root+to+Node+Path+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Root+to+Node+Path"
+    "article": "https://takeuforward.org/plus/dsa/problems/root-to-node-path"
   },
   {
     "id": 215,
@@ -2147,7 +2147,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Lowest+Common+Ancestor+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Lowest+Common+Ancestor"
+    "article": "https://takeuforward.org/plus/dsa/problems/lowest-common-ancestor"
   },
   {
     "id": 216,
@@ -2157,7 +2157,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+Width+of+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+Width+of+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-width-of-binary-tree"
   },
   {
     "id": 217,
@@ -2167,7 +2167,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Children+Sum+Property+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Children+Sum+Property"
+    "article": "https://takeuforward.org/plus/dsa/problems/children-sum-property"
   },
   {
     "id": 218,
@@ -2177,7 +2177,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+All+Nodes+Distance+K+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+All+Nodes+Distance+K"
+    "article": "https://takeuforward.org/plus/dsa/problems/all-nodes-distance-k"
   },
   {
     "id": 219,
@@ -2187,7 +2187,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Total+Nodes+in+Complete+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Total+Nodes+in+Complete+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-total-nodes-in-complete-tree"
   },
   {
     "id": 220,
@@ -2197,7 +2197,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Construct+Tree+from+Preorder+and+Inorder+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Construct+Tree+from+Preorder+and+Inorder"
+    "article": "https://takeuforward.org/plus/dsa/problems/construct-tree-from-preorder-and-inorder"
   },
   {
     "id": 221,
@@ -2207,7 +2207,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Construct+Tree+from+Postorder+and+Inorder+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Construct+Tree+from+Postorder+and+Inorder"
+    "article": "https://takeuforward.org/plus/dsa/problems/construct-tree-from-postorder-and-inorder"
   },
   {
     "id": 222,
@@ -2217,7 +2217,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Serialize+and+Deserialize+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Serialize+and+Deserialize+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/serialize-and-deserialize-binary-tree"
   },
   {
     "id": 223,
@@ -2227,7 +2227,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Morris+Inorder+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Morris+Inorder+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/morris-inorder-traversal"
   },
   {
     "id": 224,
@@ -2237,7 +2237,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Flatten+Binary+Tree+to+Linked+List+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Flatten+Binary+Tree+to+Linked+List"
+    "article": "https://takeuforward.org/plus/dsa/problems/flatten-binary-tree-to-linked-list"
   },
   {
     "id": 225,
@@ -2247,7 +2247,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Search+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Search+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/search-in-bst"
   },
   {
     "id": 226,
@@ -2257,7 +2257,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Min+and+Max+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Min+and+Max+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/min-and-max-in-bst"
   },
   {
     "id": 227,
@@ -2267,7 +2267,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Ceil+in+a+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Ceil+in+a+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/ceil-in-a-bst"
   },
   {
     "id": 228,
@@ -2277,7 +2277,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Floor+in+a+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Floor+in+a+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/floor-in-a-bst"
   },
   {
     "id": 229,
@@ -2287,7 +2287,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Insert+a+Node+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Insert+a+Node+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/insert-a-node-in-bst"
   },
   {
     "id": 230,
@@ -2297,7 +2297,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Delete+a+Node+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Delete+a+Node+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/delete-a-node-in-bst"
   },
   {
     "id": 231,
@@ -2307,7 +2307,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kth+Smallest+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kth+Smallest+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/kth-smallest-in-bst"
   },
   {
     "id": 232,
@@ -2317,7 +2317,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Validate+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Validate+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/validate-bst"
   },
   {
     "id": 233,
@@ -2327,7 +2327,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+LCA+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+LCA+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/lca-in-bst"
   },
   {
     "id": 234,
@@ -2337,7 +2337,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Construct+BST+from+Preorder+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Construct+BST+from+Preorder"
+    "article": "https://takeuforward.org/plus/dsa/problems/construct-bst-from-preorder"
   },
   {
     "id": 235,
@@ -2347,7 +2347,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Inorder+Successor+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Inorder+Successor+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/inorder-successor-in-bst"
   },
   {
     "id": 236,
@@ -2357,7 +2357,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+BST+Iterator+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+BST+Iterator"
+    "article": "https://takeuforward.org/plus/dsa/problems/bst-iterator"
   },
   {
     "id": 237,
@@ -2367,7 +2367,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Two+Sum+in+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Two+Sum+in+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/two-sum-in-bst"
   },
   {
     "id": 238,
@@ -2377,7 +2377,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Recover+BST+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Recover+BST"
+    "article": "https://takeuforward.org/plus/dsa/problems/recover-bst"
   },
   {
     "id": 239,
@@ -2387,7 +2387,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Largest+BST+in+Binary+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Largest+BST+in+Binary+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/largest-bst-in-binary-tree"
   },
   {
     "id": 240,
@@ -2397,7 +2397,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+BFS+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+BFS+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/bfs-traversal"
   },
   {
     "id": 241,
@@ -2407,7 +2407,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+DFS+Traversal+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+DFS+Traversal"
+    "article": "https://takeuforward.org/plus/dsa/problems/dfs-traversal"
   },
   {
     "id": 242,
@@ -2417,7 +2417,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Provinces+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Provinces"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-provinces"
   },
   {
     "id": 243,
@@ -2427,7 +2427,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Islands+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Islands"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-islands"
   },
   {
     "id": 244,
@@ -2437,7 +2437,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Flood+Fill+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Flood+Fill"
+    "article": "https://takeuforward.org/plus/dsa/problems/flood-fill"
   },
   {
     "id": 245,
@@ -2447,7 +2447,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Rotten+Oranges+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Rotten+Oranges"
+    "article": "https://takeuforward.org/plus/dsa/problems/rotten-oranges"
   },
   {
     "id": 246,
@@ -2457,7 +2457,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Detect+Cycle+in+Undirected+Graph+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Detect+Cycle+in+Undirected+Graph"
+    "article": "https://takeuforward.org/plus/dsa/problems/detect-cycle-in-undirected-graph"
   },
   {
     "id": 247,
@@ -2467,7 +2467,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Detect+Cycle+in+Directed+Graph+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Detect+Cycle+in+Directed+Graph"
+    "article": "https://takeuforward.org/plus/dsa/problems/detect-cycle-in-directed-graph"
   },
   {
     "id": 248,
@@ -2477,7 +2477,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+0%2F1+Matrix+%28Distance+of+Nearest+0%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+0%2F1+Matrix+%28Distance+of+Nearest+0%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/0-1-matrix-distance-of-nearest-0"
   },
   {
     "id": 249,
@@ -2487,7 +2487,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Surrounded+Regions+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Surrounded+Regions"
+    "article": "https://takeuforward.org/plus/dsa/problems/surrounded-regions"
   },
   {
     "id": 250,
@@ -2497,7 +2497,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Enclaves+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Enclaves"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-enclaves"
   },
   {
     "id": 251,
@@ -2507,7 +2507,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Word+Ladder+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Word+Ladder"
+    "article": "https://takeuforward.org/plus/dsa/problems/word-ladder"
   },
   {
     "id": 252,
@@ -2517,7 +2517,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Bipartite+Graph+Check+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Bipartite+Graph+Check"
+    "article": "https://takeuforward.org/plus/dsa/problems/bipartite-graph-check"
   },
   {
     "id": 253,
@@ -2527,7 +2527,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Topological+Sort+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Topological+Sort"
+    "article": "https://takeuforward.org/plus/dsa/problems/topological-sort"
   },
   {
     "id": 254,
@@ -2537,7 +2537,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kahn%27s+Algorithm+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kahn%27s+Algorithm"
+    "article": "https://takeuforward.org/plus/dsa/problems/kahn-s-algorithm"
   },
   {
     "id": 255,
@@ -2547,7 +2547,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Course+Schedule+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Course+Schedule"
+    "article": "https://takeuforward.org/plus/dsa/problems/course-schedule"
   },
   {
     "id": 256,
@@ -2557,7 +2557,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Course+Schedule+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Course+Schedule+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/course-schedule-ii"
   },
   {
     "id": 257,
@@ -2567,7 +2567,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Alien+Dictionary+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Alien+Dictionary"
+    "article": "https://takeuforward.org/plus/dsa/problems/alien-dictionary"
   },
   {
     "id": 258,
@@ -2577,7 +2577,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Shortest+Path+in+Undirected+Graph+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Shortest+Path+in+Undirected+Graph"
+    "article": "https://takeuforward.org/plus/dsa/problems/shortest-path-in-undirected-graph"
   },
   {
     "id": 259,
@@ -2587,7 +2587,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Dijkstra%27s+Algorithm+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Dijkstra%27s+Algorithm"
+    "article": "https://takeuforward.org/plus/dsa/problems/dijkstra-s-algorithm"
   },
   {
     "id": 260,
@@ -2597,7 +2597,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Shortest+Path+in+DAG+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Shortest+Path+in+DAG"
+    "article": "https://takeuforward.org/plus/dsa/problems/shortest-path-in-dag"
   },
   {
     "id": 261,
@@ -2607,7 +2607,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Bellman-Ford+Algorithm+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Bellman-Ford+Algorithm"
+    "article": "https://takeuforward.org/plus/dsa/problems/bellman-ford-algorithm"
   },
   {
     "id": 262,
@@ -2617,7 +2617,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Floyd-Warshall+Algorithm+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Floyd-Warshall+Algorithm"
+    "article": "https://takeuforward.org/plus/dsa/problems/floyd-warshall-algorithm"
   },
   {
     "id": 263,
@@ -2627,7 +2627,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Cheapest+Flights+Within+K+Stops+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Cheapest+Flights+Within+K+Stops"
+    "article": "https://takeuforward.org/plus/dsa/problems/cheapest-flights-within-k-stops"
   },
   {
     "id": 264,
@@ -2637,7 +2637,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Ways+to+Arrive+at+Destination+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Ways+to+Arrive+at+Destination"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-ways-to-arrive-at-destination"
   },
   {
     "id": 265,
@@ -2647,7 +2647,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Spanning+Tree+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Spanning+Tree"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-spanning-tree"
   },
   {
     "id": 266,
@@ -2657,7 +2657,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Prim%27s+Algorithm+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Prim%27s+Algorithm"
+    "article": "https://takeuforward.org/plus/dsa/problems/prim-s-algorithm"
   },
   {
     "id": 267,
@@ -2667,7 +2667,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kruskal%27s+Algorithm+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kruskal%27s+Algorithm"
+    "article": "https://takeuforward.org/plus/dsa/problems/kruskal-s-algorithm"
   },
   {
     "id": 268,
@@ -2677,7 +2677,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Disjoint+Set+%28Union+by+Rank%2FSize%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Disjoint+Set+%28Union+by+Rank%2FSize%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/disjoint-set-union-by-rank-size"
   },
   {
     "id": 269,
@@ -2687,7 +2687,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Operations+to+Make+Connected+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Operations+to+Make+Connected"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-operations-to-make-connected"
   },
   {
     "id": 270,
@@ -2697,7 +2697,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Accounts+Merge+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Accounts+Merge"
+    "article": "https://takeuforward.org/plus/dsa/problems/accounts-merge"
   },
   {
     "id": 271,
@@ -2707,7 +2707,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Islands+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Islands+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-islands-ii"
   },
   {
     "id": 272,
@@ -2717,7 +2717,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Making+a+Large+Island+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Making+a+Large+Island"
+    "article": "https://takeuforward.org/plus/dsa/problems/making-a-large-island"
   },
   {
     "id": 273,
@@ -2727,7 +2727,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Bridges+in+Graph+%28Tarjan%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Bridges+in+Graph+%28Tarjan%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/bridges-in-graph-tarjan"
   },
   {
     "id": 274,
@@ -2737,7 +2737,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Articulation+Point+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Articulation+Point"
+    "article": "https://takeuforward.org/plus/dsa/problems/articulation-point"
   },
   {
     "id": 275,
@@ -2747,7 +2747,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Kosaraju%27s+Algorithm+%28SCC%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Kosaraju%27s+Algorithm+%28SCC%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/kosaraju-s-algorithm-scc"
   },
   {
     "id": 276,
@@ -2757,7 +2757,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Climbing+Stairs+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Climbing+Stairs"
+    "article": "https://takeuforward.org/plus/dsa/problems/climbing-stairs"
   },
   {
     "id": 277,
@@ -2767,7 +2767,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Frog+Jump+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Frog+Jump"
+    "article": "https://takeuforward.org/plus/dsa/problems/frog-jump"
   },
   {
     "id": 278,
@@ -2777,7 +2777,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Frog+Jump+with+K+Distances+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Frog+Jump+with+K+Distances"
+    "article": "https://takeuforward.org/plus/dsa/problems/frog-jump-with-k-distances"
   },
   {
     "id": 279,
@@ -2787,7 +2787,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+Sum+Non-Adjacent+Elements+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+Sum+Non-Adjacent+Elements"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-sum-non-adjacent-elements"
   },
   {
     "id": 280,
@@ -2797,7 +2797,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+House+Robber+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+House+Robber"
+    "article": "https://takeuforward.org/plus/dsa/problems/house-robber"
   },
   {
     "id": 281,
@@ -2807,7 +2807,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Ninja%27s+Training+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Ninja%27s+Training"
+    "article": "https://takeuforward.org/plus/dsa/problems/ninja-s-training"
   },
   {
     "id": 282,
@@ -2817,7 +2817,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Grid+Unique+Paths+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Grid+Unique+Paths"
+    "article": "https://takeuforward.org/plus/dsa/problems/grid-unique-paths"
   },
   {
     "id": 283,
@@ -2827,7 +2827,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Unique+Paths+II+%28Obstacles%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Unique+Paths+II+%28Obstacles%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/unique-paths-ii-obstacles"
   },
   {
     "id": 284,
@@ -2837,7 +2837,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Path+Sum+in+Grid+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Path+Sum+in+Grid"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-path-sum-in-grid"
   },
   {
     "id": 285,
@@ -2847,7 +2847,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Triangle+Minimum+Path+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Triangle+Minimum+Path+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/triangle-minimum-path-sum"
   },
   {
     "id": 286,
@@ -2857,7 +2857,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Falling+Path+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Falling+Path+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-falling-path-sum"
   },
   {
     "id": 287,
@@ -2867,7 +2867,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Cherry+Pickup+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Cherry+Pickup+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/cherry-pickup-ii"
   },
   {
     "id": 288,
@@ -2877,7 +2877,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Subset+Sum+Equals+Target+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Subset+Sum+Equals+Target"
+    "article": "https://takeuforward.org/plus/dsa/problems/subset-sum-equals-target"
   },
   {
     "id": 289,
@@ -2887,7 +2887,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Partition+Equal+Subset+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Partition+Equal+Subset+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/partition-equal-subset-sum"
   },
   {
     "id": 290,
@@ -2897,7 +2897,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Subsets+with+Sum+K+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Subsets+with+Sum+K"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-subsets-with-sum-k"
   },
   {
     "id": 291,
@@ -2907,7 +2907,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+0%2F1+Knapsack+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+0%2F1+Knapsack"
+    "article": "https://takeuforward.org/plus/dsa/problems/0-1-knapsack"
   },
   {
     "id": 292,
@@ -2917,7 +2917,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Coin+Change+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Coin+Change"
+    "article": "https://takeuforward.org/plus/dsa/problems/coin-change"
   },
   {
     "id": 293,
@@ -2927,7 +2927,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Coin+Change+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Coin+Change+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/coin-change-ii"
   },
   {
     "id": 294,
@@ -2937,7 +2937,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Target+Sum+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Target+Sum"
+    "article": "https://takeuforward.org/plus/dsa/problems/target-sum"
   },
   {
     "id": 295,
@@ -2947,7 +2947,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Rod+Cutting+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Rod+Cutting"
+    "article": "https://takeuforward.org/plus/dsa/problems/rod-cutting"
   },
   {
     "id": 296,
@@ -2957,7 +2957,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Common+Subsequence+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Common+Subsequence"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-common-subsequence"
   },
   {
     "id": 297,
@@ -2967,7 +2967,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Common+Substring+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Common+Substring"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-common-substring"
   },
   {
     "id": 298,
@@ -2977,7 +2977,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Palindromic+Subsequence+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Palindromic+Subsequence"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-palindromic-subsequence"
   },
   {
     "id": 299,
@@ -2987,7 +2987,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Insertions+for+Palindrome+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Insertions+for+Palindrome"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-insertions-for-palindrome"
   },
   {
     "id": 300,
@@ -2997,7 +2997,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Shortest+Common+Supersequence+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Shortest+Common+Supersequence"
+    "article": "https://takeuforward.org/plus/dsa/problems/shortest-common-supersequence"
   },
   {
     "id": 301,
@@ -3007,7 +3007,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Distinct+Subsequences+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Distinct+Subsequences"
+    "article": "https://takeuforward.org/plus/dsa/problems/distinct-subsequences"
   },
   {
     "id": 302,
@@ -3017,7 +3017,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Edit+Distance+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Edit+Distance"
+    "article": "https://takeuforward.org/plus/dsa/problems/edit-distance"
   },
   {
     "id": 303,
@@ -3027,7 +3027,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Wildcard+Matching+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Wildcard+Matching"
+    "article": "https://takeuforward.org/plus/dsa/problems/wildcard-matching"
   },
   {
     "id": 304,
@@ -3037,7 +3037,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Best+Time+to+Buy+and+Sell+Stock+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Best+Time+to+Buy+and+Sell+Stock+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/best-time-to-buy-and-sell-stock-ii"
   },
   {
     "id": 305,
@@ -3047,7 +3047,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Best+Time+to+Buy+and+Sell+Stock+III+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Best+Time+to+Buy+and+Sell+Stock+III"
+    "article": "https://takeuforward.org/plus/dsa/problems/best-time-to-buy-and-sell-stock-iii"
   },
   {
     "id": 306,
@@ -3057,7 +3057,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Best+Time+to+Buy+and+Sell+Stock+with+Cooldown+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Best+Time+to+Buy+and+Sell+Stock+with+Cooldown"
+    "article": "https://takeuforward.org/plus/dsa/problems/best-time-to-buy-and-sell-stock-with-cooldown"
   },
   {
     "id": 307,
@@ -3067,7 +3067,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Increasing+Subsequence+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Increasing+Subsequence"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-increasing-subsequence"
   },
   {
     "id": 308,
@@ -3077,7 +3077,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Divisible+Subset+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Divisible+Subset"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-divisible-subset"
   },
   {
     "id": 309,
@@ -3087,7 +3087,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Bitonic+Subsequence+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Bitonic+Subsequence"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-bitonic-subsequence"
   },
   {
     "id": 310,
@@ -3097,7 +3097,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Number+of+Longest+Increasing+Subsequences+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Number+of+Longest+Increasing+Subsequences"
+    "article": "https://takeuforward.org/plus/dsa/problems/number-of-longest-increasing-subsequences"
   },
   {
     "id": 311,
@@ -3107,7 +3107,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Matrix+Chain+Multiplication+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Matrix+Chain+Multiplication"
+    "article": "https://takeuforward.org/plus/dsa/problems/matrix-chain-multiplication"
   },
   {
     "id": 312,
@@ -3117,7 +3117,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Palindrome+Partitioning+II+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Palindrome+Partitioning+II"
+    "article": "https://takeuforward.org/plus/dsa/problems/palindrome-partitioning-ii"
   },
   {
     "id": 313,
@@ -3127,7 +3127,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Burst+Balloons+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Burst+Balloons"
+    "article": "https://takeuforward.org/plus/dsa/problems/burst-balloons"
   },
   {
     "id": 314,
@@ -3137,7 +3137,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+Rectangle+Area+with+All+1s+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+Rectangle+Area+with+All+1s"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-rectangle-area-with-all-1s"
   },
   {
     "id": 315,
@@ -3147,7 +3147,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Square+Submatrices+with+All+Ones+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Square+Submatrices+with+All+Ones"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-square-submatrices-with-all-ones"
   },
   {
     "id": 316,
@@ -3157,7 +3157,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Implement+Trie+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Implement+Trie"
+    "article": "https://takeuforward.org/plus/dsa/problems/implement-trie"
   },
   {
     "id": 317,
@@ -3167,7 +3167,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Implement+Trie+II+%28Prefix+Count%29+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Implement+Trie+II+%28Prefix+Count%29"
+    "article": "https://takeuforward.org/plus/dsa/problems/implement-trie-ii-prefix-count"
   },
   {
     "id": 318,
@@ -3177,7 +3177,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Word+with+All+Prefixes+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Word+with+All+Prefixes"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-word-with-all-prefixes"
   },
   {
     "id": 319,
@@ -3187,7 +3187,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Count+Distinct+Substrings+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Count+Distinct+Substrings"
+    "article": "https://takeuforward.org/plus/dsa/problems/count-distinct-substrings"
   },
   {
     "id": 320,
@@ -3197,7 +3197,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+XOR+of+Two+Numbers+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+XOR+of+Two+Numbers"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-xor-of-two-numbers"
   },
   {
     "id": 321,
@@ -3207,7 +3207,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Maximum+XOR+With+an+Element+From+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Maximum+XOR+With+an+Element+From+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/maximum-xor-with-an-element-from-array"
   },
   {
     "id": 322,
@@ -3217,7 +3217,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Z+Function+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Z+Function"
+    "article": "https://takeuforward.org/plus/dsa/problems/z-function"
   },
   {
     "id": 323,
@@ -3227,7 +3227,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+KMP+Algorithm+%2F+LPS+Array+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+KMP+Algorithm+%2F+LPS+Array"
+    "article": "https://takeuforward.org/plus/dsa/problems/kmp-algorithm-lps-array"
   },
   {
     "id": 324,
@@ -3237,7 +3237,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Rabin-Karp+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Rabin-Karp"
+    "article": "https://takeuforward.org/plus/dsa/problems/rabin-karp"
   },
   {
     "id": 325,
@@ -3247,7 +3247,7 @@
     "mostAsked": true,
     "weight": 3,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Shortest+Palindrome+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Shortest+Palindrome"
+    "article": "https://takeuforward.org/plus/dsa/problems/shortest-palindrome"
   },
   {
     "id": 326,
@@ -3257,7 +3257,7 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Longest+Happy+Prefix+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Longest+Happy+Prefix"
+    "article": "https://takeuforward.org/plus/dsa/problems/longest-happy-prefix"
   },
   {
     "id": 327,
@@ -3267,6 +3267,6 @@
     "mostAsked": false,
     "weight": 1,
     "youtube": "https://www.youtube.com/results?search_query=Striver+Minimum+Characters+to+Make+Palindrome+takeuforward",
-    "article": "https://www.google.com/search?q=takeuforward+Minimum+Characters+to+Make+Palindrome"
+    "article": "https://takeuforward.org/plus/dsa/problems/minimum-characters-to-make-palindrome"
   }
 ]

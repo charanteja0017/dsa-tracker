@@ -29,25 +29,40 @@ const toIso = (v: unknown): string | null => {
   return ms === null ? null : new Date(ms).toISOString();
 };
 
-// Upsert the A2Z bank into exam_pool. ON CONFLICT updates only the STATIC fields
-// — never times_used / last_used_at (the cooldown signal). Safe to re-run.
+// Upsert the A2Z bank into exam_pool in ONE round-trip (UNNEST of column
+// arrays). ON CONFLICT updates only the STATIC fields — never times_used /
+// last_used_at (the cooldown signal). Safe to re-run.
 export async function seedExamPool(): Promise<void> {
-  for (const p of EXAM_PROBLEMS) {
-    await sql`
-      INSERT INTO exam_pool
-        (external_id, title, topic, difficulty, most_asked, weight, youtube, article)
-      VALUES
-        (${p.externalId}, ${p.title}, ${p.topic}, ${p.difficulty}, ${p.mostAsked}, ${p.weight}, ${p.youtube}, ${p.article})
-      ON CONFLICT (external_id) DO UPDATE SET
-        title      = EXCLUDED.title,
-        topic      = EXCLUDED.topic,
-        difficulty = EXCLUDED.difficulty,
-        most_asked = EXCLUDED.most_asked,
-        weight     = EXCLUDED.weight,
-        youtube    = EXCLUDED.youtube,
-        article    = EXCLUDED.article;
-    `;
-  }
+  const ids = EXAM_PROBLEMS.map((p) => p.externalId);
+  const titles = EXAM_PROBLEMS.map((p) => p.title);
+  const topics = EXAM_PROBLEMS.map((p) => p.topic);
+  const diffs = EXAM_PROBLEMS.map((p) => p.difficulty);
+  const mostAsked = EXAM_PROBLEMS.map((p) => p.mostAsked);
+  const weights = EXAM_PROBLEMS.map((p) => p.weight);
+  const youtubes = EXAM_PROBLEMS.map((p) => p.youtube);
+  const articles = EXAM_PROBLEMS.map((p) => p.article);
+  await sql`
+    INSERT INTO exam_pool
+      (external_id, title, topic, difficulty, most_asked, weight, youtube, article)
+    SELECT * FROM UNNEST(
+      ${ids}::int[],
+      ${titles}::text[],
+      ${topics}::text[],
+      ${diffs}::text[],
+      ${mostAsked}::boolean[],
+      ${weights}::int[],
+      ${youtubes}::text[],
+      ${articles}::text[]
+    )
+    ON CONFLICT (external_id) DO UPDATE SET
+      title      = EXCLUDED.title,
+      topic      = EXCLUDED.topic,
+      difficulty = EXCLUDED.difficulty,
+      most_asked = EXCLUDED.most_asked,
+      weight     = EXCLUDED.weight,
+      youtube    = EXCLUDED.youtube,
+      article    = EXCLUDED.article;
+  `;
 }
 
 // Make sure the exam tables exist and the pool is populated (auto-seed on first
