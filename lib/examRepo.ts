@@ -75,6 +75,38 @@ export async function ensureExamReady(): Promise<void> {
   if (count === 0) await seedExamPool();
 }
 
+// Recompute cooldown bookkeeping (times_used + last_used_at) for the given
+// problems straight from remaining exam usage — so when an exam is deleted (or
+// its unsolved problems are released), those problems return to the pool with an
+// accurate count. `excludeExamId` ignores one exam's usage (used by
+// release-unsolved, which keeps the exam but frees its unsolved problems).
+// A problem with no remaining usage resets to fully fresh (0 / NULL).
+export async function recomputeCooldown(
+  externalIds: number[],
+  excludeExamId: string | null = null
+): Promise<void> {
+  if (externalIds.length === 0) return;
+  await sql`
+    UPDATE exam_pool p SET
+      times_used = u.cnt,
+      last_used_at = u.last_used
+    FROM (
+      SELECT pid AS external_id,
+        (SELECT COUNT(*)::int FROM exam_items ei
+           WHERE ei.external_id = pid
+             AND (${excludeExamId}::text IS NULL OR ei.exam_id <> ${excludeExamId})
+        ) AS cnt,
+        (SELECT MAX(e.created_at) FROM exam_items ei
+           JOIN exams e ON e.id = ei.exam_id
+           WHERE ei.external_id = pid
+             AND (${excludeExamId}::text IS NULL OR ei.exam_id <> ${excludeExamId})
+        ) AS last_used
+      FROM UNNEST(${externalIds}::int[]) AS pid
+    ) u
+    WHERE p.external_id = u.external_id;
+  `;
+}
+
 export async function poolForSampling(): Promise<PoolItem[]> {
   const rows = (await sql`
     SELECT external_id, topic, weight, times_used, last_used_at FROM exam_pool;

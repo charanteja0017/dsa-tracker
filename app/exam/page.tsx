@@ -2,7 +2,15 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, Check, Copy, Dices, ExternalLink, Lock } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  Copy,
+  Dices,
+  ExternalLink,
+  Lock,
+  Trash2,
+} from "lucide-react";
 import type { Exam, ExamListResponse } from "@/lib/examTypes";
 import { Tag } from "@/components/Tag";
 import { Checkbox } from "@/components/Checkbox";
@@ -30,6 +38,7 @@ export default function ExamPage() {
   const [replayId, setReplayId] = useState("");
   const [copied, setCopied] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  const [notice, setNotice] = useState<string | null>(null);
   // Exam mode is locked behind the edit password — null = checking.
   const [authed, setAuthed] = useState<boolean | null>(null);
 
@@ -166,6 +175,53 @@ export default function ExamPage() {
     loadList();
   }, [loadList]);
 
+  const deleteExam = useCallback(
+    async (id: string) => {
+      if (!confirm("Delete this exam? Its problems return to the pool."))
+        return;
+      const res = await fetch(`/api/exam/${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      });
+      if (res.status === 401) {
+        setAuthed(false);
+        return;
+      }
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setNotice(`Deleted — ${data.returned ?? 0} problems returned to pool.`);
+        setCurrent((c) => (c?.id === id ? null : c));
+        loadList();
+      }
+    },
+    [loadList]
+  );
+
+  const releaseUnsolved = useCallback(
+    async (id: string) => {
+      const res = await fetch(
+        `/api/exam/${encodeURIComponent(id)}/release-unsolved`,
+        { method: "POST" }
+      );
+      if (res.status === 401) {
+        setAuthed(false);
+        return;
+      }
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setNotice(`${data.released ?? 0} unsolved problems returned to pool.`);
+        loadList();
+      }
+    },
+    [loadList]
+  );
+
+  // Auto-dismiss the success notice.
+  useEffect(() => {
+    if (!notice) return;
+    const t = setTimeout(() => setNotice(null), 3500);
+    return () => clearTimeout(t);
+  }, [notice]);
+
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-30 border-b border-edge bg-ink/80 backdrop-blur">
@@ -193,6 +249,11 @@ export default function ExamPage() {
             {error}
           </div>
         )}
+        {notice && (
+          <div className="mb-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+            {notice}
+          </div>
+        )}
 
         {authed === null ? (
           <div className="py-20 text-center text-sm text-slate-500">Loading…</div>
@@ -208,6 +269,7 @@ export default function ExamPage() {
             replayId={replayId}
             setReplayId={setReplayId}
             onOpen={openExam}
+            onDelete={deleteExam}
           />
         ) : current.status === "active" ? (
           <ActiveView
@@ -219,6 +281,7 @@ export default function ExamPage() {
             onToggle={toggleItem}
             onSubmit={submitExam}
             onCancel={backToStart}
+            onDelete={deleteExam}
           />
         ) : (
           <ResultsView
@@ -226,6 +289,8 @@ export default function ExamPage() {
             copied={copied}
             onCopyId={copyId}
             onNew={backToStart}
+            onDelete={deleteExam}
+            onReleaseUnsolved={releaseUnsolved}
           />
         )}
       </main>
@@ -268,6 +333,7 @@ function StartView({
   replayId,
   setReplayId,
   onOpen,
+  onDelete,
 }: {
   size: number;
   setSize: (n: number) => void;
@@ -277,6 +343,7 @@ function StartView({
   replayId: string;
   setReplayId: (s: string) => void;
   onOpen: (id: string) => void;
+  onDelete: (id: string) => void;
 }) {
   return (
     <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
@@ -360,31 +427,44 @@ function StartView({
             </p>
           ) : (
             list.exams.map((e) => (
-              <button
+              <div
                 key={e.id}
-                type="button"
-                onClick={() => onOpen(e.id)}
-                className="flex w-full items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2 text-left transition hover:border-slate-700 hover:bg-panel2/60 active:scale-[0.99]"
+                className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2 transition hover:border-slate-700 hover:bg-panel2/60"
               >
-                <span className="font-mono text-xs font-semibold text-accent-fg">
-                  {e.id}
-                </span>
-                <span className="text-xs text-slate-500">
-                  {fmtDate(e.createdAt)}
-                </span>
-                <span className="ml-auto font-mono text-xs tabular-nums text-slate-400">
-                  {e.solved}/{e.size}
-                </span>
-                <span
-                  className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${
-                    e.status === "submitted"
-                      ? "bg-emerald-500/15 text-emerald-300"
-                      : "bg-amber-500/15 text-amber-300"
-                  }`}
+                <button
+                  type="button"
+                  onClick={() => onOpen(e.id)}
+                  className="flex min-w-0 flex-1 items-center gap-3 text-left active:scale-[0.99]"
                 >
-                  {e.status === "submitted" ? "done" : "active"}
-                </span>
-              </button>
+                  <span className="font-mono text-xs font-semibold text-accent-fg">
+                    {e.id}
+                  </span>
+                  <span className="hidden text-xs text-slate-500 sm:inline">
+                    {fmtDate(e.createdAt)}
+                  </span>
+                  <span className="ml-auto font-mono text-xs tabular-nums text-slate-400">
+                    {e.solved}/{e.size}
+                  </span>
+                  <span
+                    className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${
+                      e.status === "submitted"
+                        ? "bg-emerald-500/15 text-emerald-300"
+                        : "bg-amber-500/15 text-amber-300"
+                    }`}
+                  >
+                    {e.status === "submitted" ? "done" : "active"}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onDelete(e.id)}
+                  title="Delete exam (returns its problems to the pool)"
+                  className="shrink-0 rounded p-1 text-slate-600 transition hover:text-rose-400 active:scale-90"
+                  aria-label={`Delete ${e.id}`}
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              </div>
             ))
           )}
         </div>
@@ -403,6 +483,7 @@ function ActiveView({
   onToggle,
   onSubmit,
   onCancel,
+  onDelete,
 }: {
   exam: Exam;
   elapsed: number;
@@ -412,11 +493,12 @@ function ActiveView({
   onToggle: (itemId: number, solved: boolean) => void;
   onSubmit: () => void;
   onCancel: () => void;
+  onDelete: (id: string) => void;
 }) {
   const solved = exam.items.filter((i) => i.solved).length;
   return (
     <div>
-      <ExamHeader exam={exam} copied={copied} onCopyId={onCopyId}>
+      <ExamHeader exam={exam} copied={copied} onCopyId={onCopyId} onDelete={onDelete}>
         <span className="rounded-md bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-300">
           Active
         </span>
@@ -509,13 +591,18 @@ function ResultsView({
   copied,
   onCopyId,
   onNew,
+  onDelete,
+  onReleaseUnsolved,
 }: {
   exam: Exam;
   copied: boolean;
   onCopyId: () => void;
   onNew: () => void;
+  onDelete: (id: string) => void;
+  onReleaseUnsolved: (id: string) => void;
 }) {
   const solved = exam.items.filter((i) => i.solved).length;
+  const unsolved = exam.items.length - solved;
   const pct = exam.items.length
     ? Math.round((solved / exam.items.length) * 100)
     : 0;
@@ -533,7 +620,22 @@ function ResultsView({
 
   return (
     <div>
-      <ExamHeader exam={exam} copied={copied} onCopyId={onCopyId}>
+      <ExamHeader
+        exam={exam}
+        copied={copied}
+        onCopyId={onCopyId}
+        onDelete={onDelete}
+      >
+        {unsolved > 0 && (
+          <button
+            type="button"
+            onClick={() => onReleaseUnsolved(exam.id)}
+            title="Put the problems you didn't solve back into the pool"
+            className="rounded-md border border-edge px-2 py-1 text-xs font-medium text-slate-300 transition hover:border-amber-500/40 hover:text-amber-300 active:scale-95"
+          >
+            Return {unsolved} unsolved
+          </button>
+        )}
         <span className="rounded-md bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-300">
           Submitted
         </span>
@@ -635,11 +737,13 @@ function ExamHeader({
   exam,
   copied,
   onCopyId,
+  onDelete,
   children,
 }: {
   exam: Exam;
   copied: boolean;
   onCopyId: () => void;
+  onDelete: (id: string) => void;
   children: React.ReactNode;
 }) {
   return (
@@ -658,7 +762,18 @@ function ExamHeader({
         )}
       </button>
       <span className="text-xs text-slate-500">{exam.size} questions</span>
-      <div className="ml-auto flex items-center gap-3">{children}</div>
+      <div className="ml-auto flex items-center gap-3">
+        {children}
+        <button
+          type="button"
+          onClick={() => onDelete(exam.id)}
+          title="Delete exam (returns its problems to the pool)"
+          className="inline-flex items-center gap-1 rounded-md border border-edge px-2 py-1 text-xs font-medium text-slate-400 transition hover:border-rose-500/40 hover:text-rose-300 active:scale-95"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">Delete</span>
+        </button>
+      </div>
     </div>
   );
 }
