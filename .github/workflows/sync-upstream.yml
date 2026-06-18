@@ -1,0 +1,46 @@
+name: Sync with upstream
+
+# Keeps your fork up to date with the original project
+# (charanteja0017/dsa-tracker) so your Vercel deployment automatically picks up
+# new features and fixes. Runs once a day and can be triggered by hand.
+#
+# One-time setup on your fork: open the **Actions** tab and enable workflows.
+# Your own data lives in YOUR Neon database + EDIT_PASSWORD and is never touched
+# by this — only the code is synced. (If you edit the code yourself, a sync may
+# overwrite those edits; this template is meant to be customized via env/DB.)
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily, ~06:00 UTC
+  workflow_dispatch: {} # manual "Run workflow" button
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    # Never run on the source repository itself.
+    if: github.repository != 'charanteja0017/dsa-tracker'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge changes from upstream
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/charanteja0017/dsa-tracker.git
+          git fetch upstream
+          # Fast-forward if your fork is untouched; otherwise prefer upstream on
+          # any conflicting files (keeps you tracking the original project).
+          git merge --ff-only upstream/master \
+            || git merge -X theirs --no-edit upstream/master
+          git push origin HEAD

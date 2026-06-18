@@ -43,22 +43,45 @@ You bring two things: a free **Neon Postgres** database and a password of your c
 ### Option A — one click
 1. Create a free database at [neon.tech](https://neon.tech) and copy its **pooled
    connection string**.
-2. Click **Deploy with Vercel** above. When asked for env vars, paste:
+2. Click **Deploy with Vercel** above. The button **copies this repo into your own
+   GitHub** and deploys it. When asked for env vars, paste:
    - `DATABASE_URL` → your Neon connection string
    - `EDIT_PASSWORD` → any password (this unlocks editing)
-3. After it deploys, open `https://<your-app>.vercel.app/api/init` once — you should see
+3. Open your new site, click **🔒 Locked** (top-right) and enter your password to
+   **unlock** (this has to happen *before* seeding — `/api/init` is protected).
+4. Now open `https://<your-app>.vercel.app/api/init` once — you should see
    `{"ok":true,"problems":271,...}`. That creates the tables and loads the problems.
-4. Back on the site, click **🔒 Locked** (top-right) and enter your password.
+   (Exam mode seeds itself the first time you open **Exam** — or visit
+   `/api/exam/init` once while unlocked.)
+5. Reload the dashboard — your data is live.
 
 ### Option B — use this template
-1. **Use this template → Create a new repository** (your own copy, not a fork).
+1. **Use this template → Create a new repository** (your own copy).
 2. Import it into Vercel (**Add New → Project**).
 3. Add **Storage → Neon** (auto-injects `DATABASE_URL`) and an `EDIT_PASSWORD` env var,
    then **Redeploy**.
-4. Visit `/api/init` once, then unlock editing as above.
+4. Unlock, then visit `/api/init` once (steps 3–5 above).
 
 > ⚠️ Set **both** env vars **before the first deploy** — the build needs `DATABASE_URL`,
 > and editing stays locked until `EDIT_PASSWORD` is set.
+
+---
+
+## 🔄 Get updates automatically
+
+Each deploy is **your own copy** with **your own database + password**, so your progress
+is private. To keep the *code* in step with the original project (new features and fixes),
+this repo ships a GitHub Action that syncs your copy from upstream:
+
+1. On your copy, open the **Actions** tab and click **enable workflows**.
+2. The **Sync with upstream** workflow then runs **daily** (or hit **Run workflow** to do
+   it now). It merges the latest code into your repo, and **Vercel redeploys automatically**.
+
+So improvements I push land in everyone's deployment within a day — while each person keeps
+their own data. (If the problem list itself changes, re-visit `/api/init` while unlocked to
+pull the new questions; your `done` / `done_at` progress is always preserved.) If you'd
+rather not auto-update, just leave Actions disabled — or use the **Sync fork** button on
+GitHub whenever you want the latest.
 
 ---
 
