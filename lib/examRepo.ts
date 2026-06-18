@@ -139,8 +139,11 @@ export async function readExam(id: string): Promise<Exam | null> {
     title: r.title,
     topic: r.topic,
     difficulty: r.difficulty,
+    // The walkthrough video is a spoiler — hide it until submit. The problem
+    // page itself stays available so you can actually open and solve it during
+    // the exam.
     youtube: active ? null : r.youtube,
-    article: active ? null : r.article,
+    article: r.article,
   }));
 
   return {

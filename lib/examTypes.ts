@@ -12,8 +12,9 @@ export type ExamItem = {
   title: string;
   topic: string;
   difficulty: string;
-  // Solution links are withheld (null) while the exam is active, revealed on
-  // submit so you can't peek mid-exam.
+  // `article` is the problem page — available during the exam so you can open
+  // and solve it. `youtube` is the walkthrough video (a spoiler) — withheld
+  // (null) while active, revealed on submit.
   youtube: string | null;
   article: string | null;
 };

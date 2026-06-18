@@ -380,7 +380,7 @@ function ActiveView({
           {solved}/{exam.items.length} solved
         </span>
         <span className="text-xs text-slate-600">
-          Solutions hidden until you submit
+          Open a problem to solve it · walkthroughs hidden until submit
         </span>
       </div>
 
@@ -388,7 +388,7 @@ function ActiveView({
         {exam.items.map((it) => (
           <div
             key={it.itemId}
-            className="flex items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2.5"
+            className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2.5 transition-colors hover:border-slate-700"
           >
             <span className="w-5 shrink-0 text-center font-mono text-xs text-slate-600">
               {it.position + 1}
@@ -398,13 +398,30 @@ function ActiveView({
               onChange={(v) => onToggle(it.itemId, v)}
               label={`Mark ${it.title} solved`}
             />
-            <span
-              className={`min-w-0 flex-1 truncate text-sm ${
-                it.solved ? "text-slate-500 line-through" : "text-slate-100"
-              }`}
-            >
-              {it.title}
-            </span>
+            {it.article ? (
+              <a
+                href={it.article}
+                target="_blank"
+                rel="noreferrer"
+                title="Open problem to solve"
+                className={`flex min-w-0 flex-1 items-center gap-1.5 text-sm ${
+                  it.solved
+                    ? "text-slate-500 line-through"
+                    : "text-slate-100 hover:text-accent-fg"
+                }`}
+              >
+                <span className="truncate">{it.title}</span>
+                <ExternalLink className="h-3.5 w-3.5 shrink-0 text-slate-600 transition-colors group-hover:text-accent-fg" />
+              </a>
+            ) : (
+              <span
+                className={`min-w-0 flex-1 truncate text-sm ${
+                  it.solved ? "text-slate-500 line-through" : "text-slate-100"
+                }`}
+              >
+                {it.title}
+              </span>
+            )}
             <Tag
               variant="topic"
               value={it.topic}
