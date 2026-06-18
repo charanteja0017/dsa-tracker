@@ -232,7 +232,6 @@ export default function Home() {
       <Header
         weekNum={stats?.weekNum}
         daysToPhase1={stats?.daysToPhase1}
-        problems={problems}
         authed={canEdit}
         configured={configured}
         onAuthChange={setCanEdit}

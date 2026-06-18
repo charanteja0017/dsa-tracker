@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 import { ensureExamReady, FRESH_DAYS } from "@/lib/examRepo";
+import { requireAuth } from "@/lib/auth";
 import type { ExamListResponse, ExamSummary } from "@/lib/examTypes";
 import { NextResponse } from "next/server";
 
@@ -7,7 +8,9 @@ export const dynamic = "force-dynamic";
 
 // List past exams (newest first) with their solved counts, plus pool stats so
 // the start screen can show how many "fresh" (not recently used) problems remain.
-export async function GET() {
+export async function GET(req: Request) {
+  const denied = requireAuth(req);
+  if (denied) return denied;
   try {
     await ensureExamReady();
 

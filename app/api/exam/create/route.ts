@@ -7,6 +7,7 @@ import {
 } from "@/lib/examRepo";
 import { buildExam } from "@/lib/examSampling";
 import { EXAM_TOPICS } from "@/lib/examSeedData";
+import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +23,8 @@ const MAX_SIZE = 50;
 //    selection is reproducible from it given the pool snapshot. Selected
 //    problems get times_used++ / last_used_at = now() (the cooldown signal).
 export async function POST(req: Request) {
+  const denied = requireAuth(req);
+  if (denied) return denied;
   try {
     await ensureExamReady();
 

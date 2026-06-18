@@ -1,24 +1,20 @@
 import Link from "next/link";
 import { CalendarDays, GraduationCap } from "lucide-react";
-import type { Problem } from "@/lib/types";
 import { APP_TZ } from "@/lib/tz";
 import { EditLock } from "./EditLock";
 import { ShareButton } from "./ShareButton";
-import { MockTest } from "./MockTest";
 
 // Compact sticky header: title, today's date, the "Week N of 23 · X days to
-// Phase 1" pill, the mock-test launcher, share, and the edit lock control.
+// Phase 1" pill, the Exam link (only when unlocked), share, and the edit lock.
 export function Header({
   weekNum,
   daysToPhase1,
-  problems,
   authed,
   configured,
   onAuthChange,
 }: {
   weekNum?: number;
   daysToPhase1?: number;
-  problems: Problem[];
   authed: boolean;
   configured: boolean;
   onAuthChange: (authed: boolean) => void;
@@ -62,15 +58,16 @@ export function Header({
               )}
             </span>
           )}
-          <Link
-            href="/exam"
-            title="Exam mode — unseen A2Z practice"
-            className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent-fg transition duration-150 hover:bg-accent/20 active:scale-95"
-          >
-            <GraduationCap className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Exam</span>
-          </Link>
-          {problems.length > 0 && <MockTest problems={problems} />}
+          {authed && (
+            <Link
+              href="/exam"
+              title="Exam mode — unseen A2Z practice"
+              className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent-fg transition duration-150 hover:bg-accent/20 active:scale-95"
+            >
+              <GraduationCap className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">Exam</span>
+            </Link>
+          )}
           <ShareButton />
           <EditLock
             authed={authed}

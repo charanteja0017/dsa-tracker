@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, Check, Copy, Dices, ExternalLink } from "lucide-react";
+import { ArrowLeft, Check, Copy, Dices, ExternalLink, Lock } from "lucide-react";
 import type { Exam, ExamListResponse } from "@/lib/examTypes";
 import { Tag } from "@/components/Tag";
 import { Checkbox } from "@/components/Checkbox";
@@ -30,10 +30,16 @@ export default function ExamPage() {
   const [replayId, setReplayId] = useState("");
   const [copied, setCopied] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  // Exam mode is locked behind the edit password — null = checking.
+  const [authed, setAuthed] = useState<boolean | null>(null);
 
   const loadList = useCallback(async () => {
     try {
       const res = await fetch("/api/exam");
+      if (res.status === 401) {
+        setAuthed(false);
+        return;
+      }
       if (res.ok) setList((await res.json()) as ExamListResponse);
     } catch {
       /* ignore */
@@ -41,8 +47,15 @@ export default function ExamPage() {
   }, []);
 
   useEffect(() => {
-    loadList();
-  }, [loadList]);
+    fetch("/api/auth")
+      .then((r) => r.json() as Promise<{ authed: boolean }>)
+      .then((a) => setAuthed(!!a.authed))
+      .catch(() => setAuthed(false));
+  }, []);
+
+  useEffect(() => {
+    if (authed) loadList();
+  }, [authed, loadList]);
 
   // Session timer while an exam is active.
   useEffect(() => {
@@ -61,6 +74,10 @@ export default function ExamPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ size }),
       });
+      if (res.status === 401) {
+        setAuthed(false);
+        return;
+      }
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "failed to create exam");
       setCurrent(data as Exam);
@@ -77,6 +94,10 @@ export default function ExamPage() {
     setError(null);
     try {
       const res = await fetch(`/api/exam/${encodeURIComponent(id)}`);
+      if (res.status === 401) {
+        setAuthed(false);
+        return;
+      }
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "not found");
       setCurrent(data as Exam);
@@ -173,7 +194,11 @@ export default function ExamPage() {
           </div>
         )}
 
-        {!current ? (
+        {authed === null ? (
+          <div className="py-20 text-center text-sm text-slate-500">Loading…</div>
+        ) : authed === false ? (
+          <LockedView />
+        ) : !current ? (
           <StartView
             size={size}
             setSize={setSize}
@@ -204,6 +229,31 @@ export default function ExamPage() {
           />
         )}
       </main>
+    </div>
+  );
+}
+
+// ── Locked (not unlocked) ──────────────────────────────────────────────────
+function LockedView() {
+  return (
+    <div className="mx-auto mt-12 max-w-md rounded-xl border border-edge bg-panel p-8 text-center shadow-card">
+      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 text-amber-300">
+        <Lock className="h-6 w-6" />
+      </div>
+      <h2 className="text-lg font-semibold text-slate-100">
+        Exam mode is locked
+      </h2>
+      <p className="mt-1.5 text-sm text-slate-400">
+        Unlock editing on the dashboard (the lock in the header) with your
+        password, then come back to generate and take exams.
+      </p>
+      <Link
+        href="/"
+        className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-bold text-ink transition hover:brightness-110 active:scale-95"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to dashboard
+      </Link>
     </div>
   );
 }

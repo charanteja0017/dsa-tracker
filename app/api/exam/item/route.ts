@@ -1,4 +1,5 @@
 import { sql } from "@/lib/db";
+import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -6,6 +7,8 @@ export const dynamic = "force-dynamic";
 // Mark an exam item solved/unsolved. Body: { itemId, solved }. Only mutable
 // while the parent exam is still active (submitted exams are frozen).
 export async function PATCH(req: Request) {
+  const denied = requireAuth(req);
+  if (denied) return denied;
   const { itemId, solved } = (await req.json()) as {
     itemId: number;
     solved: boolean;
