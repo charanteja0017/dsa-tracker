@@ -121,6 +121,109 @@ body {
   animation: celeb-pop 0.35s ease-out;
 }
 
+/* Loading splash: checkmark draws + pulses, wordmark rises, shimmer bar, then
+   the whole overlay fades out when the dashboard is ready. */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: #0a0a0f;
+  transition: opacity 0.46s ease, transform 0.46s ease;
+}
+.splash-leaving {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+.splash-logo {
+  transform-origin: center;
+  animation: splash-pulse 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.25));
+  will-change: transform;
+}
+.splash-check {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: splash-draw 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.splash-word {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #64748b;
+  opacity: 0;
+  animation: splash-rise 0.5s 0.45s ease-out forwards;
+}
+.splash-bar {
+  position: relative;
+  width: 168px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.07);
+}
+.splash-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #22d3ee, transparent);
+  animation: splash-slide 1.15s ease-in-out infinite;
+}
+@keyframes splash-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes splash-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+@keyframes splash-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes splash-slide {
+  0% {
+    transform: translateX(-130%);
+  }
+  100% {
+    transform: translateX(330%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .splash-logo,
+  .splash-bar::after {
+    animation: none;
+  }
+  .splash-check {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .splash-word {
+    opacity: 1;
+    animation: none;
+  }
+}
+
 /* Checkbox: the tick pops in (scale + settle) when a problem is completed. */
 @keyframes check-pop {
   0% {

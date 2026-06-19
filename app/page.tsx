@@ -19,6 +19,7 @@ import { StudyPlan } from "@/components/StudyPlan";
 import { RecruiterList } from "@/components/RecruiterList";
 import { Celebration } from "@/components/Celebration";
 import { ProjectionNote } from "@/components/ProjectionNote";
+import { Splash } from "@/components/Splash";
 
 // Percent milestones → which Lottie plays when crossed (upward).
 const MILESTONE_LOTTIE: Record<number, string> = {
@@ -225,8 +226,12 @@ export default function Home() {
     );
   })();
 
+  // Initial data is in once stats + analytics resolve (load() sets all together).
+  const ready = stats !== null && analytics !== null;
+
   return (
     <>
+      <Splash done={ready} />
       {celebration && <Celebration src={celebration} />}
 
       <Header
