@@ -20,10 +20,12 @@ export function ContributionHeatmap({
   daily,
   start,
   end,
+  label = "solved",
 }: {
   daily: { date: string; count: number }[];
   start: string;
   end: string;
+  label?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(720);
@@ -116,7 +118,7 @@ export function ContributionHeatmap({
                     x: Number(props.x),
                     y: Number(props.y),
                     w: Number(props.width),
-                    label: `${data.date} · ${data.count ?? 0} solved`,
+                    label: `${data.date} · ${data.count ?? 0} ${label}`,
                   })
                 }
                 onMouseLeave={() => setTip(null)}

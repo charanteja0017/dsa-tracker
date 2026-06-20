@@ -4,17 +4,20 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
+  CalendarDays,
   Check,
   Copy,
   Dices,
   ExternalLink,
   GraduationCap,
   Lock,
+  Sparkles,
   Trash2,
 } from "lucide-react";
 import type {
   Exam,
   ExamListResponse,
+  ExamSummary,
   ExamTopicStat,
 } from "@/lib/examTypes";
 import type { Problem } from "@/lib/types";
@@ -25,12 +28,24 @@ import {
   type TopicStatus,
 } from "@/lib/topicMap";
 import { topicColor, rgba } from "@/lib/tokens";
+import { grade } from "@/lib/examScore";
+import { APP_TZ } from "@/lib/tz";
+import { celebrate } from "@/lib/celebrate";
 import { Tag } from "@/components/Tag";
 import { Checkbox } from "@/components/Checkbox";
 import { HatchedBar } from "@/components/HatchedBar";
 import { YouTubeIcon } from "@/components/YouTubeIcon";
+import { ContributionHeatmap } from "@/components/ContributionHeatmap";
 
 const SIZES = [5, 10, 15, 20];
+
+const todayInTz = () =>
+  new Intl.DateTimeFormat("en-CA", { timeZone: APP_TZ }).format(new Date());
+function addDays(day: string, n: number): string {
+  const d = new Date(`${day}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
 
 const fmtClock = (s: number) =>
   `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -183,8 +198,10 @@ export default function ExamPage() {
       );
       const data = await res.json();
       if (res.ok) {
-        setCurrent(data as Exam);
+        const exam = data as Exam;
+        setCurrent(exam);
         loadList();
+        if (exam.score > 0) celebrate(); // 🎉 score reveal
       }
     } finally {
       setBusy(false);
@@ -551,66 +568,117 @@ function StartView({
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="text-sm font-semibold text-slate-200">History</h3>
           <p className="text-xs text-slate-500">
-            Every exam is reproducible from its id.
+            {list && list.exams.length > 0
+              ? `${list.exams.length} taken · reproducible from id`
+              : "Every exam is reproducible from its id."}
           </p>
         </div>
-        <div className="mt-3 grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
+
+        {list && list.examsByDay.length > 0 && (
+          <div className="mt-4">
+            <ContributionHeatmap
+              daily={list.examsByDay}
+              start={addDays(todayInTz(), -90)}
+              end={todayInTz()}
+              label="exams"
+            />
+          </div>
+        )}
+
+        <div className="mt-4 space-y-1.5">
           {!list || list.exams.length === 0 ? (
-            <p className="col-span-full py-4 text-center text-sm text-slate-600">
+            <p className="py-6 text-center text-sm text-slate-600">
               No exams yet — start your first above.
             </p>
           ) : (
             list.exams.map((e) => (
-              <div
+              <HistoryRow
                 key={e.id}
-                className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2 transition hover:border-slate-700 hover:bg-panel2/60"
-              >
-                <button
-                  type="button"
-                  onClick={() => onOpen(e.id)}
-                  className="flex min-w-0 flex-1 items-center gap-3 text-left active:scale-[0.99]"
-                >
-                  <span className="font-mono text-xs font-semibold text-accent-fg">
-                    {e.id}
-                  </span>
-                  {e.kind === "weekly" && (
-                    <span
-                      title="Weekly exam"
-                      className="inline-flex items-center gap-0.5 rounded bg-accent/15 px-1 py-0.5 text-[10px] font-medium text-accent-fg"
-                    >
-                      <GraduationCap className="h-3 w-3" />
-                    </span>
-                  )}
-                  <span className="hidden text-xs text-slate-500 sm:inline">
-                    {fmtDate(e.createdAt)}
-                  </span>
-                  <span className="ml-auto font-mono text-xs tabular-nums text-slate-400">
-                    {e.solved}/{e.size}
-                  </span>
-                  <span
-                    className={`rounded px-1.5 py-0.5 text-[10px] font-medium ${
-                      e.status === "submitted"
-                        ? "bg-emerald-500/15 text-emerald-300"
-                        : "bg-amber-500/15 text-amber-300"
-                    }`}
-                  >
-                    {e.status === "submitted" ? "done" : "active"}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onDelete(e.id)}
-                  title="Delete exam (returns its problems to the pool)"
-                  className="shrink-0 rounded p-1 text-slate-600 transition hover:text-rose-400 active:scale-90"
-                  aria-label={`Delete ${e.id}`}
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
-              </div>
+                exam={e}
+                onOpen={onOpen}
+                onDelete={onDelete}
+              />
             ))
           )}
         </div>
       </section>
+    </div>
+  );
+}
+
+// One full-width history row: id · kind · date/time · solved · score · status.
+function HistoryRow({
+  exam: e,
+  onOpen,
+  onDelete,
+}: {
+  exam: ExamSummary;
+  onOpen: (id: string) => void;
+  onDelete: (id: string) => void;
+}) {
+  const weekly = e.kind === "weekly";
+  const pct = e.maxScore ? Math.round((e.score / e.maxScore) * 100) : 0;
+  const g = grade(pct);
+  return (
+    <div className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/40 px-4 py-2.5 transition hover:border-slate-700 hover:bg-panel2/50">
+      <button
+        type="button"
+        onClick={() => onOpen(e.id)}
+        className="flex min-w-0 flex-1 items-center gap-3 text-left active:scale-[0.99]"
+      >
+        <span className="font-mono text-sm font-semibold text-accent-fg">
+          {e.id}
+        </span>
+        <span
+          className={`inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium ${
+            weekly
+              ? "bg-accent/15 text-accent-fg"
+              : "bg-slate-500/15 text-slate-300"
+          }`}
+        >
+          {weekly ? (
+            <GraduationCap className="h-3 w-3" />
+          ) : (
+            <Dices className="h-3 w-3" />
+          )}
+          {weekly ? "Weekly" : "Random"}
+        </span>
+        <span className="hidden items-center gap-1 text-xs text-slate-500 sm:flex">
+          <CalendarDays className="h-3.5 w-3.5" />
+          {fmtDate(e.createdAt)}
+        </span>
+        <span className="ml-auto shrink-0 font-mono text-xs tabular-nums text-slate-400">
+          {e.solved}/{e.size}
+        </span>
+        {e.status === "submitted" && e.maxScore > 0 && (
+          <span
+            title={`${g.label} — ${pct}%`}
+            className={`inline-flex shrink-0 items-center gap-1 rounded-md bg-panel2 px-2 py-0.5 font-mono text-xs font-semibold tabular-nums ${g.color}`}
+          >
+            <span aria-hidden>{g.emoji}</span>
+            {e.score}
+            <span className="text-slate-600">/{e.maxScore}</span>
+          </span>
+        )}
+        <span
+          className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium ${
+            e.status === "submitted"
+              ? "bg-emerald-500/15 text-emerald-300"
+              : "bg-amber-500/15 text-amber-300"
+          }`}
+        >
+          {e.status === "submitted" ? "done" : "active"}
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={() => onDelete(e.id)}
+        title="Delete exam (returns its problems to the pool)"
+        className="shrink-0 rounded p-1 text-slate-600 transition hover:text-rose-400 active:scale-90"
+        aria-label={`Delete ${e.id}`}
+      >
+        <Trash2 className="h-3.5 w-3.5" />
+      </button>
     </div>
   );
 }
@@ -847,9 +915,10 @@ function ResultsView({
 }) {
   const solved = exam.items.filter((i) => i.solved).length;
   const unsolved = exam.items.length - solved;
-  const pct = exam.items.length
-    ? Math.round((solved / exam.items.length) * 100)
+  const scorePct = exam.maxScore
+    ? Math.round((exam.score / exam.maxScore) * 100)
     : 0;
+  const g = grade(scorePct);
 
   const byTopic = useMemo(() => {
     const m = new Map<string, { done: number; total: number }>();
@@ -885,19 +954,34 @@ function ResultsView({
         </span>
       </ExamHeader>
 
-      <div className="grid gap-4 md:grid-cols-[200px_1fr]">
-        <div className="rounded-xl border border-edge bg-panel p-5 text-center shadow-card">
-          <div className="font-display text-5xl font-black tabular-nums text-slate-50">
-            {pct}%
+      <div className="grid gap-4 md:grid-cols-[260px_1fr]">
+        <div className="relative overflow-hidden rounded-xl border border-accent/40 bg-gradient-to-br from-panel2 to-panel p-6 text-center shadow-card ring-1 ring-accent/10">
+          <div className="celeb-pop text-5xl leading-none">{g.emoji}</div>
+          <div
+            className={`mt-2 text-xs font-bold uppercase tracking-[0.18em] ${g.color}`}
+          >
+            {g.label}
           </div>
-          <div className="mt-1 text-sm text-slate-400">
-            {solved} / {exam.items.length} solved
+          <div className="mt-3 font-display text-6xl font-black leading-none tabular-nums text-slate-50">
+            {scorePct}
+            <span className="text-3xl text-slate-400">%</span>
+          </div>
+          <div className="mt-2 text-sm">
+            <span className="font-mono font-semibold text-accent-fg">
+              {exam.score}
+              <span className="text-slate-500">/{exam.maxScore} pts</span>
+            </span>
+            <span className="mx-2 text-slate-600">·</span>
+            <span className="text-slate-400">
+              {solved}/{exam.items.length} solved
+            </span>
           </div>
           <button
             type="button"
             onClick={onNew}
-            className="mt-4 w-full rounded-lg bg-accent px-4 py-2 text-sm font-bold text-ink transition hover:brightness-110 active:scale-95"
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-bold text-ink transition hover:brightness-110 active:scale-95"
           >
+            <Sparkles className="h-4 w-4" />
             New exam
           </button>
         </div>
@@ -971,6 +1055,17 @@ function ResultsView({
             <Tag variant="difficulty" value={it.difficulty} />
           </div>
         ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <button
+          type="button"
+          onClick={onNew}
+          className="inline-flex items-center gap-2 rounded-xl border border-accent/40 bg-accent/10 px-6 py-3 text-sm font-bold text-accent-fg transition duration-150 hover:bg-accent/20 active:scale-95"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to exams
+        </button>
       </div>
     </div>
   );

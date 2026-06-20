@@ -28,6 +28,8 @@ export type Exam = {
   seed: string;
   kind: ExamKind;
   topics: string[];
+  score: number; // points earned (by difficulty) for solved problems
+  maxScore: number; // points available across all problems
   items: ExamItem[];
 };
 
@@ -38,6 +40,8 @@ export type ExamSummary = {
   status: ExamStatus;
   kind: ExamKind;
   solved: number;
+  score: number;
+  maxScore: number;
 };
 
 export type ExamTopicStat = {
@@ -54,4 +58,5 @@ export type ExamListResponse = {
   writtenTotal: number;
   solvedTotal: number;
   byTopic: ExamTopicStat[];
+  examsByDay: { date: string; count: number }[]; // exams created per day
 };

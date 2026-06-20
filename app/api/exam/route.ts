@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { sql } from "@/lib/db";
+import { sql, APP_TZ } from "@/lib/db";
 import { ensureExamReady, FRESH_DAYS } from "@/lib/examRepo";
 import { TAG_EXAM, REVALIDATE_EXAM } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
@@ -16,7 +16,13 @@ const getExamList = unstable_cache(
     const exams = (await sql`
       SELECT e.id, e.created_at, e.size, e.status, e.kind,
              (SELECT COUNT(*) FROM exam_items i
-              WHERE i.exam_id = e.id AND i.solved)::int AS solved
+              WHERE i.exam_id = e.id AND i.solved)::int AS solved,
+             COALESCE((SELECT SUM(CASE p.difficulty WHEN 'EASY' THEN 1 WHEN 'MEDIUM' THEN 2 WHEN 'HARD' THEN 3 ELSE 1 END)
+                       FROM exam_items i JOIN exam_pool p ON p.external_id = i.external_id
+                       WHERE i.exam_id = e.id AND i.solved), 0)::int AS score,
+             COALESCE((SELECT SUM(CASE p.difficulty WHEN 'EASY' THEN 1 WHEN 'MEDIUM' THEN 2 WHEN 'HARD' THEN 3 ELSE 1 END)
+                       FROM exam_items i JOIN exam_pool p ON p.external_id = i.external_id
+                       WHERE i.exam_id = e.id), 0)::int AS max_score
       FROM exams e
       ORDER BY e.created_at DESC
       LIMIT 50;
@@ -27,7 +33,18 @@ const getExamList = unstable_cache(
       status: ExamSummary["status"];
       kind: string;
       solved: number;
+      score: number;
+      max_score: number;
     }[];
+
+    // Exams created per local-timezone day (heatmap of how often you test).
+    const examsByDay = (await sql`
+      SELECT to_char((created_at AT TIME ZONE ${APP_TZ})::date, 'YYYY-MM-DD') AS date,
+             COUNT(*)::int AS count
+      FROM exams
+      GROUP BY 1
+      ORDER BY 1;
+    `) as { date: string; count: number }[];
 
     const [{ fresh }] = (await sql`
       SELECT COUNT(*)::int AS fresh FROM exam_pool
@@ -60,12 +77,15 @@ const getExamList = unstable_cache(
         status: e.status,
         kind: e.kind === "weekly" ? "weekly" : "standard",
         solved: e.solved,
+        score: e.score,
+        maxScore: e.max_score,
       })),
       poolTotal,
       poolFresh: fresh,
       writtenTotal,
       solvedTotal,
       byTopic,
+      examsByDay,
     };
   },
   ["exam-list"],

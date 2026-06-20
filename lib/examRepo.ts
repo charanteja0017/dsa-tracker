@@ -1,5 +1,6 @@
 import { sql, initExamSchema } from "./db";
 import { EXAM_PROBLEMS } from "./examSeedData";
+import { pointsFor } from "./examScore";
 import type { PoolItem } from "./examSampling";
 import type { Exam, ExamItem, ExamStatus } from "./examTypes";
 
@@ -187,6 +188,12 @@ export async function readExam(id: string): Promise<Exam | null> {
     article: r.article,
   }));
 
+  const score = items.reduce(
+    (s, it) => s + (it.solved ? pointsFor(it.difficulty) : 0),
+    0
+  );
+  const maxScore = items.reduce((s, it) => s + pointsFor(it.difficulty), 0);
+
   return {
     id: e.id,
     createdAt: toIso(e.created_at) ?? new Date().toISOString(),
@@ -195,6 +202,8 @@ export async function readExam(id: string): Promise<Exam | null> {
     seed: e.seed,
     kind: e.kind === "weekly" ? "weekly" : "standard",
     topics: e.topics ?? [],
+    score,
+    maxScore,
     items,
   };
 }
