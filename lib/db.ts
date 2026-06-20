@@ -88,9 +88,14 @@ export async function initExamSchema() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
       size       INT NOT NULL,
       status     TEXT NOT NULL DEFAULT 'active',
-      seed       TEXT NOT NULL
+      seed       TEXT NOT NULL,
+      kind       TEXT NOT NULL DEFAULT 'standard',
+      topics     TEXT[] NOT NULL DEFAULT '{}'
     );
   `;
+  // Migrate exam tables that predate the weekly-exam columns.
+  await sql`ALTER TABLE exams ADD COLUMN IF NOT EXISTS kind TEXT NOT NULL DEFAULT 'standard';`;
+  await sql`ALTER TABLE exams ADD COLUMN IF NOT EXISTS topics TEXT[] NOT NULL DEFAULT '{}';`;
   await sql`
     CREATE TABLE IF NOT EXISTS exam_items (
       id          SERIAL PRIMARY KEY,

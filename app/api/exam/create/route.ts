@@ -7,6 +7,12 @@ import {
 } from "@/lib/examRepo";
 import { buildExam } from "@/lib/examSampling";
 import { EXAM_TOPICS } from "@/lib/examSeedData";
+import {
+  completedPatterns,
+  coveredTopics,
+  openTopics,
+  problemUnlocked,
+} from "@/lib/topicMap";
 import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
@@ -16,12 +22,12 @@ const MIN_SIZE = 1;
 const MAX_SIZE = 50;
 
 // Create a new exam (or replay an existing one).
-// Body: { size?: number, examId?: string }
-//  - examId of an EXISTING exam → returns it unchanged (deterministic replay;
-//    no re-roll, no extra cooldown).
-//  - otherwise generate a fresh exam: a readable id is the RNG seed, so the
-//    selection is reproducible from it given the pool snapshot. Selected
-//    problems get times_used++ / last_used_at = now() (the cooldown signal).
+// Body: { size?: number, examId?: string, kind?: "standard" | "weekly" }
+//  - examId of an EXISTING exam → returns it unchanged (deterministic replay).
+//  - kind: "weekly" → restrict the candidate pool to problems whose topic is
+//    UNLOCKED by the study plan (topic + its prerequisites all completed).
+//  - otherwise generate a fresh standard exam from the whole pool.
+// Selected problems get times_used++ / last_used_at = now() (the cooldown signal).
 export async function POST(req: Request) {
   const denied = requireAuth(req);
   if (denied) return denied;
@@ -31,6 +37,7 @@ export async function POST(req: Request) {
     const body = (await req.json().catch(() => ({}))) as {
       size?: number;
       examId?: string;
+      kind?: "standard" | "weekly";
     };
 
     // Replay path: a known id just returns the stored exam.
@@ -43,6 +50,37 @@ export async function POST(req: Request) {
       MIN_SIZE,
       Math.min(MAX_SIZE, Math.floor(body.size ?? 10))
     );
+    const weekly = body.kind === "weekly";
+
+    // Candidate pool. For a weekly exam, keep only problems whose A2Z topic is
+    // unlocked by the completed study-plan patterns (+ any override topics).
+    let pool = await poolForSampling();
+    let unlocked: string[] = [];
+    if (weekly) {
+      const rows = (await sql`
+        SELECT pattern, done FROM problems;
+      `) as { pattern: string; done: boolean }[];
+      const completed = completedPatterns(rows);
+      const covered = coveredTopics(completed);
+      const open = openTopics(completed);
+      unlocked = [...open];
+      if (open.size === 0) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error: "No topics unlocked yet — finish a topic in the study plan first.",
+          },
+          { status: 400 }
+        );
+      }
+      pool = pool.filter((p) => problemUnlocked(p.title, p.topic, covered, open));
+      if (pool.length === 0) {
+        return NextResponse.json(
+          { ok: false, error: "No fresh questions in your unlocked topics." },
+          { status: 400 }
+        );
+      }
+    }
 
     // Allocate a unique id (this string seeds the PRNG).
     let id = body.examId ?? genExamId();
@@ -54,7 +92,6 @@ export async function POST(req: Request) {
       id = genExamId();
     }
 
-    const pool = await poolForSampling();
     const nowMs = Date.now();
     const ids = buildExam(pool, size, id, nowMs, EXAM_TOPICS);
     if (ids.length === 0) {
@@ -65,8 +102,9 @@ export async function POST(req: Request) {
     }
 
     await sql`
-      INSERT INTO exams (id, size, status, seed)
-      VALUES (${id}, ${ids.length}, 'active', ${id});
+      INSERT INTO exams (id, size, status, seed, kind, topics)
+      VALUES (${id}, ${ids.length}, 'active', ${id},
+              ${weekly ? "weekly" : "standard"}, ${unlocked});
     `;
     for (let i = 0; i < ids.length; i++) {
       await sql`

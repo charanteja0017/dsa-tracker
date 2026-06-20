@@ -15,7 +15,7 @@ export async function GET(req: Request) {
     await ensureExamReady();
 
     const exams = (await sql`
-      SELECT e.id, e.created_at, e.size, e.status,
+      SELECT e.id, e.created_at, e.size, e.status, e.kind,
              (SELECT COUNT(*) FROM exam_items i
               WHERE i.exam_id = e.id AND i.solved)::int AS solved
       FROM exams e
@@ -26,6 +26,7 @@ export async function GET(req: Request) {
       created_at: unknown;
       size: number;
       status: ExamSummary["status"];
+      kind: string;
       solved: number;
     }[];
 
@@ -44,6 +45,7 @@ export async function GET(req: Request) {
         createdAt: new Date(e.created_at as string).toISOString(),
         size: e.size,
         status: e.status,
+        kind: e.kind === "weekly" ? "weekly" : "standard",
         solved: e.solved,
       })),
       poolTotal: total,

@@ -8,10 +8,17 @@ import {
   Copy,
   Dices,
   ExternalLink,
+  GraduationCap,
   Lock,
   Trash2,
 } from "lucide-react";
 import type { Exam, ExamListResponse } from "@/lib/examTypes";
+import type { Problem } from "@/lib/types";
+import {
+  completedPatterns,
+  topicStatuses,
+  type TopicStatus,
+} from "@/lib/topicMap";
 import { Tag } from "@/components/Tag";
 import { Checkbox } from "@/components/Checkbox";
 import { YouTubeIcon } from "@/components/YouTubeIcon";
@@ -39,8 +46,17 @@ export default function ExamPage() {
   const [copied, setCopied] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [notice, setNotice] = useState<string | null>(null);
+  const [study, setStudy] = useState<Problem[] | null>(null);
   // Exam mode is locked behind the edit password — null = checking.
   const [authed, setAuthed] = useState<boolean | null>(null);
+
+  // Which A2Z topics are unlocked by the completed study-plan patterns.
+  const statuses = useMemo(() => {
+    const rows = (study ?? []).map((p) => ({ pattern: p.pattern, done: p.done }));
+    return topicStatuses(completedPatterns(rows));
+  }, [study]);
+  const unlockedTopics = statuses.filter((s) => s.open);
+  const lockedTopics = statuses.filter((s) => !s.open);
 
   const loadList = useCallback(async () => {
     try {
@@ -63,7 +79,12 @@ export default function ExamPage() {
   }, []);
 
   useEffect(() => {
-    if (authed) loadList();
+    if (!authed) return;
+    loadList();
+    fetch("/api/problems")
+      .then((r) => (r.ok ? (r.json() as Promise<Problem[]>) : []))
+      .then(setStudy)
+      .catch(() => setStudy([]));
   }, [authed, loadList]);
 
   // Session timer while an exam is active.
@@ -74,29 +95,34 @@ export default function ExamPage() {
     return () => clearInterval(id);
   }, [current?.id, current?.status]);
 
-  const createExam = useCallback(async () => {
-    setBusy(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/exam/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ size }),
-      });
-      if (res.status === 401) {
-        setAuthed(false);
-        return;
+  const create = useCallback(
+    async (kind: "standard" | "weekly") => {
+      setBusy(true);
+      setError(null);
+      try {
+        const res = await fetch("/api/exam/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ size, kind }),
+        });
+        if (res.status === 401) {
+          setAuthed(false);
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error ?? "failed to create exam");
+        setCurrent(data as Exam);
+        loadList();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "failed");
+      } finally {
+        setBusy(false);
       }
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "failed to create exam");
-      setCurrent(data as Exam);
-      loadList();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "failed");
-    } finally {
-      setBusy(false);
-    }
-  }, [size, loadList]);
+    },
+    [size, loadList]
+  );
+  const createExam = useCallback(() => create("standard"), [create]);
+  const createWeekly = useCallback(() => create("weekly"), [create]);
 
   const openExam = useCallback(async (id: string) => {
     setBusy(true);
@@ -265,6 +291,9 @@ export default function ExamPage() {
             setSize={setSize}
             busy={busy}
             onStart={createExam}
+            onStartWeekly={createWeekly}
+            unlockedTopics={unlockedTopics}
+            lockedTopics={lockedTopics}
             list={list}
             replayId={replayId}
             setReplayId={setReplayId}
@@ -329,6 +358,9 @@ function StartView({
   setSize,
   busy,
   onStart,
+  onStartWeekly,
+  unlockedTopics,
+  lockedTopics,
   list,
   replayId,
   setReplayId,
@@ -339,19 +371,78 @@ function StartView({
   setSize: (n: number) => void;
   busy: boolean;
   onStart: () => void;
+  onStartWeekly: () => void;
+  unlockedTopics: TopicStatus[];
+  lockedTopics: TopicStatus[];
   list: ExamListResponse | null;
   replayId: string;
   setReplayId: (s: string) => void;
   onOpen: (id: string) => void;
   onDelete: (id: string) => void;
 }) {
+  // study patterns to finish next to unlock more topics
+  const nextNeeds = [...new Set(lockedTopics.flatMap((t) => t.needs))].slice(0, 6);
+
   return (
     <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
+      <div className="space-y-5">
       <section className="rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
-        <h2 className="text-xl font-semibold text-slate-100">New exam</h2>
+        <div className="flex items-center gap-2">
+          <GraduationCap className="h-5 w-5 text-accent-fg" />
+          <h2 className="text-xl font-semibold text-slate-100">Weekly exam</h2>
+        </div>
         <p className="mt-1 text-sm text-slate-400">
-          A fresh, weighted, topic-balanced set drawn from the 327-question A2Z
-          bank. Solutions stay hidden until you submit.
+          Tested only on topics you&apos;ve finished — Striver problems for the
+          LeetCode tags you&apos;ve completed. A topic opens once it and its
+          prerequisites are done.
+        </p>
+
+        {unlockedTopics.length > 0 ? (
+          <>
+            <div className="mt-4 text-xs font-semibold uppercase tracking-wide text-emerald-300">
+              Unlocked ({unlockedTopics.length})
+            </div>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {unlockedTopics.map((t) => (
+                <Tag key={t.topic} variant="topic" value={t.topic} />
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={onStartWeekly}
+              disabled={busy}
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
+            >
+              <GraduationCap className="h-4 w-4" />
+              {busy ? "Generating…" : `Start weekly exam (${size})`}
+            </button>
+          </>
+        ) : (
+          <div className="mt-4 rounded-lg border border-dashed border-edge bg-panel/50 p-3 text-sm text-slate-400">
+            No topics unlocked yet — finish a topic in the{" "}
+            <Link href="/" className="text-accent-fg hover:underline">
+              study plan
+            </Link>{" "}
+            to unlock its exam.
+          </div>
+        )}
+
+        {lockedTopics.length > 0 && (
+          <p className="mt-3 text-xs text-slate-500">
+            <Lock className="mr-1 inline h-3 w-3" />
+            {lockedTopics.length} locked
+            {nextNeeds.length > 0 && (
+              <> · finish next: {nextNeeds.join(", ")}</>
+            )}
+          </p>
+        )}
+      </section>
+
+      <section className="rounded-xl border border-edge bg-panel p-6 shadow-card">
+        <h2 className="text-xl font-semibold text-slate-100">Random exam</h2>
+        <p className="mt-1 text-sm text-slate-400">
+          A fresh, weighted, topic-balanced set drawn from the whole 327-question
+          A2Z bank. Solutions stay hidden until you submit.
         </p>
 
         <div className="mt-5 text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -414,6 +505,7 @@ function StartView({
           </div>
         </div>
       </section>
+      </div>
 
       <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
         <h3 className="text-sm font-semibold text-slate-200">History</h3>
@@ -439,6 +531,14 @@ function StartView({
                   <span className="font-mono text-xs font-semibold text-accent-fg">
                     {e.id}
                   </span>
+                  {e.kind === "weekly" && (
+                    <span
+                      title="Weekly exam"
+                      className="inline-flex items-center gap-0.5 rounded bg-accent/15 px-1 py-0.5 text-[10px] font-medium text-accent-fg"
+                    >
+                      <GraduationCap className="h-3 w-3" />
+                    </span>
+                  )}
                   <span className="hidden text-xs text-slate-500 sm:inline">
                     {fmtDate(e.createdAt)}
                   </span>
@@ -762,6 +862,12 @@ function ExamHeader({
         )}
       </button>
       <span className="text-xs text-slate-500">{exam.size} questions</span>
+      {exam.kind === "weekly" && (
+        <span className="inline-flex items-center gap-1 rounded-md bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent-fg">
+          <GraduationCap className="h-3.5 w-3.5" />
+          Weekly
+        </span>
+      )}
       <div className="ml-auto flex items-center gap-3">
         {children}
         <button

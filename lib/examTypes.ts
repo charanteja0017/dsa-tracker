@@ -2,6 +2,7 @@
 // from the study-plan types so exam mode stays isolated.
 
 export type ExamStatus = "active" | "submitted";
+export type ExamKind = "standard" | "weekly";
 
 export type ExamItem = {
   itemId: number;
@@ -25,6 +26,8 @@ export type Exam = {
   size: number;
   status: ExamStatus;
   seed: string;
+  kind: ExamKind;
+  topics: string[];
   items: ExamItem[];
 };
 
@@ -33,6 +36,7 @@ export type ExamSummary = {
   createdAt: string;
   size: number;
   status: ExamStatus;
+  kind: ExamKind;
   solved: number;
 };
 

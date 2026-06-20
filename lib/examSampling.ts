@@ -30,6 +30,7 @@ export function rngFromSeed(seed: string): () => number {
 // ── Cooldown-modulated effective weight ────────────────────────────────────
 export type PoolItem = {
   externalId: number;
+  title: string;
   topic: string;
   weight: number; // base: 3 most-asked, 1 standard
   timesUsed: number;

@@ -109,9 +109,10 @@ export async function recomputeCooldown(
 
 export async function poolForSampling(): Promise<PoolItem[]> {
   const rows = (await sql`
-    SELECT external_id, topic, weight, times_used, last_used_at FROM exam_pool;
+    SELECT external_id, title, topic, weight, times_used, last_used_at FROM exam_pool;
   `) as {
     external_id: number;
+    title: string;
     topic: string;
     weight: number;
     times_used: number;
@@ -119,6 +120,7 @@ export async function poolForSampling(): Promise<PoolItem[]> {
   }[];
   return rows.map((r) => ({
     externalId: r.external_id,
+    title: r.title,
     topic: r.topic,
     weight: r.weight,
     timesUsed: r.times_used,
@@ -130,13 +132,15 @@ export async function poolForSampling(): Promise<PoolItem[]> {
 // active (anti-peek); revealed once submitted.
 export async function readExam(id: string): Promise<Exam | null> {
   const examRows = (await sql`
-    SELECT id, created_at, size, status, seed FROM exams WHERE id = ${id};
+    SELECT id, created_at, size, status, seed, kind, topics FROM exams WHERE id = ${id};
   `) as {
     id: string;
     created_at: unknown;
     size: number;
     status: ExamStatus;
     seed: string;
+    kind: string;
+    topics: string[] | null;
   }[];
   if (examRows.length === 0) return null;
   const e = examRows[0];
@@ -184,6 +188,8 @@ export async function readExam(id: string): Promise<Exam | null> {
     size: e.size,
     status: e.status,
     seed: e.seed,
+    kind: e.kind === "weekly" ? "weekly" : "standard",
+    topics: e.topics ?? [],
     items,
   };
 }
