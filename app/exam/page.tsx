@@ -392,9 +392,13 @@ function StartView({
 
   return (
     <div className="space-y-5">
-      {list && <ExamProgressHero list={list} />}
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
+      {list && (
+        <div className="md:col-span-2 xl:col-start-1 xl:row-start-1">
+          <ExamProgressHero list={list} />
+        </div>
+      )}
+      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10 xl:col-start-1 xl:row-start-2">
         <div className="flex items-center gap-2">
           <GraduationCap className="h-5 w-5 text-accent-fg" />
           <h2 className="text-xl font-semibold text-slate-100">Weekly exam</h2>
@@ -453,7 +457,7 @@ function StartView({
         )}
       </section>
 
-      <section className="flex flex-col rounded-xl border border-edge bg-panel p-6 shadow-card">
+      <section className="flex flex-col rounded-xl border border-edge bg-panel p-6 shadow-card xl:col-start-2 xl:row-start-2">
         <h2 className="text-xl font-semibold text-slate-100">Random exam</h2>
         <p className="mt-1 text-sm text-slate-400">
           A fresh, weighted, topic-balanced set drawn from the whole 327-question
@@ -521,14 +525,23 @@ function StartView({
         </div>
       </section>
 
-      <section className="flex flex-col rounded-xl border border-edge bg-panel p-5 shadow-card">
-        <h3 className="text-sm font-semibold text-slate-200">History</h3>
-        <p className="mt-0.5 text-xs text-slate-500">
-          Every exam is reproducible from its id.
-        </p>
-        <div className="mt-3 flex flex-1 flex-col space-y-1.5">
+      {list && list.byTopic.length > 0 && (
+        <div className="md:col-span-2 xl:col-span-1 xl:col-start-3 xl:row-start-1 xl:row-span-2">
+          <ByTopicStats byTopic={list.byTopic} />
+        </div>
+      )}
+      </div>
+
+      <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="text-sm font-semibold text-slate-200">History</h3>
+          <p className="text-xs text-slate-500">
+            Every exam is reproducible from its id.
+          </p>
+        </div>
+        <div className="mt-3 grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
           {!list || list.exams.length === 0 ? (
-            <p className="my-auto py-6 text-center text-sm text-slate-600">
+            <p className="col-span-full py-4 text-center text-sm text-slate-600">
               No exams yet — start your first above.
             </p>
           ) : (
@@ -583,10 +596,6 @@ function StartView({
           )}
         </div>
       </section>
-      </div>
-      {list && list.byTopic.length > 0 && (
-        <ByTopicStats byTopic={list.byTopic} />
-      )}
     </div>
   );
 }
@@ -642,7 +651,7 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
     (a, b) => (order.get(a.topic) ?? 99) - (order.get(b.topic) ?? 99)
   );
   return (
-    <section className="rounded-xl border border-edge bg-panel shadow-card">
+    <section className="h-full rounded-xl border border-edge bg-panel shadow-card">
       <div className="flex items-center justify-between border-b border-edge px-4 py-2.5">
         <h3 className="text-sm font-semibold text-slate-200">
           By topic · written &amp; solved
@@ -656,7 +665,7 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
           </span>
         </div>
       </div>
-      <div className="columns-1 gap-x-10 p-4 md:columns-2 xl:columns-3">
+      <div className="columns-1 gap-x-10 p-4 md:columns-2 xl:columns-1">
         {rows.map((t) => {
           const c = topicColor(t.topic);
           const wr = t.total ? (t.written / t.total) * 100 : 0;
