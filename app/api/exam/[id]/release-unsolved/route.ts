@@ -1,5 +1,7 @@
+import { revalidateTag } from "next/cache";
 import { sql } from "@/lib/db";
 import { recomputeCooldown } from "@/lib/examRepo";
+import { TAG_EXAM } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
@@ -23,5 +25,6 @@ export async function POST(
 
   await recomputeCooldown(ids, id); // free them as if this exam hadn't used them
 
+  revalidateTag(TAG_EXAM);
   return NextResponse.json({ ok: true, released: ids.length });
 }

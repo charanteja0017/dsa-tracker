@@ -66,13 +66,18 @@ export async function seedExamPool(): Promise<void> {
 }
 
 // Make sure the exam tables exist and the pool is populated (auto-seed on first
-// use so exam mode works without a manual /api/exam/init step).
-export async function ensureExamReady(): Promise<void> {
-  await initExamSchema();
-  const [{ count }] = (await sql`
-    SELECT COUNT(*)::int AS count FROM exam_pool;
-  `) as { count: number }[];
-  if (count === 0) await seedExamPool();
+// use so exam mode works without a manual /api/exam/init step). Memoized per
+// serverless instance so it runs once, not on every request.
+let examReady: Promise<void> | null = null;
+export function ensureExamReady(): Promise<void> {
+  examReady ??= (async () => {
+    await initExamSchema();
+    const [{ count }] = (await sql`
+      SELECT COUNT(*)::int AS count FROM exam_pool;
+    `) as { count: number }[];
+    if (count === 0) await seedExamPool();
+  })();
+  return examReady;
 }
 
 // Recompute cooldown bookkeeping (times_used + last_used_at) for the given

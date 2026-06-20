@@ -5,8 +5,10 @@ import {
   poolForSampling,
   readExam,
 } from "@/lib/examRepo";
+import { revalidateTag } from "next/cache";
 import { buildExam } from "@/lib/examSampling";
 import { EXAM_TOPICS } from "@/lib/examSeedData";
+import { TAG_EXAM } from "@/lib/cache";
 import {
   completedPatterns,
   coveredTopics,
@@ -119,6 +121,7 @@ export async function POST(req: Request) {
       WHERE external_id = ANY(${ids});
     `;
 
+    revalidateTag(TAG_EXAM);
     const exam = await readExam(id);
     return NextResponse.json(exam, { status: 201 });
   } catch (e) {

@@ -1,11 +1,15 @@
+import { unstable_cache } from "next/cache";
 import { sql, PLAN, APP_TZ } from "@/lib/db";
+import { TAG_PROBLEMS, REVALIDATE_PROBLEMS } from "@/lib/cache";
 import { NextResponse } from "next/server";
 
 // Hits the database, so it must never be prerendered/executed at build time.
 export const dynamic = "force-dynamic";
 
-// Aggregated series for the dashboard, all derived from problems.done_at.
-export async function GET() {
+// Aggregated series for the dashboard, all derived from problems.done_at. Cached
+// (these only change when a problem is toggled, which invalidates "problems").
+const getAnalytics = unstable_cache(
+  async () => {
   const [{ total }] = await sql`SELECT COUNT(*)::int AS total FROM problems;`;
 
   // Per-day completion counts (local-timezone calendar day).
@@ -48,7 +52,7 @@ export async function GET() {
     GROUP BY difficulty;
   `;
 
-  return NextResponse.json({
+  return {
     range: { start: PLAN.startDate, phase1: PLAN.phase1Date, total },
     daily,
     cumulative: cumulative.map((c) => ({
@@ -57,5 +61,12 @@ export async function GET() {
     })),
     byPattern,
     byDifficulty,
-  });
+  };
+  },
+  ["analytics"],
+  { tags: [TAG_PROBLEMS], revalidate: REVALIDATE_PROBLEMS }
+);
+
+export async function GET() {
+  return NextResponse.json(await getAnalytics());
 }

@@ -1,6 +1,8 @@
+import { revalidateTag } from "next/cache";
 import { sql, initSchema } from "@/lib/db";
 import { SEED_PROBLEMS } from "@/lib/seedData";
 import { SEED_RECRUITERS } from "@/lib/recruiterData";
+import { TAG_PROBLEMS, TAG_RECRUITERS } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
@@ -54,6 +56,8 @@ export async function GET(req: Request) {
 
     const [{ count }] = await sql`SELECT COUNT(*)::int AS count FROM problems;`;
     const [{ rcount }] = await sql`SELECT COUNT(*)::int AS rcount FROM recruiters;`;
+    revalidateTag(TAG_PROBLEMS);
+    revalidateTag(TAG_RECRUITERS);
     return NextResponse.json({ ok: true, problems: count, recruiters: rcount });
   } catch (e) {
     const message = e instanceof Error ? e.message : "unknown error";

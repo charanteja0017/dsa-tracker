@@ -1,5 +1,7 @@
+import { revalidateTag } from "next/cache";
 import { sql } from "@/lib/db";
 import { readExam, recomputeCooldown } from "@/lib/examRepo";
+import { TAG_EXAM } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
@@ -39,5 +41,6 @@ export async function DELETE(
   await sql`DELETE FROM exams WHERE id = ${id};`; // CASCADE removes its items
   await recomputeCooldown(ids); // exam is gone → count from whatever remains
 
+  revalidateTag(TAG_EXAM);
   return NextResponse.json({ ok: true, returned: ids.length });
 }

@@ -1,5 +1,7 @@
+import { unstable_cache } from "next/cache";
 import { sql } from "@/lib/db";
 import { ensureExamReady, FRESH_DAYS } from "@/lib/examRepo";
+import { TAG_EXAM, REVALIDATE_EXAM } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
 import type { ExamListResponse, ExamSummary } from "@/lib/examTypes";
 import { NextResponse } from "next/server";
@@ -8,12 +10,9 @@ export const dynamic = "force-dynamic";
 
 // List past exams (newest first) with their solved counts, plus pool stats so
 // the start screen can show how many "fresh" (not recently used) problems remain.
-export async function GET(req: Request) {
-  const denied = requireAuth(req);
-  if (denied) return denied;
-  try {
-    await ensureExamReady();
-
+// Cached; every exam mutation calls revalidateTag("exam").
+const getExamList = unstable_cache(
+  async (): Promise<ExamListResponse> => {
     const exams = (await sql`
       SELECT e.id, e.created_at, e.size, e.status, e.kind,
              (SELECT COUNT(*) FROM exam_items i
@@ -53,7 +52,7 @@ export async function GET(req: Request) {
     const writtenTotal = byTopic.reduce((s, t) => s + t.written, 0);
     const solvedTotal = byTopic.reduce((s, t) => s + t.solved, 0);
 
-    const body: ExamListResponse = {
+    return {
       exams: exams.map((e) => ({
         id: e.id,
         createdAt: new Date(e.created_at as string).toISOString(),
@@ -68,7 +67,17 @@ export async function GET(req: Request) {
       solvedTotal,
       byTopic,
     };
-    return NextResponse.json(body);
+  },
+  ["exam-list"],
+  { tags: [TAG_EXAM], revalidate: REVALIDATE_EXAM }
+);
+
+export async function GET(req: Request) {
+  const denied = requireAuth(req);
+  if (denied) return denied;
+  try {
+    await ensureExamReady();
+    return NextResponse.json(await getExamList());
   } catch (e) {
     const message = e instanceof Error ? e.message : "unknown error";
     return NextResponse.json({ ok: false, error: message }, { status: 500 });

@@ -1,4 +1,6 @@
+import { revalidateTag } from "next/cache";
 import { sql, initExamSchema } from "@/lib/db";
+import { TAG_EXAM } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
@@ -30,5 +32,6 @@ export async function POST(req: Request) {
   if (body.resetCooldown === true) {
     await sql`UPDATE exam_pool SET times_used = 0, last_used_at = NULL;`;
   }
+  revalidateTag(TAG_EXAM);
   return NextResponse.json({ ok: true, resetCooldown: body.resetCooldown === true });
 }

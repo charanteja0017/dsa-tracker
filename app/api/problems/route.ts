@@ -1,15 +1,23 @@
+import { unstable_cache, revalidateTag } from "next/cache";
 import { sql, ensureColumns } from "@/lib/db";
+import { TAG_PROBLEMS, REVALIDATE_PROBLEMS } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
+const getProblems = unstable_cache(
+  async () =>
+    sql`
+      SELECT id, title, companies, difficulty, pattern, week, link, youtube, done, starred
+      FROM problems
+      ORDER BY week ASC, companies DESC, title ASC;
+    `,
+  ["problems-list"],
+  { tags: [TAG_PROBLEMS], revalidate: REVALIDATE_PROBLEMS }
+);
+
 export async function GET() {
   await ensureColumns();
-  const rows = await sql`
-    SELECT id, title, companies, difficulty, pattern, week, link, youtube, done, starred
-    FROM problems
-    ORDER BY week ASC, companies DESC, title ASC;
-  `;
-  return NextResponse.json(rows);
+  return NextResponse.json(await getProblems());
 }
 
 // Update a problem. Body: { id, done?, starred? } — `done` toggles completion
@@ -31,5 +39,6 @@ export async function PATCH(req: Request) {
   if (typeof starred === "boolean") {
     await sql`UPDATE problems SET starred = ${starred} WHERE id = ${id};`;
   }
+  revalidateTag(TAG_PROBLEMS); // stats / analytics / list recompute on next read
   return NextResponse.json({ ok: true });
 }

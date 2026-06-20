@@ -1,4 +1,6 @@
+import { revalidateTag } from "next/cache";
 import { sql } from "@/lib/db";
+import { TAG_EXAM } from "@/lib/cache";
 import { requireAuth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
@@ -25,5 +27,6 @@ export async function PATCH(req: Request) {
     WHERE id = ${itemId}
       AND exam_id IN (SELECT id FROM exams WHERE status = 'active');
   `;
+  revalidateTag(TAG_EXAM);
   return NextResponse.json({ ok: true });
 }
