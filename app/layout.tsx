@@ -1,6 +1,7 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Archivo } from "next/font/google";
+import { PwaRegister } from "@/components/PwaRegister";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -30,6 +31,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "CDSA",
   description: "23-week DSA placement prep tracker",
+  applicationName: "DSA Tracker",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "DSA Tracker",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "CDSA — DSA Placement Tracker",
     description:
@@ -37,6 +49,13 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0f",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -51,6 +70,7 @@ export default function RootLayout({
     >
       <body className="bg-ink text-slate-200 font-sans antialiased">
         {children}
+        <PwaRegister />
       </body>
     </html>
   );

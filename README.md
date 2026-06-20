@@ -85,6 +85,28 @@ GitHub whenever you want the latest.
 
 ---
 
+## 📱 Install it as an app
+
+The dashboard is a **PWA**, so it installs straight from the browser — no Play Store needed:
+
+- **Android (Chrome):** open your deployed URL → **⋮ menu → Install app** (or "Add to Home
+  screen"). It launches full-screen with its own icon, like a native app.
+- **iOS (Safari):** **Share → Add to Home Screen**.
+
+Want a real **`.apk` / `.aab`** (e.g. to sideload or put on the Play Store)? Wrap the PWA as
+a [Trusted Web Activity](https://developer.chrome.com/docs/android/trusted-web-activity):
+
+1. Go to [pwabuilder.com](https://www.pwabuilder.com), enter your deployed URL, and download
+   the **Android** package — it generates a signed APK/AAB from the manifest. (Or use
+   Google's [Bubblewrap](https://github.com/GoogleChromeLabs/bubblewrap) CLI.)
+2. To make it open chrome-less (no URL bar), host the verification file PWABuilder gives you
+   at `/.well-known/assetlinks.json` (drop it in `public/.well-known/`) and redeploy.
+
+The wrapped app is a thin shell around your live site, so the auto-sync updates flow through
+to it too.
+
+---
+
 ## 🧭 Using it day to day
 - **Unlock once** (🔒 in the header) — the cookie keeps you unlocked for ~30 days.
 - **Tick a problem** the moment you solve it on LeetCode. The streak, heatmap, pace, and
