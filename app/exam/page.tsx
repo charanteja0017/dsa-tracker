@@ -393,8 +393,8 @@ function StartView({
   return (
     <div className="space-y-5">
       {list && <ExamProgressHero list={list} />}
-      <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
-      <section className="rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
         <div className="flex items-center gap-2">
           <GraduationCap className="h-5 w-5 text-accent-fg" />
           <h2 className="text-xl font-semibold text-slate-100">Weekly exam</h2>
@@ -436,17 +436,24 @@ function StartView({
         )}
 
         {lockedTopics.length > 0 && (
-          <p className="mt-3 text-xs text-slate-500">
-            <Lock className="mr-1 inline h-3 w-3" />
-            {lockedTopics.length} locked
+          <div className="mt-auto pt-5">
+            <div className="flex items-center gap-1.5 text-xs text-slate-500">
+              <Lock className="h-3 w-3" />
+              {lockedTopics.length} locked
+              {nextNeeds.length > 0 && " · finish next"}
+            </div>
             {nextNeeds.length > 0 && (
-              <> · finish next: {nextNeeds.join(", ")}</>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {nextNeeds.map((p) => (
+                  <Tag key={p} variant="topic" value={p} />
+                ))}
+              </div>
             )}
-          </p>
+          </div>
         )}
       </section>
 
-      <section className="rounded-xl border border-edge bg-panel p-6 shadow-card">
+      <section className="flex flex-col rounded-xl border border-edge bg-panel p-6 shadow-card">
         <h2 className="text-xl font-semibold text-slate-100">Random exam</h2>
         <p className="mt-1 text-sm text-slate-400">
           A fresh, weighted, topic-balanced set drawn from the whole 327-question
@@ -492,7 +499,7 @@ function StartView({
           {busy ? "Generating…" : "Start exam"}
         </button>
 
-        <div className="mt-6 border-t border-edge pt-4">
+        <div className="mt-auto border-t border-edge pt-4">
           <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
             Replay by id
           </div>
@@ -514,14 +521,14 @@ function StartView({
         </div>
       </section>
 
-      <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
+      <section className="flex flex-col rounded-xl border border-edge bg-panel p-5 shadow-card">
         <h3 className="text-sm font-semibold text-slate-200">History</h3>
         <p className="mt-0.5 text-xs text-slate-500">
           Every exam is reproducible from its id.
         </p>
-        <div className="mt-3 space-y-1.5">
+        <div className="mt-3 flex flex-1 flex-col space-y-1.5">
           {!list || list.exams.length === 0 ? (
-            <p className="py-6 text-center text-sm text-slate-600">
+            <p className="my-auto py-6 text-center text-sm text-slate-600">
               No exams yet — start your first above.
             </p>
           ) : (
