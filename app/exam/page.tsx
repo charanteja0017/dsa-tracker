@@ -389,6 +389,9 @@ function StartView({
 }) {
   // study patterns to finish next to unlock more topics
   const nextNeeds = [...new Set(lockedTopics.flatMap((t) => t.needs))].slice(0, 6);
+  const [mode, setMode] = useState<"weekly" | "random">("weekly");
+  const weekly = mode === "weekly";
+  const canStartWeekly = unlockedTopics.length > 0;
 
   return (
     <div className="space-y-5">
@@ -398,70 +401,34 @@ function StartView({
           <ExamProgressHero list={list} />
         </div>
       )}
-      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10 xl:col-start-1 xl:row-start-2">
-        <div className="flex items-center gap-2">
-          <GraduationCap className="h-5 w-5 text-accent-fg" />
-          <h2 className="text-xl font-semibold text-slate-100">Weekly exam</h2>
+      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <GraduationCap className="h-5 w-5 text-accent-fg" />
+            <h2 className="text-xl font-semibold text-slate-100">New exam</h2>
+          </div>
+          <div className="flex rounded-lg border border-edge p-0.5 text-sm">
+            {(["weekly", "random"] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => setMode(m)}
+                className={`rounded-md px-3 py-1 font-medium transition duration-150 active:scale-95 ${
+                  mode === m
+                    ? "bg-accent/20 text-accent-fg"
+                    : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                {m === "weekly" ? "Weekly" : "Random"}
+              </button>
+            ))}
+          </div>
         </div>
-        <p className="mt-1 text-sm text-slate-400">
-          Tested only on topics you&apos;ve finished — Striver problems for the
-          LeetCode tags you&apos;ve completed. A topic opens once it and its
-          prerequisites are done.
-        </p>
 
-        {unlockedTopics.length > 0 ? (
-          <>
-            <div className="mt-4 text-xs font-semibold uppercase tracking-wide text-emerald-300">
-              Unlocked ({unlockedTopics.length})
-            </div>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {unlockedTopics.map((t) => (
-                <Tag key={t.topic} variant="topic" value={t.topic} />
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={onStartWeekly}
-              disabled={busy}
-              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
-            >
-              <GraduationCap className="h-4 w-4" />
-              {busy ? "Generating…" : `Start weekly exam (${size})`}
-            </button>
-          </>
-        ) : (
-          <div className="mt-4 rounded-lg border border-dashed border-edge bg-panel/50 p-3 text-sm text-slate-400">
-            No topics unlocked yet — finish a topic in the{" "}
-            <Link href="/" className="text-accent-fg hover:underline">
-              study plan
-            </Link>{" "}
-            to unlock its exam.
-          </div>
-        )}
-
-        {lockedTopics.length > 0 && (
-          <div className="mt-auto pt-5">
-            <div className="flex items-center gap-1.5 text-xs text-slate-500">
-              <Lock className="h-3 w-3" />
-              {lockedTopics.length} locked
-              {nextNeeds.length > 0 && " · finish next"}
-            </div>
-            {nextNeeds.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {nextNeeds.map((p) => (
-                  <Tag key={p} variant="topic" value={p} />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </section>
-
-      <section className="flex flex-col rounded-xl border border-edge bg-panel p-6 shadow-card xl:col-start-2 xl:row-start-2">
-        <h2 className="text-xl font-semibold text-slate-100">Random exam</h2>
-        <p className="mt-1 text-sm text-slate-400">
-          A fresh, weighted, topic-balanced set drawn from the whole 327-question
-          A2Z bank. Solutions stay hidden until you submit.
+        <p className="mt-2 max-w-2xl text-sm text-slate-400">
+          {weekly
+            ? "Tested only on topics you've finished — Striver problems for the LeetCode tags you've completed. A topic opens once it and its prerequisites are done."
+            : "A fresh, weighted, topic-balanced set drawn from the whole 327-question A2Z bank. Solutions stay hidden until you submit."}
         </p>
 
         <div className="mt-5 text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -484,30 +451,78 @@ function StartView({
           ))}
         </div>
 
-        {list && (
-          <p className="mt-4 text-xs text-slate-500">
-            <span className="font-semibold text-emerald-300">
-              {list.poolFresh}
-            </span>{" "}
-            fresh of {list.poolTotal} problems available
-          </p>
+        {weekly ? (
+          canStartWeekly ? (
+            <>
+              <div className="mt-4 text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                Unlocked ({unlockedTopics.length})
+              </div>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {unlockedTopics.map((t) => (
+                  <Tag key={t.topic} variant="topic" value={t.topic} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="mt-4 rounded-lg border border-dashed border-edge bg-panel/50 p-3 text-sm text-slate-400">
+              No topics unlocked yet — finish a topic in the{" "}
+              <Link href="/" className="text-accent-fg hover:underline">
+                study plan
+              </Link>{" "}
+              to unlock its exam.
+            </div>
+          )
+        ) : (
+          list && (
+            <p className="mt-4 text-xs text-slate-500">
+              <span className="font-semibold text-emerald-300">
+                {list.poolFresh}
+              </span>{" "}
+              fresh of {list.poolTotal} problems available
+            </p>
+          )
         )}
 
         <button
           type="button"
-          onClick={onStart}
-          disabled={busy}
-          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
+          onClick={weekly ? onStartWeekly : onStart}
+          disabled={busy || (weekly && !canStartWeekly)}
+          className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
         >
-          <Dices className="h-4 w-4" />
-          {busy ? "Generating…" : "Start exam"}
+          {weekly ? (
+            <GraduationCap className="h-4 w-4" />
+          ) : (
+            <Dices className="h-4 w-4" />
+          )}
+          {busy
+            ? "Generating…"
+            : weekly
+              ? `Start weekly exam (${size})`
+              : `Start exam (${size})`}
         </button>
+
+        {weekly && lockedTopics.length > 0 && (
+          <div className="mt-5 border-t border-edge pt-4">
+            <div className="flex items-center gap-1.5 text-xs text-slate-500">
+              <Lock className="h-3 w-3" />
+              {lockedTopics.length} locked
+              {nextNeeds.length > 0 && " · finish next"}
+            </div>
+            {nextNeeds.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {nextNeeds.map((p) => (
+                  <Tag key={p} variant="topic" value={p} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="mt-auto border-t border-edge pt-4">
           <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
             Replay by id
           </div>
-          <div className="mt-2 flex gap-2">
+          <div className="mt-2 flex max-w-md gap-2">
             <input
               value={replayId}
               onChange={(e) => setReplayId(e.target.value.trim().toUpperCase())}
