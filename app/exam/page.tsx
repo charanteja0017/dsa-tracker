@@ -412,13 +412,9 @@ function StartView({
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-      {list && (
-        <div className="md:col-span-2 xl:col-start-1 xl:row-start-1">
-          <ExamProgressHero list={list} />
-        </div>
-      )}
-      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
+      {list && <ExamProgressHero list={list} />}
+
+      <section className="rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-5 w-5 text-accent-fg" />
@@ -448,98 +444,110 @@ function StartView({
             : "A fresh, weighted, topic-balanced set drawn from the whole 327-question A2Z bank. Solutions stay hidden until you submit."}
         </p>
 
-        <div className="mt-5 text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Questions
-        </div>
-        <div className="mt-2 flex gap-2">
-          {SIZES.map((n) => (
+        <div className="mt-5 grid gap-x-8 gap-y-6 lg:grid-cols-2">
+          {/* Left: size + start */}
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Questions
+            </div>
+            <div className="mt-2 flex gap-2">
+              {SIZES.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setSize(n)}
+                  className={`h-11 w-14 rounded-lg border text-base font-bold tabular-nums transition duration-150 active:scale-95 ${
+                    size === n
+                      ? "border-accent/50 bg-accent/20 text-accent-fg"
+                      : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
             <button
-              key={n}
               type="button"
-              onClick={() => setSize(n)}
-              className={`h-11 w-14 rounded-lg border text-base font-bold tabular-nums transition duration-150 active:scale-95 ${
-                size === n
-                  ? "border-accent/50 bg-accent/20 text-accent-fg"
-                  : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
-              }`}
+              onClick={weekly ? onStartWeekly : onStart}
+              disabled={busy || (weekly && !canStartWeekly)}
+              className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
             >
-              {n}
+              {weekly ? (
+                <GraduationCap className="h-4 w-4" />
+              ) : (
+                <Dices className="h-4 w-4" />
+              )}
+              {busy
+                ? "Generating…"
+                : weekly
+                  ? `Start weekly exam (${size})`
+                  : `Start exam (${size})`}
             </button>
-          ))}
-        </div>
+          </div>
 
-        {weekly ? (
-          canStartWeekly ? (
-            <>
-              <div className="mt-4 text-xs font-semibold uppercase tracking-wide text-emerald-300">
-                Unlocked ({unlockedTopics.length})
-              </div>
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {unlockedTopics.map((t) => (
-                  <Tag key={t.topic} variant="topic" value={t.topic} />
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="mt-4 rounded-lg border border-dashed border-edge bg-panel/50 p-3 text-sm text-slate-400">
-              No topics unlocked yet — finish a topic in the{" "}
-              <Link href="/" className="text-accent-fg hover:underline">
-                study plan
-              </Link>{" "}
-              to unlock its exam.
-            </div>
-          )
-        ) : (
-          list && (
-            <p className="mt-4 text-xs text-slate-500">
-              <span className="font-semibold text-emerald-300">
-                {list.poolFresh}
-              </span>{" "}
-              fresh of {list.poolTotal} problems available
-            </p>
-          )
-        )}
-
-        <button
-          type="button"
-          onClick={weekly ? onStartWeekly : onStart}
-          disabled={busy || (weekly && !canStartWeekly)}
-          className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
-        >
-          {weekly ? (
-            <GraduationCap className="h-4 w-4" />
-          ) : (
-            <Dices className="h-4 w-4" />
-          )}
-          {busy
-            ? "Generating…"
-            : weekly
-              ? `Start weekly exam (${size})`
-              : `Start exam (${size})`}
-        </button>
-
-        {weekly && lockedTopics.length > 0 && (
-          <div className="mt-5 border-t border-edge pt-4">
-            <div className="flex items-center gap-1.5 text-xs text-slate-500">
-              <Lock className="h-3 w-3" />
-              {lockedTopics.length} locked
-              {nextNeeds.length > 0 && " · finish next"}
-            </div>
-            {nextNeeds.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-1.5">
-                {nextNeeds.map((p) => (
-                  <Tag key={p} variant="topic" value={p} />
-                ))}
-              </div>
+          {/* Right: what's in scope */}
+          <div className="lg:border-l lg:border-edge lg:pl-8">
+            {weekly ? (
+              canStartWeekly ? (
+                <>
+                  <div className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                    Unlocked ({unlockedTopics.length})
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {unlockedTopics.map((t) => (
+                      <Tag key={t.topic} variant="topic" value={t.topic} />
+                    ))}
+                  </div>
+                  {lockedTopics.length > 0 && (
+                    <div className="mt-4">
+                      <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                        <Lock className="h-3 w-3" />
+                        {lockedTopics.length} locked
+                        {nextNeeds.length > 0 && " · finish next"}
+                      </div>
+                      {nextNeeds.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {nextNeeds.map((p) => (
+                            <Tag key={p} variant="topic" value={p} />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-3 text-sm text-slate-400">
+                  No topics unlocked yet — finish a topic in the{" "}
+                  <Link href="/" className="text-accent-fg hover:underline">
+                    study plan
+                  </Link>{" "}
+                  to unlock its exam.
+                </div>
+              )
+            ) : (
+              list && (
+                <>
+                  <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Pool
+                  </div>
+                  <p className="mt-2 text-sm text-slate-400">
+                    <span className="font-semibold text-emerald-300">
+                      {list.poolFresh}
+                    </span>{" "}
+                    fresh of {list.poolTotal} problems available — drawn across
+                    all 17 topics.
+                  </p>
+                </>
+              )
             )}
           </div>
-        )}
+        </div>
 
-        <div className="mt-auto border-t border-edge pt-4">
-          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-edge pt-4">
+          <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
             Replay by id
-          </div>
-          <div className="mt-2 flex max-w-md gap-2">
+          </span>
+          <div className="flex max-w-md flex-1 gap-2">
             <input
               value={replayId}
               onChange={(e) => setReplayId(e.target.value.trim().toUpperCase())}
@@ -549,20 +557,13 @@ function StartView({
             <button
               type="button"
               onClick={() => replayId && onOpen(replayId)}
-              className="rounded-lg border border-edge px-3 py-2 text-sm font-medium text-slate-300 transition hover:border-slate-600 active:scale-95"
+              className="rounded-lg border border-edge px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-slate-600 active:scale-95"
             >
               Open
             </button>
           </div>
         </div>
       </section>
-
-      {list && list.byTopic.length > 0 && (
-        <div className="md:col-span-2 xl:col-span-1 xl:col-start-3 xl:row-start-1 xl:row-span-2">
-          <ByTopicStats byTopic={list.byTopic} />
-        </div>
-      )}
-      </div>
 
       <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
         <div className="flex items-baseline justify-between gap-3">
@@ -602,6 +603,10 @@ function StartView({
           )}
         </div>
       </section>
+
+      {list && list.byTopic.length > 0 && (
+        <ByTopicStats byTopic={list.byTopic} />
+      )}
     </div>
   );
 }
@@ -734,7 +739,7 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
     (a, b) => (order.get(a.topic) ?? 99) - (order.get(b.topic) ?? 99)
   );
   return (
-    <section className="h-full rounded-xl border border-edge bg-panel shadow-card">
+    <section className="rounded-xl border border-edge bg-panel shadow-card">
       <div className="flex items-center justify-between border-b border-edge px-4 py-2.5">
         <h3 className="text-sm font-semibold text-slate-200">
           By topic · written &amp; solved
@@ -748,7 +753,7 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
           </span>
         </div>
       </div>
-      <div className="columns-1 gap-x-10 p-4 md:columns-2 xl:columns-1">
+      <div className="columns-1 gap-x-10 p-4 md:columns-2 xl:columns-3">
         {rows.map((t) => {
           const c = topicColor(t.topic);
           const wr = t.total ? (t.written / t.total) * 100 : 0;
