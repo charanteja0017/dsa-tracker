@@ -258,7 +258,7 @@ export default function ExamPage() {
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-30 border-b border-edge bg-ink/80 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-[1100px] items-center gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-4 px-4 sm:px-6">
           <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 transition-colors hover:text-slate-200"
@@ -276,7 +276,7 @@ export default function ExamPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[1100px] px-4 py-6 sm:px-6">
+      <main className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6">
         {error && (
           <div className="mb-4 rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-300">
             {error}
@@ -393,8 +393,7 @@ function StartView({
   return (
     <div className="space-y-5">
       {list && <ExamProgressHero list={list} />}
-      <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
-      <div className="space-y-5">
+      <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
       <section className="rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
         <div className="flex items-center gap-2">
           <GraduationCap className="h-5 w-5 text-accent-fg" />
@@ -514,7 +513,6 @@ function StartView({
           </div>
         </div>
       </section>
-      </div>
 
       <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
         <h3 className="text-sm font-semibold text-slate-200">History</h3>
@@ -651,7 +649,7 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
           </span>
         </div>
       </div>
-      <div className="columns-1 gap-x-8 p-4 md:columns-2">
+      <div className="columns-1 gap-x-10 p-4 md:columns-2 xl:columns-3">
         {rows.map((t) => {
           const c = topicColor(t.topic);
           const wr = t.total ? (t.written / t.total) * 100 : 0;
