@@ -40,8 +40,18 @@ export type ExamSummary = {
   solved: number;
 };
 
+export type ExamTopicStat = {
+  topic: string;
+  total: number; // available in the pool
+  written: number; // appeared in at least one exam
+  solved: number; // solved in at least one exam
+};
+
 export type ExamListResponse = {
   exams: ExamSummary[];
   poolTotal: number;
   poolFresh: number; // not used recently — eligible for a fresh exam
+  writtenTotal: number;
+  solvedTotal: number;
+  byTopic: ExamTopicStat[];
 };

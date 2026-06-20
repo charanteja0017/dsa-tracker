@@ -12,15 +12,22 @@ import {
   Lock,
   Trash2,
 } from "lucide-react";
-import type { Exam, ExamListResponse } from "@/lib/examTypes";
+import type {
+  Exam,
+  ExamListResponse,
+  ExamTopicStat,
+} from "@/lib/examTypes";
 import type { Problem } from "@/lib/types";
 import {
+  A2Z_TOPICS,
   completedPatterns,
   topicStatuses,
   type TopicStatus,
 } from "@/lib/topicMap";
+import { topicColor, rgba } from "@/lib/tokens";
 import { Tag } from "@/components/Tag";
 import { Checkbox } from "@/components/Checkbox";
+import { HatchedBar } from "@/components/HatchedBar";
 import { YouTubeIcon } from "@/components/YouTubeIcon";
 
 const SIZES = [5, 10, 15, 20];
@@ -384,7 +391,9 @@ function StartView({
   const nextNeeds = [...new Set(lockedTopics.flatMap((t) => t.needs))].slice(0, 6);
 
   return (
-    <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
+    <div className="space-y-5">
+      {list && <ExamProgressHero list={list} />}
+      <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
       <div className="space-y-5">
       <section className="rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
         <div className="flex items-center gap-2">
@@ -569,7 +578,113 @@ function StartView({
           )}
         </div>
       </section>
+      </div>
+      {list && list.byTopic.length > 0 && (
+        <ByTopicStats byTopic={list.byTopic} />
+      )}
     </div>
+  );
+}
+
+// ── Exam pool stats ─────────────────────────────────────────────────────────
+function ExamProgressHero({ list }: { list: ExamListResponse }) {
+  const pct = list.poolTotal
+    ? Math.round((list.solvedTotal / list.poolTotal) * 100)
+    : 0;
+  const stat = (
+    value: number,
+    label: string,
+    sub: string,
+    color: string
+  ) => (
+    <div className="flex items-baseline gap-2">
+      <span
+        className={`font-display text-5xl font-black leading-none tracking-tighter tabular-nums ${color}`}
+      >
+        {value}
+      </span>
+      <span className="flex flex-col text-sm leading-tight text-slate-400">
+        <span className="font-semibold text-slate-200">{label}</span>
+        <span>{sub}</span>
+      </span>
+    </div>
+  );
+  return (
+    <section className="rounded-xl border border-edge bg-panel px-6 py-5 shadow-card">
+      <div className="flex flex-wrap items-center gap-x-12 gap-y-5">
+        {stat(list.solvedTotal, "solved", `/${list.poolTotal}`, "text-slate-50")}
+        {stat(list.writtenTotal, "written", "in exams", "text-accent")}
+        {stat(list.poolFresh, "fresh", "available", "text-emerald-300")}
+      </div>
+      <div className="mt-5">
+        <div className="mb-1.5 flex items-end justify-between">
+          <span className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
+            Exam progress
+          </span>
+          <span className="font-display text-3xl font-black leading-none tracking-tighter tabular-nums text-accent">
+            {pct}%
+          </span>
+        </div>
+        <HatchedBar percent={pct} />
+      </div>
+    </section>
+  );
+}
+
+function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
+  const order = new Map(A2Z_TOPICS.map((t, i) => [t, i]));
+  const rows = [...byTopic].sort(
+    (a, b) => (order.get(a.topic) ?? 99) - (order.get(b.topic) ?? 99)
+  );
+  return (
+    <section className="rounded-xl border border-edge bg-panel shadow-card">
+      <div className="flex items-center justify-between border-b border-edge px-4 py-2.5">
+        <h3 className="text-sm font-semibold text-slate-200">
+          By topic · written &amp; solved
+        </h3>
+        <div className="flex items-center gap-3 text-[11px] text-slate-500">
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-slate-400" /> solved
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-slate-600" /> written
+          </span>
+        </div>
+      </div>
+      <div className="columns-1 gap-x-8 p-4 md:columns-2">
+        {rows.map((t) => {
+          const c = topicColor(t.topic);
+          const wr = t.total ? (t.written / t.total) * 100 : 0;
+          const sv = t.total ? (t.solved / t.total) * 100 : 0;
+          return (
+            <div
+              key={t.topic}
+              className="mb-2.5 flex items-center gap-3 break-inside-avoid text-sm"
+            >
+              <span
+                className="w-44 shrink-0 truncate text-slate-300"
+                title={t.topic}
+              >
+                {t.topic}
+              </span>
+              <div className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-panel2">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full"
+                  style={{ width: `${wr}%`, background: rgba(c, 0.35) }}
+                />
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full"
+                  style={{ width: `${sv}%`, background: c }}
+                />
+              </div>
+              <span className="w-14 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
+                {t.solved}/{t.total}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 

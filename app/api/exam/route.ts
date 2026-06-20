@@ -30,14 +30,28 @@ export async function GET(req: Request) {
       solved: number;
     }[];
 
-    const [{ total }] = (await sql`
-      SELECT COUNT(*)::int AS total FROM exam_pool;
-    `) as { total: number }[];
     const [{ fresh }] = (await sql`
       SELECT COUNT(*)::int AS fresh FROM exam_pool
       WHERE last_used_at IS NULL
          OR last_used_at < now() - (${FRESH_DAYS} || ' days')::interval;
     `) as { fresh: number }[];
+
+    // Per-topic pool stats: available (total), written (appeared in any exam),
+    // solved (solved in any exam).
+    const byTopic = (await sql`
+      SELECT p.topic,
+             COUNT(*)::int AS total,
+             COUNT(*) FILTER (WHERE p.times_used > 0)::int AS written,
+             COUNT(*) FILTER (
+               WHERE p.external_id IN (SELECT external_id FROM exam_items WHERE solved)
+             )::int AS solved
+      FROM exam_pool p
+      GROUP BY p.topic;
+    `) as { topic: string; total: number; written: number; solved: number }[];
+
+    const poolTotal = byTopic.reduce((s, t) => s + t.total, 0);
+    const writtenTotal = byTopic.reduce((s, t) => s + t.written, 0);
+    const solvedTotal = byTopic.reduce((s, t) => s + t.solved, 0);
 
     const body: ExamListResponse = {
       exams: exams.map((e) => ({
@@ -48,8 +62,11 @@ export async function GET(req: Request) {
         kind: e.kind === "weekly" ? "weekly" : "standard",
         solved: e.solved,
       })),
-      poolTotal: total,
+      poolTotal,
       poolFresh: fresh,
+      writtenTotal,
+      solvedTotal,
+      byTopic,
     };
     return NextResponse.json(body);
   } catch (e) {
