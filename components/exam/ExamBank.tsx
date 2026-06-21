@@ -82,7 +82,7 @@ export function ExamBank() {
 
   return (
     <section className="flex max-h-[760px] flex-col rounded-xl border border-edge bg-panel shadow-card">
-      <div className="border-b border-edge px-4 py-2.5">
+      <div className="border-b border-edge px-5 py-3">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-sm font-semibold text-slate-200">
             Question bank · A2Z

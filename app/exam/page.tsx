@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   ArrowLeft,
   CalendarDays,
@@ -446,8 +453,8 @@ function StartView({
         </div>
       )}
       {list && (
-        <section className="rounded-xl border border-edge bg-panel p-4 shadow-card xl:col-start-3 xl:row-start-1">
-          <h3 className="mb-3 text-sm font-semibold text-slate-200">
+        <section className="rounded-xl border border-edge bg-panel p-5 shadow-card xl:col-start-3 xl:row-start-1">
+          <h3 className="mb-4 text-sm font-semibold text-slate-200">
             Exam frequency
           </h3>
           <ContributionHeatmap
@@ -459,7 +466,7 @@ function StartView({
         </section>
       )}
 
-      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
+      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-5 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-5 w-5 text-accent-fg" />
@@ -483,13 +490,13 @@ function StartView({
           </div>
         </div>
 
-        <p className="mt-2 max-w-2xl text-sm text-slate-400">
+        <p className="mt-3 max-w-2xl text-sm text-slate-400">
           {weekly
             ? "Tested only on topics you've finished — Striver problems for the LeetCode tags you've completed. A topic opens once it and its prerequisites are done."
             : "A fresh, weighted, topic-balanced set drawn from the whole 327-question A2Z bank. Solutions stay hidden until you submit."}
         </p>
 
-        <div className="mt-5 grid gap-x-8 gap-y-6 lg:grid-cols-2">
+        <div className="mt-6 grid gap-x-8 gap-y-6 lg:grid-cols-2">
           {/* Left: size + start */}
           <div>
             <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -515,7 +522,7 @@ function StartView({
               type="button"
               onClick={weekly ? onStartWeekly : onStart}
               disabled={busy || (weekly && !canStartWeekly)}
-              className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-2.5 text-sm font-bold text-ink transition duration-150 hover:brightness-110 active:scale-95 disabled:opacity-50"
             >
               {weekly ? (
                 <GraduationCap className="h-4 w-4" />
@@ -538,20 +545,20 @@ function StartView({
                   <div className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
                     Unlocked ({unlockedTopics.length})
                   </div>
-                  <div className="mt-2 flex flex-wrap gap-1.5">
+                  <div className="mt-2 flex flex-wrap gap-2">
                     {unlockedTopics.map((t) => (
                       <Tag key={t.topic} variant="topic" value={t.topic} />
                     ))}
                   </div>
                   {lockedTopics.length > 0 && (
-                    <div className="mt-4">
+                    <div className="mt-6">
                       <div className="flex items-center gap-1.5 text-xs text-slate-500">
                         <Lock className="h-3 w-3" />
                         {lockedTopics.length} locked
                         {nextNeeds.length > 0 && " · finish next"}
                       </div>
                       {nextNeeds.length > 0 && (
-                        <div className="mt-2 flex flex-wrap gap-1.5">
+                        <div className="mt-2 flex flex-wrap gap-2">
                           {nextNeeds.map((p) => (
                             <Tag key={p} variant="topic" value={p} />
                           ))}
@@ -761,13 +768,13 @@ function ExamProgressHero({ list }: { list: ExamListResponse }) {
     </div>
   );
   return (
-    <section className="rounded-xl border border-edge bg-panel px-6 py-5 shadow-card">
-      <div className="flex flex-wrap items-center gap-x-12 gap-y-5">
+    <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
+      <div className="flex flex-wrap items-center gap-x-12 gap-y-4">
         {stat(list.solvedTotal, "solved", `/${list.poolTotal}`, "text-slate-50")}
         {stat(list.writtenTotal, "written", "in exams", "text-accent")}
         {stat(list.poolFresh, "fresh", "available", "text-emerald-300")}
       </div>
-      <div className="mt-5">
+      <div className="mt-6">
         <div className="mb-1.5 flex items-end justify-between">
           <span className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500">
             Exam progress
@@ -789,11 +796,11 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
   );
   return (
     <section className="rounded-xl border border-edge bg-panel shadow-card">
-      <div className="flex items-center justify-between border-b border-edge px-4 py-2.5">
+      <div className="flex items-center justify-between gap-3 border-b border-edge px-5 py-3">
         <h3 className="text-sm font-semibold text-slate-200">
           By topic · written &amp; solved
         </h3>
-        <div className="flex items-center gap-3 text-[11px] text-slate-500">
+        <div className="flex shrink-0 items-center gap-3 text-[11px] text-slate-500">
           <span className="flex items-center gap-1">
             <span className="h-2 w-2 rounded-full bg-slate-400" /> solved
           </span>
@@ -802,23 +809,21 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
           </span>
         </div>
       </div>
-      <div className="columns-1 gap-x-10 p-4 md:columns-2 xl:columns-3">
+      {/* Shared 3-column grid so every row aligns: name | bar | count. */}
+      <div className="grid grid-cols-[minmax(0,1fr)_5rem_auto] items-center gap-x-3 gap-y-3 p-5">
         {rows.map((t) => {
           const c = topicColor(t.topic);
           const wr = t.total ? (t.written / t.total) * 100 : 0;
           const sv = t.total ? (t.solved / t.total) * 100 : 0;
           return (
-            <div
-              key={t.topic}
-              className="mb-2.5 flex items-center gap-3 break-inside-avoid text-sm"
-            >
+            <Fragment key={t.topic}>
               <span
-                className="w-44 shrink-0 truncate text-slate-300"
+                className="min-w-0 truncate text-sm text-slate-300"
                 title={t.topic}
               >
                 {t.topic}
               </span>
-              <div className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-panel2">
+              <div className="relative h-2.5 overflow-hidden rounded-full bg-panel2">
                 <div
                   className="absolute inset-y-0 left-0 rounded-full"
                   style={{ width: `${wr}%`, background: rgba(c, 0.35) }}
@@ -828,10 +833,10 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
                   style={{ width: `${sv}%`, background: c }}
                 />
               </div>
-              <span className="w-14 shrink-0 text-right font-mono text-xs tabular-nums text-slate-500">
+              <span className="text-right font-mono text-xs tabular-nums text-slate-500">
                 {t.solved}/{t.total}
               </span>
-            </div>
+            </Fragment>
           );
         })}
       </div>
