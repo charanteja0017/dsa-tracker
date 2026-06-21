@@ -13,11 +13,26 @@ export type ExamItem = {
   title: string;
   topic: string;
   difficulty: string;
+  starred: boolean; // favorited in the question bank
   // `article` is the problem page — available during the exam so you can open
   // and solve it. `youtube` is the walkthrough video (a spoiler) — withheld
   // (null) while active, revealed on submit.
   youtube: string | null;
   article: string | null;
+};
+
+// A question in the A2Z bank (browser below history) with its exam status.
+export type ExamBankItem = {
+  externalId: number;
+  title: string;
+  topic: string;
+  difficulty: string;
+  mostAsked: boolean;
+  youtube: string;
+  article: string;
+  timesUsed: number; // how many exams it has appeared in
+  solved: boolean; // solved in any exam
+  starred: boolean;
 };
 
 export type Exam = {

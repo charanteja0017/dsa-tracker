@@ -36,6 +36,9 @@ import { Checkbox } from "@/components/Checkbox";
 import { HatchedBar } from "@/components/HatchedBar";
 import { YouTubeIcon } from "@/components/YouTubeIcon";
 import { ContributionHeatmap } from "@/components/ContributionHeatmap";
+import { ExamTopicRing } from "@/components/exam/ExamTopicRing";
+import { ExamBank } from "@/components/exam/ExamBank";
+import { StarButton } from "@/components/StarButton";
 
 const SIZES = [5, 10, 15, 20];
 
@@ -181,6 +184,28 @@ export default function ExamPage() {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ itemId, solved }),
+      }).catch(() => {});
+    },
+    []
+  );
+
+  // Favorite/unfavorite a question (shared with the bank — keyed by externalId).
+  const toggleQuestionStar = useCallback(
+    async (externalId: number, starred: boolean) => {
+      setCurrent((prev) =>
+        prev
+          ? {
+              ...prev,
+              items: prev.items.map((it) =>
+                it.externalId === externalId ? { ...it, starred } : it
+              ),
+            }
+          : prev
+      );
+      await fetch("/api/exam/star", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ externalId, starred }),
       }).catch(() => {});
     },
     []
@@ -332,6 +357,7 @@ export default function ExamPage() {
             copied={copied}
             onCopyId={copyId}
             onToggle={toggleItem}
+            onToggleStar={toggleQuestionStar}
             onSubmit={submitExam}
             onCancel={backToStart}
             onDelete={deleteExam}
@@ -344,6 +370,7 @@ export default function ExamPage() {
             onNew={backToStart}
             onDelete={deleteExam}
             onReleaseUnsolved={releaseUnsolved}
+            onToggleStar={toggleQuestionStar}
           />
         )}
       </main>
@@ -412,9 +439,27 @@ function StartView({
 
   return (
     <div className="space-y-5">
-      {list && <ExamProgressHero list={list} />}
+      <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+      {list && (
+        <div className="md:col-span-2 xl:col-start-1 xl:row-start-1">
+          <ExamProgressHero list={list} />
+        </div>
+      )}
+      {list && (
+        <section className="rounded-xl border border-edge bg-panel p-4 shadow-card xl:col-start-3 xl:row-start-1">
+          <h3 className="mb-3 text-sm font-semibold text-slate-200">
+            Exam frequency
+          </h3>
+          <ContributionHeatmap
+            daily={list.examsByDay}
+            start={addDays(todayInTz(), -90)}
+            end={todayInTz()}
+            label="exams"
+          />
+        </section>
+      )}
 
-      <section className="rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10">
+      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-6 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-5 w-5 text-accent-fg" />
@@ -565,48 +610,52 @@ function StartView({
         </div>
       </section>
 
-      <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
-        <div className="flex items-baseline justify-between gap-3">
-          <h3 className="text-sm font-semibold text-slate-200">History</h3>
-          <p className="text-xs text-slate-500">
-            {list && list.exams.length > 0
-              ? `${list.exams.length} taken · reproducible from id`
-              : "Every exam is reproducible from its id."}
-          </p>
-        </div>
-
-        {list && list.examsByDay.length > 0 && (
-          <div className="mt-4">
-            <ContributionHeatmap
-              daily={list.examsByDay}
-              start={addDays(todayInTz(), -90)}
-              end={todayInTz()}
-              label="exams"
-            />
-          </div>
-        )}
-
-        <div className="mt-4 space-y-1.5">
-          {!list || list.exams.length === 0 ? (
-            <p className="py-6 text-center text-sm text-slate-600">
-              No exams yet — start your first above.
-            </p>
-          ) : (
-            list.exams.map((e) => (
-              <HistoryRow
-                key={e.id}
-                exam={e}
-                onOpen={onOpen}
-                onDelete={onDelete}
-              />
-            ))
-          )}
-        </div>
-      </section>
-
       {list && list.byTopic.length > 0 && (
-        <ByTopicStats byTopic={list.byTopic} />
+        <div className="md:col-span-2 xl:col-span-1 xl:col-start-3 xl:row-start-2">
+          <ByTopicStats byTopic={list.byTopic} />
+        </div>
       )}
+      </div>
+
+      <div className="grid items-start gap-5 xl:grid-cols-3">
+        <section className="rounded-xl border border-edge bg-panel p-5 shadow-card xl:col-span-2">
+          <div className="flex items-baseline justify-between gap-3">
+            <h3 className="text-sm font-semibold text-slate-200">History</h3>
+            <p className="text-xs text-slate-500">
+              {list && list.exams.length > 0
+                ? `${list.exams.length} taken · reproducible from id`
+                : "Every exam is reproducible from its id."}
+            </p>
+          </div>
+          <div className="mt-4 space-y-1.5">
+            {!list || list.exams.length === 0 ? (
+              <p className="py-6 text-center text-sm text-slate-600">
+                No exams yet — start your first above.
+              </p>
+            ) : (
+              list.exams.map((e) => (
+                <HistoryRow
+                  key={e.id}
+                  exam={e}
+                  onOpen={onOpen}
+                  onDelete={onDelete}
+                />
+              ))
+            )}
+          </div>
+        </section>
+
+        {list && list.byTopic.length > 0 && (
+          <section className="rounded-xl border border-edge bg-panel p-5 shadow-card xl:col-start-3">
+            <h3 className="mb-4 text-sm font-semibold text-slate-200">
+              Topics drawn
+            </h3>
+            <ExamTopicRing byTopic={list.byTopic} />
+          </section>
+        )}
+      </div>
+
+      <ExamBank />
     </div>
   );
 }
@@ -798,6 +847,7 @@ function ActiveView({
   copied,
   onCopyId,
   onToggle,
+  onToggleStar,
   onSubmit,
   onCancel,
   onDelete,
@@ -808,6 +858,7 @@ function ActiveView({
   copied: boolean;
   onCopyId: () => void;
   onToggle: (itemId: number, solved: boolean) => void;
+  onToggleStar: (externalId: number, starred: boolean) => void;
   onSubmit: () => void;
   onCancel: () => void;
   onDelete: (id: string) => void;
@@ -877,6 +928,10 @@ function ActiveView({
               className="hidden sm:inline-flex"
             />
             <Tag variant="difficulty" value={it.difficulty} />
+            <StarButton
+              starred={it.starred}
+              onToggle={(v) => onToggleStar(it.externalId, v)}
+            />
           </div>
         ))}
       </div>
@@ -910,9 +965,11 @@ function ResultsView({
   onNew,
   onDelete,
   onReleaseUnsolved,
+  onToggleStar,
 }: {
   exam: Exam;
   copied: boolean;
+  onToggleStar: (externalId: number, starred: boolean) => void;
   onCopyId: () => void;
   onNew: () => void;
   onDelete: (id: string) => void;
@@ -1058,6 +1115,10 @@ function ResultsView({
               className="hidden sm:inline-flex"
             />
             <Tag variant="difficulty" value={it.difficulty} />
+            <StarButton
+              starred={it.starred}
+              onToggle={(v) => onToggleStar(it.externalId, v)}
+            />
           </div>
         ))}
       </div>

@@ -154,7 +154,7 @@ export async function readExam(id: string): Promise<Exam | null> {
 
   const itemRows = (await sql`
     SELECT ei.id AS item_id, ei.position, ei.solved, ei.solved_at,
-           p.external_id, p.title, p.topic, p.difficulty, p.youtube, p.article
+           p.external_id, p.title, p.topic, p.difficulty, p.youtube, p.article, p.starred
     FROM exam_items ei
     JOIN exam_pool p ON p.external_id = ei.external_id
     WHERE ei.exam_id = ${id}
@@ -170,6 +170,7 @@ export async function readExam(id: string): Promise<Exam | null> {
     difficulty: string;
     youtube: string | null;
     article: string | null;
+    starred: boolean;
   }[];
 
   const items: ExamItem[] = itemRows.map((r) => ({
@@ -181,6 +182,7 @@ export async function readExam(id: string): Promise<Exam | null> {
     title: r.title,
     topic: r.topic,
     difficulty: r.difficulty,
+    starred: r.starred,
     // The walkthrough video is a spoiler — hide it until submit. The problem
     // page itself stays available so you can actually open and solve it during
     // the exam.

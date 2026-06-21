@@ -79,9 +79,11 @@ export async function initExamSchema() {
       youtube      TEXT,
       article      TEXT,
       times_used   INT NOT NULL DEFAULT 0,
-      last_used_at TIMESTAMPTZ
+      last_used_at TIMESTAMPTZ,
+      starred      BOOLEAN NOT NULL DEFAULT FALSE
     );
   `;
+  await sql`ALTER TABLE exam_pool ADD COLUMN IF NOT EXISTS starred BOOLEAN NOT NULL DEFAULT FALSE;`;
   await sql`
     CREATE TABLE IF NOT EXISTS exams (
       id         TEXT PRIMARY KEY,
