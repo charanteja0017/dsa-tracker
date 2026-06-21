@@ -446,27 +446,12 @@ function StartView({
 
   return (
     <div className="space-y-5">
-      <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
-      {list && (
-        <div className="md:col-span-2 xl:col-start-1 xl:row-start-1">
-          <ExamProgressHero list={list} />
-        </div>
-      )}
-      {list && (
-        <section className="rounded-xl border border-edge bg-panel p-5 shadow-card xl:col-start-3 xl:row-start-1">
-          <h3 className="mb-4 text-sm font-semibold text-slate-200">
-            Exam frequency
-          </h3>
-          <ContributionHeatmap
-            daily={list.examsByDay}
-            start={addDays(todayInTz(), -90)}
-            end={todayInTz()}
-            label="exams"
-          />
-        </section>
-      )}
+      <div className="grid gap-5 lg:grid-cols-3 lg:items-start">
+      {/* Left column: progress · new exam · history (independent stack) */}
+      <div className="space-y-5 lg:col-span-2">
+      {list && <ExamProgressHero list={list} />}
 
-      <section className="self-start rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-5 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
+      <section className="rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-5 shadow-card ring-1 ring-accent/10">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-5 w-5 text-accent-fg" />
@@ -619,49 +604,61 @@ function StartView({
         </div>
       </section>
 
-      {list && list.byTopic.length > 0 && (
-        <div className="md:col-span-2 xl:col-span-1 xl:col-start-3 xl:row-start-2">
-          <ByTopicStats byTopic={list.byTopic} />
+      <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="text-sm font-semibold text-slate-200">History</h3>
+          <p className="text-xs text-slate-500">
+            {list && list.exams.length > 0
+              ? `${list.exams.length} taken · reproducible from id`
+              : "Every exam is reproducible from its id."}
+          </p>
         </div>
-      )}
+        <div className="mt-4 space-y-1.5">
+          {!list || list.exams.length === 0 ? (
+            <p className="py-6 text-center text-sm text-slate-600">
+              No exams yet — start your first above.
+            </p>
+          ) : (
+            list.exams.map((e) => (
+              <HistoryRow
+                key={e.id}
+                exam={e}
+                onOpen={onOpen}
+                onDelete={onDelete}
+              />
+            ))
+          )}
+        </div>
+      </section>
       </div>
 
-      <div className="grid items-start gap-5 xl:grid-cols-3">
-        <section className="rounded-xl border border-edge bg-panel p-5 shadow-card xl:col-span-2">
-          <div className="flex items-baseline justify-between gap-3">
-            <h3 className="text-sm font-semibold text-slate-200">History</h3>
-            <p className="text-xs text-slate-500">
-              {list && list.exams.length > 0
-                ? `${list.exams.length} taken · reproducible from id`
-                : "Every exam is reproducible from its id."}
-            </p>
-          </div>
-          <div className="mt-4 space-y-1.5">
-            {!list || list.exams.length === 0 ? (
-              <p className="py-6 text-center text-sm text-slate-600">
-                No exams yet — start your first above.
-              </p>
-            ) : (
-              list.exams.map((e) => (
-                <HistoryRow
-                  key={e.id}
-                  exam={e}
-                  onOpen={onOpen}
-                  onDelete={onDelete}
-                />
-              ))
-            )}
-          </div>
+      {/* Right column: heatmap · by topic · topics drawn (independent stack) */}
+      <div className="space-y-5">
+      {list && (
+        <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
+          <h3 className="mb-4 text-sm font-semibold text-slate-200">
+            Exam frequency
+          </h3>
+          <ContributionHeatmap
+            daily={list.examsByDay}
+            start={addDays(todayInTz(), -90)}
+            end={todayInTz()}
+            label="exams"
+          />
         </section>
-
-        {list && list.byTopic.length > 0 && (
-          <section className="rounded-xl border border-edge bg-panel p-5 shadow-card xl:col-start-3">
-            <h3 className="mb-4 text-sm font-semibold text-slate-200">
-              Topics drawn
-            </h3>
-            <ExamTopicRing byTopic={list.byTopic} />
-          </section>
-        )}
+      )}
+      {list && list.byTopic.length > 0 && (
+        <ByTopicStats byTopic={list.byTopic} />
+      )}
+      {list && list.byTopic.length > 0 && (
+        <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
+          <h3 className="mb-4 text-sm font-semibold text-slate-200">
+            Topics drawn
+          </h3>
+          <ExamTopicRing byTopic={list.byTopic} />
+        </section>
+      )}
+      </div>
       </div>
 
       <ExamBank />
