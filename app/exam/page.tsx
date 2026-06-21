@@ -466,7 +466,7 @@ function StartView({
         </section>
       )}
 
-      <section className="flex flex-col rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-5 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
+      <section className="self-start rounded-xl border border-accent/40 bg-gradient-to-b from-panel2 to-panel p-5 shadow-card ring-1 ring-accent/10 md:col-span-2 xl:col-start-1 xl:row-start-2">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-5 w-5 text-accent-fg" />
@@ -496,7 +496,7 @@ function StartView({
             : "A fresh, weighted, topic-balanced set drawn from the whole 327-question A2Z bank. Solutions stay hidden until you submit."}
         </p>
 
-        <div className="mt-6 grid gap-x-8 gap-y-6 lg:grid-cols-2">
+        <div className="mt-6 grid items-start gap-x-8 gap-y-6 lg:grid-cols-2">
           {/* Left: size + start */}
           <div>
             <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -535,6 +535,29 @@ function StartView({
                   ? `Start weekly exam (${size})`
                   : `Start exam (${size})`}
             </button>
+
+            <div className="mt-6 border-t border-edge pt-4">
+              <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Replay by id
+              </div>
+              <div className="mt-2 flex gap-2">
+                <input
+                  value={replayId}
+                  onChange={(e) =>
+                    setReplayId(e.target.value.trim().toUpperCase())
+                  }
+                  placeholder="EXAM-XXXXXX"
+                  className="min-w-0 flex-1 rounded-lg border border-edge bg-panel2 px-3 py-2 font-mono text-sm text-slate-100 placeholder:text-slate-600 focus:border-accent/50 focus:outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => replayId && onOpen(replayId)}
+                  className="rounded-lg border border-edge px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-slate-600 active:scale-95"
+                >
+                  Open
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Right: what's in scope */}
@@ -551,7 +574,7 @@ function StartView({
                     ))}
                   </div>
                   {lockedTopics.length > 0 && (
-                    <div className="mt-6">
+                    <div className="mt-4">
                       <div className="flex items-center gap-1.5 text-xs text-slate-500">
                         <Lock className="h-3 w-3" />
                         {lockedTopics.length} locked
@@ -592,27 +615,6 @@ function StartView({
                 </>
               )
             )}
-          </div>
-        </div>
-
-        <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-edge pt-4">
-          <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Replay by id
-          </span>
-          <div className="flex max-w-md flex-1 gap-2">
-            <input
-              value={replayId}
-              onChange={(e) => setReplayId(e.target.value.trim().toUpperCase())}
-              placeholder="EXAM-XXXXXX"
-              className="min-w-0 flex-1 rounded-lg border border-edge bg-panel2 px-3 py-2 font-mono text-sm text-slate-100 placeholder:text-slate-600 focus:border-accent/50 focus:outline-none"
-            />
-            <button
-              type="button"
-              onClick={() => replayId && onOpen(replayId)}
-              className="rounded-lg border border-edge px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-slate-600 active:scale-95"
-            >
-              Open
-            </button>
           </div>
         </div>
       </section>
@@ -810,7 +812,7 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
         </div>
       </div>
       {/* Shared 3-column grid so every row aligns: name | bar | count. */}
-      <div className="grid grid-cols-[minmax(0,1fr)_5rem_auto] items-center gap-x-3 gap-y-3 p-5">
+      <div className="grid grid-cols-[minmax(0,1fr)_5rem_auto] items-center gap-x-3 gap-y-2 p-5">
         {rows.map((t) => {
           const c = topicColor(t.topic);
           const wr = t.total ? (t.written / t.total) * 100 : 0;
