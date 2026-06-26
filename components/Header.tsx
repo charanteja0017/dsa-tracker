@@ -30,7 +30,7 @@ export function Header({
   return (
     <header className="sticky top-0 z-30 border-b border-edge bg-ink/80 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-4 px-4 sm:px-6">
-        <h1 className="text-sm font-semibold tracking-tight text-slate-100">
+        <h1 className="text-sm font-semibold tracking-tight text-slate-900">
           DSA Placement Tracker
         </h1>
         <span
@@ -44,7 +44,7 @@ export function Header({
         <div className="ml-auto flex items-center gap-3">
           {weekNum !== undefined && (
             <span className="inline-flex items-center gap-2 rounded-full border border-edge bg-panel px-3 py-1 text-xs">
-              <span className="font-medium text-slate-200">
+              <span className="font-medium text-slate-800">
                 Week {weekNum} <span className="text-slate-500">of 23</span>
               </span>
               {daysToPhase1 !== undefined && (

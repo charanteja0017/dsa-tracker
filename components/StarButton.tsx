@@ -33,8 +33,8 @@ export function StarButton({
           : "cursor-pointer active:scale-90"
       } ${
         starred
-          ? "text-amber-400 drop-shadow-[0_0_4px_rgba(251,191,36,0.45)]"
-          : "text-slate-600 hover:text-amber-300"
+          ? "text-amber-600 drop-shadow-[0_0_4px_rgba(251,191,36,0.45)]"
+          : "text-slate-400 hover:text-amber-700"
       }`}
     >
       <Star

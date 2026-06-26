@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0f",
+  themeColor: "#E8EAF0",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -68,7 +68,7 @@ export default function RootLayout({
       lang="en"
       className={`${sans.variable} ${mono.variable} ${display.variable}`}
     >
-      <body className="bg-ink text-slate-200 font-sans antialiased">
+      <body className="bg-ink text-slate-800 font-sans antialiased">
         {children}
         <PwaRegister />
       </body>

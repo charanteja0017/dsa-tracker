@@ -45,7 +45,7 @@ export function ProgressRing({
         y="50%"
         dominantBaseline="central"
         textAnchor="middle"
-        className="fill-slate-100"
+        className="fill-slate-800"
         fontSize={size * 0.28}
         fontWeight={700}
         fontFamily="var(--font-mono)"

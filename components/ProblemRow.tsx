@@ -20,7 +20,7 @@ export function ProblemRow({
   canEdit?: boolean;
 }) {
   return (
-    <div className="group flex items-center gap-3 rounded-lg border border-edge/70 bg-panel/40 px-3 py-2 transition-[background-color,border-color,transform] duration-150 hover:-translate-y-px hover:border-slate-700 hover:bg-panel2/60">
+    <div className="group flex items-center gap-3 rounded-lg border border-edge/70 bg-panel/40 px-3 py-2 transition-[background-color,border-color,transform] duration-150 hover:-translate-y-px hover:border-slate-200 hover:bg-panel2/60">
       <Checkbox
         checked={problem.done}
         onChange={(v) => onToggle(problem.id, v)}
@@ -34,8 +34,8 @@ export function ProblemRow({
           rel="noreferrer"
           className={`min-w-0 truncate text-sm transition-colors duration-200 ${
             problem.done
-              ? "text-slate-600 line-through"
-              : "text-slate-100 group-hover:text-accent-fg"
+              ? "text-slate-400 line-through"
+              : "text-slate-900 group-hover:text-accent-fg"
           }`}
         >
           {problem.title}

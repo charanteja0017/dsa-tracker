@@ -310,12 +310,12 @@ export default function ExamPage() {
         <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-4 px-4 sm:px-6">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 transition-colors hover:text-slate-200"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 transition-colors hover:text-slate-800"
           >
             <ArrowLeft className="h-4 w-4" />
             Dashboard
           </Link>
-          <h1 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-100">
+          <h1 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-slate-900">
             <Dices className="h-4 w-4 text-accent-fg" />
             Exam Mode
           </h1>
@@ -327,12 +327,12 @@ export default function ExamPage() {
 
       <main className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6">
         {error && (
-          <div className="mb-4 rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-300">
+          <div className="mb-4 rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-700">
             {error}
           </div>
         )}
         {notice && (
-          <div className="mb-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+          <div className="mb-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700">
             {notice}
           </div>
         )}
@@ -389,13 +389,13 @@ export default function ExamPage() {
 function LockedView() {
   return (
     <div className="mx-auto mt-12 max-w-md rounded-xl border border-edge bg-panel p-8 text-center shadow-card">
-      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 text-amber-300">
+      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 text-amber-700">
         <Lock className="h-6 w-6" />
       </div>
-      <h2 className="text-lg font-semibold text-slate-100">
+      <h2 className="text-lg font-semibold text-slate-900">
         Exam mode is locked
       </h2>
-      <p className="mt-1.5 text-sm text-slate-400">
+      <p className="mt-1.5 text-sm text-slate-600">
         Unlock editing on the dashboard (the lock in the header) with your
         password, then come back to generate and take exams.
       </p>
@@ -455,7 +455,7 @@ function StartView({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <GraduationCap className="h-5 w-5 text-accent-fg" />
-            <h2 className="text-xl font-semibold text-slate-100">New exam</h2>
+            <h2 className="text-xl font-semibold text-slate-900">New exam</h2>
           </div>
           <div className="flex rounded-lg border border-edge p-0.5 text-sm">
             {(["weekly", "random"] as const).map((m) => (
@@ -466,7 +466,7 @@ function StartView({
                 className={`rounded-md px-3 py-1 font-medium transition duration-150 active:scale-95 ${
                   mode === m
                     ? "bg-accent/20 text-accent-fg"
-                    : "text-slate-400 hover:text-slate-200"
+                    : "text-slate-600 hover:text-slate-800"
                 }`}
               >
                 {m === "weekly" ? "Weekly" : "Random"}
@@ -475,7 +475,7 @@ function StartView({
           </div>
         </div>
 
-        <p className="mt-3 max-w-2xl text-sm text-slate-400">
+        <p className="mt-3 max-w-2xl text-sm text-slate-600">
           {weekly
             ? "Tested only on topics you've finished — Striver problems for the LeetCode tags you've completed. A topic opens once it and its prerequisites are done."
             : "A fresh, weighted, topic-balanced set drawn from the whole 327-question A2Z bank. Solutions stay hidden until you submit."}
@@ -496,7 +496,7 @@ function StartView({
                   className={`h-11 w-14 rounded-lg border text-base font-bold tabular-nums transition duration-150 active:scale-95 ${
                     size === n
                       ? "border-accent/50 bg-accent/20 text-accent-fg"
-                      : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                      : "border-edge text-slate-600 hover:border-slate-300 hover:text-slate-800"
                   }`}
                 >
                   {n}
@@ -532,12 +532,12 @@ function StartView({
                     setReplayId(e.target.value.trim().toUpperCase())
                   }
                   placeholder="EXAM-XXXXXX"
-                  className="min-w-0 flex-1 rounded-lg border border-edge bg-panel2 px-3 py-2 font-mono text-sm text-slate-100 placeholder:text-slate-600 focus:border-accent/50 focus:outline-none"
+                  className="min-w-0 flex-1 rounded-lg border border-edge bg-panel2 px-3 py-2 font-mono text-sm text-slate-900 placeholder:text-slate-400 focus:border-accent/50 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => replayId && onOpen(replayId)}
-                  className="rounded-lg border border-edge px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-slate-600 active:scale-95"
+                  className="rounded-lg border border-edge px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 active:scale-95"
                 >
                   Open
                 </button>
@@ -550,7 +550,7 @@ function StartView({
             {weekly ? (
               canStartWeekly ? (
                 <>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                  <div className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
                     Unlocked ({unlockedTopics.length})
                   </div>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -576,7 +576,7 @@ function StartView({
                   )}
                 </>
               ) : (
-                <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-3 text-sm text-slate-400">
+                <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-3 text-sm text-slate-600">
                   No topics unlocked yet — finish a topic in the{" "}
                   <Link href="/" className="text-accent-fg hover:underline">
                     study plan
@@ -590,8 +590,8 @@ function StartView({
                   <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                     Pool
                   </div>
-                  <p className="mt-2 text-sm text-slate-400">
-                    <span className="font-semibold text-emerald-300">
+                  <p className="mt-2 text-sm text-slate-600">
+                    <span className="font-semibold text-emerald-700">
                       {list.poolFresh}
                     </span>{" "}
                     fresh of {list.poolTotal} problems available — drawn across
@@ -606,7 +606,7 @@ function StartView({
 
       <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="text-sm font-semibold text-slate-200">History</h3>
+          <h3 className="text-sm font-semibold text-slate-800">History</h3>
           <p className="text-xs text-slate-500">
             {list && list.exams.length > 0
               ? `${list.exams.length} taken · reproducible from id`
@@ -615,7 +615,7 @@ function StartView({
         </div>
         <div className="mt-4 space-y-1.5">
           {!list || list.exams.length === 0 ? (
-            <p className="py-6 text-center text-sm text-slate-600">
+            <p className="py-6 text-center text-sm text-slate-400">
               No exams yet — start your first above.
             </p>
           ) : (
@@ -636,7 +636,7 @@ function StartView({
       <div className="space-y-5">
       {list && (
         <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
-          <h3 className="mb-4 text-sm font-semibold text-slate-200">
+          <h3 className="mb-4 text-sm font-semibold text-slate-800">
             Exam frequency
           </h3>
           <ContributionHeatmap
@@ -652,7 +652,7 @@ function StartView({
       )}
       {list && list.byTopic.length > 0 && (
         <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
-          <h3 className="mb-4 text-sm font-semibold text-slate-200">
+          <h3 className="mb-4 text-sm font-semibold text-slate-800">
             Topics drawn
           </h3>
           <ExamTopicRing byTopic={list.byTopic} />
@@ -680,7 +680,7 @@ function HistoryRow({
   const pct = e.maxScore ? Math.round((e.score / e.maxScore) * 100) : 0;
   const g = grade(pct);
   return (
-    <div className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/40 px-4 py-2.5 transition hover:border-slate-700 hover:bg-panel2/50">
+    <div className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/40 px-4 py-2.5 transition hover:border-slate-200 hover:bg-panel2/50">
       <button
         type="button"
         onClick={() => onOpen(e.id)}
@@ -693,7 +693,7 @@ function HistoryRow({
           className={`inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium ${
             weekly
               ? "bg-accent/15 text-accent-fg"
-              : "bg-slate-500/15 text-slate-300"
+              : "bg-slate-500/15 text-slate-700"
           }`}
         >
           {weekly ? (
@@ -707,7 +707,7 @@ function HistoryRow({
           <CalendarDays className="h-3.5 w-3.5" />
           {fmtDate(e.createdAt)}
         </span>
-        <span className="ml-auto shrink-0 font-mono text-xs tabular-nums text-slate-400">
+        <span className="ml-auto shrink-0 font-mono text-xs tabular-nums text-slate-600">
           {e.solved}/{e.size}
         </span>
         {e.status === "submitted" && e.maxScore > 0 && (
@@ -717,14 +717,14 @@ function HistoryRow({
           >
             <span aria-hidden>{g.emoji}</span>
             {e.score}
-            <span className="text-slate-600">/{e.maxScore}</span>
+            <span className="text-slate-400">/{e.maxScore}</span>
           </span>
         )}
         <span
           className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-medium ${
             e.status === "submitted"
-              ? "bg-emerald-500/15 text-emerald-300"
-              : "bg-amber-500/15 text-amber-300"
+              ? "bg-emerald-500/15 text-emerald-700"
+              : "bg-amber-500/15 text-amber-700"
           }`}
         >
           {e.status === "submitted" ? "done" : "active"}
@@ -734,7 +734,7 @@ function HistoryRow({
         type="button"
         onClick={() => onDelete(e.id)}
         title="Delete exam (returns its problems to the pool)"
-        className="shrink-0 rounded p-1 text-slate-600 transition hover:text-rose-400 active:scale-90"
+        className="shrink-0 rounded p-1 text-slate-400 transition hover:text-rose-600 active:scale-90"
         aria-label={`Delete ${e.id}`}
       >
         <Trash2 className="h-3.5 w-3.5" />
@@ -760,8 +760,8 @@ function ExamProgressHero({ list }: { list: ExamListResponse }) {
       >
         {value}
       </span>
-      <span className="flex flex-col text-sm leading-tight text-slate-400">
-        <span className="font-semibold text-slate-200">{label}</span>
+      <span className="flex flex-col text-sm leading-tight text-slate-600">
+        <span className="font-semibold text-slate-800">{label}</span>
         <span>{sub}</span>
       </span>
     </div>
@@ -769,9 +769,9 @@ function ExamProgressHero({ list }: { list: ExamListResponse }) {
   return (
     <section className="rounded-xl border border-edge bg-panel p-5 shadow-card">
       <div className="flex flex-wrap items-center gap-x-12 gap-y-4">
-        {stat(list.solvedTotal, "solved", `/${list.poolTotal}`, "text-slate-50")}
+        {stat(list.solvedTotal, "solved", `/${list.poolTotal}`, "text-slate-900")}
         {stat(list.writtenTotal, "written", "in exams", "text-accent")}
-        {stat(list.poolFresh, "fresh", "available", "text-emerald-300")}
+        {stat(list.poolFresh, "fresh", "available", "text-emerald-700")}
       </div>
       <div className="mt-6">
         <div className="mb-1.5 flex items-end justify-between">
@@ -796,15 +796,15 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
   return (
     <section className="rounded-xl border border-edge bg-panel shadow-card">
       <div className="flex items-center justify-between gap-3 border-b border-edge px-5 py-3">
-        <h3 className="text-sm font-semibold text-slate-200">
+        <h3 className="text-sm font-semibold text-slate-800">
           By topic · written &amp; solved
         </h3>
         <div className="flex shrink-0 items-center gap-3 text-[11px] text-slate-500">
           <span className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-slate-400" /> solved
+            <span className="h-2 w-2 rounded-full bg-slate-600" /> solved
           </span>
           <span className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-slate-600" /> written
+            <span className="h-2 w-2 rounded-full bg-slate-300" /> written
           </span>
         </div>
       </div>
@@ -817,7 +817,7 @@ function ByTopicStats({ byTopic }: { byTopic: ExamTopicStat[] }) {
           return (
             <Fragment key={t.topic}>
               <span
-                className="min-w-0 truncate text-sm text-slate-300"
+                className="min-w-0 truncate text-sm text-slate-700"
                 title={t.topic}
               >
                 {t.topic}
@@ -871,19 +871,19 @@ function ActiveView({
   return (
     <div>
       <ExamHeader exam={exam} copied={copied} onCopyId={onCopyId} onDelete={onDelete}>
-        <span className="rounded-md bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-300">
+        <span className="rounded-md bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-700">
           Active
         </span>
-        <span className="font-mono text-lg font-bold tabular-nums text-slate-100">
+        <span className="font-mono text-lg font-bold tabular-nums text-slate-900">
           {fmtClock(elapsed)}
         </span>
       </ExamHeader>
 
-      <div className="mb-3 flex items-center justify-between text-sm text-slate-400">
+      <div className="mb-3 flex items-center justify-between text-sm text-slate-600">
         <span>
           {solved}/{exam.items.length} solved
         </span>
-        <span className="text-xs text-slate-600">
+        <span className="text-xs text-slate-400">
           Open a problem to solve it · walkthroughs hidden until submit
         </span>
       </div>
@@ -892,9 +892,9 @@ function ActiveView({
         {exam.items.map((it) => (
           <div
             key={it.itemId}
-            className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2.5 transition-colors hover:border-slate-700"
+            className="group flex items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2.5 transition-colors hover:border-slate-200"
           >
-            <span className="w-5 shrink-0 text-center font-mono text-xs text-slate-600">
+            <span className="w-5 shrink-0 text-center font-mono text-xs text-slate-400">
               {it.position + 1}
             </span>
             <Checkbox
@@ -911,16 +911,16 @@ function ActiveView({
                 className={`flex min-w-0 flex-1 items-center gap-1.5 text-sm ${
                   it.solved
                     ? "text-slate-500 line-through"
-                    : "text-slate-100 hover:text-accent-fg"
+                    : "text-slate-900 hover:text-accent-fg"
                 }`}
               >
                 <span className="truncate">{it.title}</span>
-                <ExternalLink className="h-3.5 w-3.5 shrink-0 text-slate-600 transition-colors group-hover:text-accent-fg" />
+                <ExternalLink className="h-3.5 w-3.5 shrink-0 text-slate-400 transition-colors group-hover:text-accent-fg" />
               </a>
             ) : (
               <span
                 className={`min-w-0 flex-1 truncate text-sm ${
-                  it.solved ? "text-slate-500 line-through" : "text-slate-100"
+                  it.solved ? "text-slate-500 line-through" : "text-slate-900"
                 }`}
               >
                 {it.title}
@@ -952,7 +952,7 @@ function ActiveView({
         <button
           type="button"
           onClick={onCancel}
-          className="text-sm text-slate-500 transition-colors hover:text-slate-300"
+          className="text-sm text-slate-500 transition-colors hover:text-slate-700"
         >
           Back
         </button>
@@ -1010,12 +1010,12 @@ function ResultsView({
             type="button"
             onClick={() => onReleaseUnsolved(exam.id)}
             title="Put the problems you didn't solve back into the pool"
-            className="rounded-md border border-edge px-2 py-1 text-xs font-medium text-slate-300 transition hover:border-amber-500/40 hover:text-amber-300 active:scale-95"
+            className="rounded-md border border-edge px-2 py-1 text-xs font-medium text-slate-700 transition hover:border-amber-500/40 hover:text-amber-700 active:scale-95"
           >
             Return {unsolved} unsolved
           </button>
         )}
-        <span className="rounded-md bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-300">
+        <span className="rounded-md bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-700">
           Submitted
         </span>
       </ExamHeader>
@@ -1028,17 +1028,17 @@ function ResultsView({
           >
             {g.label}
           </div>
-          <div className="mt-3 font-display text-6xl font-black leading-none tabular-nums text-slate-50">
+          <div className="mt-3 font-display text-6xl font-black leading-none tabular-nums text-slate-900">
             {scorePct}
-            <span className="text-3xl text-slate-400">%</span>
+            <span className="text-3xl text-slate-600">%</span>
           </div>
           <div className="mt-2 text-sm">
             <span className="font-mono font-semibold text-accent-fg">
               {exam.score}
               <span className="text-slate-500">/{exam.maxScore} pts</span>
             </span>
-            <span className="mx-2 text-slate-600">·</span>
-            <span className="text-slate-400">
+            <span className="mx-2 text-slate-400">·</span>
+            <span className="text-slate-600">
               {solved}/{exam.items.length} solved
             </span>
           </div>
@@ -1078,17 +1078,17 @@ function ResultsView({
             key={it.itemId}
             className="flex items-center gap-3 rounded-lg border border-edge bg-panel/50 px-3 py-2.5"
           >
-            <span className="w-5 shrink-0 text-center font-mono text-xs text-slate-600">
+            <span className="w-5 shrink-0 text-center font-mono text-xs text-slate-400">
               {it.position + 1}
             </span>
             <span
               className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
-                it.solved ? "bg-emerald-500/20 text-emerald-400" : "text-slate-600"
+                it.solved ? "bg-emerald-500/20 text-emerald-600" : "text-slate-400"
               }`}
             >
               {it.solved ? <Check className="h-3 w-3" strokeWidth={3} /> : "·"}
             </span>
-            <span className="min-w-0 flex-1 truncate text-sm text-slate-100">
+            <span className="min-w-0 flex-1 truncate text-sm text-slate-900">
               {it.title}
             </span>
             {it.youtube && (
@@ -1108,7 +1108,7 @@ function ResultsView({
                 target="_blank"
                 rel="noreferrer"
                 title="Article"
-                className="shrink-0 text-slate-400 transition-colors hover:text-slate-200"
+                className="shrink-0 text-slate-600 transition-colors hover:text-slate-800"
               >
                 <ExternalLink className="h-4 w-4" />
               </a>
@@ -1161,11 +1161,11 @@ function ExamHeader({
         type="button"
         onClick={onCopyId}
         title="Copy exam id (reproducible seed)"
-        className="inline-flex items-center gap-2 rounded-lg border border-edge bg-panel2 px-3 py-1.5 font-mono text-sm font-bold text-accent-fg transition hover:border-slate-600 active:scale-95"
+        className="inline-flex items-center gap-2 rounded-lg border border-edge bg-panel2 px-3 py-1.5 font-mono text-sm font-bold text-accent-fg transition hover:border-slate-300 active:scale-95"
       >
         {exam.id}
         {copied ? (
-          <Check className="h-3.5 w-3.5 text-emerald-400" />
+          <Check className="h-3.5 w-3.5 text-emerald-600" />
         ) : (
           <Copy className="h-3.5 w-3.5 text-slate-500" />
         )}
@@ -1183,7 +1183,7 @@ function ExamHeader({
           type="button"
           onClick={() => onDelete(exam.id)}
           title="Delete exam (returns its problems to the pool)"
-          className="inline-flex items-center gap-1 rounded-md border border-edge px-2 py-1 text-xs font-medium text-slate-400 transition hover:border-rose-500/40 hover:text-rose-300 active:scale-95"
+          className="inline-flex items-center gap-1 rounded-md border border-edge px-2 py-1 text-xs font-medium text-slate-600 transition hover:border-rose-500/40 hover:text-rose-700 active:scale-95"
         >
           <Trash2 className="h-3.5 w-3.5" />
           <span className="hidden sm:inline">Delete</span>

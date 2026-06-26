@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background: #0a0a0f;
-  color: #e6e9ef;
+  background: #E8EAF0;
+  color: #1E2030;
 }
 
 /* Thin, quiet scrollbars for the internal-scroll panels (problem list, recruiters). */
 .scroll-thin {
   scrollbar-width: thin;
-  scrollbar-color: #2a2a38 transparent;
+  scrollbar-color: #BCC0CE transparent;
 }
 .scroll-thin::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 .scroll-thin::-webkit-scrollbar-thumb {
-  background: #2a2a38;
+  background: #BCC0CE;
   border-radius: 9999px;
 }
 .scroll-thin::-webkit-scrollbar-thumb:hover {
-  background: #353548;
+  background: #A0A4B8;
 }
 .scroll-thin::-webkit-scrollbar-track {
   background: transparent;
@@ -76,11 +76,11 @@ body {
   z-index: 20;
   white-space: nowrap;
   border-radius: 6px;
-  border: 1px solid #1f1f2a;
-  background: #14141c;
+  border: 1px solid #BCC0CE;
+  background: #DCDEE8;
   padding: 3px 8px;
   font-size: 11px;
-  color: #e6e9ef;
+  color: #1E2030;
   pointer-events: none;
   transform: translate(-50%, calc(-100% - 6px));
   animation: heat-tip-in 0.12s ease-out;
@@ -132,7 +132,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 22px;
-  background: #0a0a0f;
+  background: #E8EAF0;
   transition: opacity 0.46s ease, transform 0.46s ease;
 }
 .splash-leaving {
@@ -143,7 +143,7 @@ body {
 .splash-logo {
   transform-origin: center;
   animation: splash-pulse 1.8s ease-in-out infinite;
-  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.25));
+  filter: drop-shadow(0 0 22px rgba(255, 128, 0, 0.35));
   will-change: transform;
 }
 .splash-check {
@@ -174,7 +174,7 @@ body {
   inset: 0;
   width: 40%;
   border-radius: inherit;
-  background: linear-gradient(90deg, transparent, #22d3ee, transparent);
+  background: linear-gradient(90deg, transparent, #FF8000, transparent);
   animation: splash-slide 1.15s ease-in-out infinite;
 }
 @keyframes splash-draw {
@@ -365,7 +365,7 @@ body {
   }
 }
 .heat-today {
-  stroke: #5eead4;
+  stroke: #FF8000;
   stroke-width: 1.5px;
   paint-order: stroke;
   animation: heat-today-pulse 1.8s ease-in-out infinite;

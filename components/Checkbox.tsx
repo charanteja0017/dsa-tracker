@@ -22,7 +22,7 @@ export function Checkbox({
         onChange={(e) => onChange(e.target.checked)}
         aria-label={label}
         title={disabled ? "Unlock to edit" : undefined}
-        className="peer h-4 w-4 appearance-none rounded-[5px] border border-slate-600 bg-panel2 transition-colors checked:border-emerald-500 checked:bg-emerald-500 checked:[animation:cbx-fill_.18s_ease-out] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:checked:animate-none"
+        className="peer h-4 w-4 appearance-none rounded-[5px] border border-slate-300 bg-panel2 transition-colors checked:border-emerald-500 checked:bg-emerald-500 checked:[animation:cbx-fill_.18s_ease-out] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40 enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:checked:animate-none"
       />
       <Check
         strokeWidth={3.5}

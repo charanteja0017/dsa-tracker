@@ -4,16 +4,16 @@ export default {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      // Layered near-black surfaces + a single indigo accent. Defined once,
+      // Blue-tinted near-white surfaces + McLaren orange accent. Defined once,
       // reused everywhere (no scattered hex values in components).
       colors: {
-        ink: "#0a0a0f", // page background
-        panel: "#14141c", // card background
-        panel2: "#1a1a24", // elevated / hover surface
-        edge: "#1f1f2a", // borders
+        ink: "#E8EAF0", // page background (subtle blue-white, max channel 240)
+        panel: "#DCDEE8", // card background
+        panel2: "#D0D3DE", // elevated / hover surface
+        edge: "#BCC0CE", // borders
         accent: {
-          DEFAULT: "#22d3ee", // cyan-400
-          fg: "#a5f3fc", // cyan-200 text on accent tints
+          DEFAULT: "#FF8000", // McLaren papaya orange
+          fg: "#C05500", // dark orange for text on light backgrounds
         },
       },
       fontFamily: {

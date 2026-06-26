@@ -84,7 +84,7 @@ export function DifficultyRing({
           </g>
         </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-display text-3xl font-black leading-none tabular-nums text-slate-50">
+          <span className="font-display text-3xl font-black leading-none tabular-nums text-slate-900">
             {centerNum}
           </span>
           <span className="mt-0.5 text-[11px] text-slate-500">of {total}</span>
@@ -101,7 +101,7 @@ export function DifficultyRing({
               className="h-2 w-2 shrink-0 rounded-full"
               style={{ background: DIFF_HEX[d.difficulty] }}
             />
-            <span className="flex-1 text-slate-300">
+            <span className="flex-1 text-slate-700">
               {DIFF_LABEL[d.difficulty]}
             </span>
             <span className="font-mono tabular-nums text-slate-500">

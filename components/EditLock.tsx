@@ -51,7 +51,7 @@ export function EditLock({
         type="button"
         onClick={lock}
         title="Lock editing"
-        className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-300 transition-colors hover:bg-emerald-500/15"
+        className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-700 transition-colors hover:bg-emerald-500/15"
       >
         <LockOpen className="h-3.5 w-3.5" />
         Unlocked
@@ -65,7 +65,7 @@ export function EditLock({
         type="button"
         onClick={() => setOpen((o) => !o)}
         title="Unlock to edit"
-        className="inline-flex items-center gap-1.5 rounded-full border border-edge bg-panel px-2.5 py-1 text-xs font-medium text-slate-300 transition-colors hover:border-slate-600"
+        className="inline-flex items-center gap-1.5 rounded-full border border-edge bg-panel px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-slate-300"
       >
         <Lock className="h-3.5 w-3.5" />
         Locked
@@ -83,7 +83,7 @@ export function EditLock({
             placeholder={configured ? "Edit password" : "EDIT_PASSWORD not set"}
             className="w-full rounded-md border border-edge bg-ink/60 px-2.5 py-1.5 text-sm outline-none focus:border-accent/60 focus:ring-1 focus:ring-accent/40"
           />
-          {error && <p className="mt-1 text-[11px] text-rose-400">{error}</p>}
+          {error && <p className="mt-1 text-[11px] text-rose-600">{error}</p>}
           <button
             type="submit"
             disabled={busy}

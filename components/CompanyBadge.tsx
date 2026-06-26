@@ -37,7 +37,7 @@ export function CompanyBadge({ count }: { count: number }) {
         onFocus={open}
         onBlur={close}
         aria-label={`Asked at ~${count} top recruiters`}
-        className="hidden shrink-0 items-center gap-1 rounded-md border border-edge bg-panel2/60 px-1.5 py-0.5 text-[11px] font-medium tabular-nums text-slate-400 transition-colors hover:border-slate-600 hover:text-slate-200 sm:inline-flex"
+        className="hidden shrink-0 items-center gap-1 rounded-md border border-edge bg-panel2/60 px-1.5 py-0.5 text-[11px] font-medium tabular-nums text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-800 sm:inline-flex"
       >
         <Building2 className="h-3 w-3" />
         {count}
@@ -58,7 +58,7 @@ export function CompanyBadge({ count }: { count: number }) {
               {companies.map((c, i) => (
                 <span
                   key={c.name}
-                  className="company-chip flex items-center gap-1 rounded-full border border-edge bg-panel2/70 px-1.5 py-0.5 text-[11px] text-slate-200"
+                  className="company-chip flex items-center gap-1 rounded-full border border-edge bg-panel2/70 px-1.5 py-0.5 text-[11px] text-slate-800"
                   style={{ animationDelay: `${i * 28}ms` }}
                 >
                   <span

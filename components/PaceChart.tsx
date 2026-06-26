@@ -160,12 +160,12 @@ export function PaceChart({
         />
         <Tooltip
           contentStyle={{
-            background: "#14141c",
-            border: "1px solid #1f1f2a",
+            background: "#DCDEE8",
+            border: "1px solid #BCC0CE",
             borderRadius: 8,
             fontSize: 12,
           }}
-          labelStyle={{ color: "#cbd5e1" }}
+          labelStyle={{ color: "#1E2030" }}
           labelFormatter={(t) => fmtFull(t as number)}
           formatter={(value, name) => [
             value as number,
@@ -215,7 +215,7 @@ export function PaceChart({
             x={ts(projFinish)}
             y={range.total}
             r={3.5}
-            fill="#0a0a0f"
+            fill="#E8EAF0"
             stroke={ACCENT}
             strokeWidth={1.5}
           />
@@ -225,12 +225,12 @@ export function PaceChart({
           y={solvedNow}
           r={4}
           fill={ACCENT}
-          stroke="#0a0a0f"
+          stroke="#E8EAF0"
           strokeWidth={2}
           label={{
             value: String(solvedNow),
             position: "top",
-            fill: "#a5f3fc",
+            fill: "#C05500",
             fontSize: 11,
           }}
         />

@@ -84,7 +84,7 @@ export function ExamBank() {
     <section className="flex max-h-[760px] flex-col rounded-xl border border-edge bg-panel shadow-card">
       <div className="border-b border-edge px-5 py-3">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-sm font-semibold text-slate-200">
+          <h3 className="text-sm font-semibold text-slate-800">
             Question bank · A2Z
           </h3>
           <span className="font-mono text-xs tabular-nums text-slate-500">
@@ -108,7 +108,7 @@ export function ExamBank() {
                   className={`rounded-md border px-2.5 py-1 text-xs font-medium transition duration-150 active:scale-95 ${
                     active
                       ? DIFF_TAG[d]
-                      : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                      : "border-edge text-slate-600 hover:border-slate-300 hover:text-slate-800"
                   }`}
                 >
                   {DIFF_LABEL[d]}
@@ -121,8 +121,8 @@ export function ExamBank() {
               onClick={() => setStarredOnly((v) => !v)}
               className={`flex items-center gap-1 rounded-md border px-2.5 py-1 text-xs font-medium transition duration-150 active:scale-95 ${
                 starredOnly
-                  ? "border-amber-500/40 bg-amber-500/15 text-amber-300"
-                  : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                  ? "border-amber-500/40 bg-amber-500/15 text-amber-700"
+                  : "border-edge text-slate-600 hover:border-slate-300 hover:text-slate-800"
               }`}
             >
               <Star
@@ -133,12 +133,12 @@ export function ExamBank() {
               Starred
             </button>
             <div className="relative ml-auto">
-              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-600" />
+              <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search…"
-                className="w-40 rounded-md border border-edge bg-panel2 py-1 pl-7 pr-2 text-xs text-slate-100 placeholder:text-slate-600 focus:border-accent/50 focus:outline-none"
+                className="w-40 rounded-md border border-edge bg-panel2 py-1 pl-7 pr-2 text-xs text-slate-900 placeholder:text-slate-400 focus:border-accent/50 focus:outline-none"
               />
             </div>
           </div>
@@ -173,9 +173,9 @@ export function ExamBank() {
 
         <div className="space-y-1.5 p-3">
           {!items ? (
-            <p className="py-6 text-center text-sm text-slate-600">Loading…</p>
+            <p className="py-6 text-center text-sm text-slate-400">Loading…</p>
           ) : groups.length === 0 ? (
-            <p className="py-6 text-center text-sm text-slate-600">
+            <p className="py-6 text-center text-sm text-slate-400">
               No questions match these filters.
             </p>
           ) : (
@@ -233,14 +233,14 @@ function BankRow({
   onToggleStar: () => void;
 }) {
   return (
-    <div className="flex items-center gap-2.5 rounded-lg border border-edge/70 bg-panel/40 px-2.5 py-2 transition-colors hover:border-slate-700 hover:bg-panel2/60">
+    <div className="flex items-center gap-2.5 rounded-lg border border-edge/70 bg-panel/40 px-2.5 py-2 transition-colors hover:border-slate-200 hover:bg-panel2/60">
       <span
         className={`h-1.5 w-1.5 shrink-0 rounded-full ${
           it.solved
             ? "bg-emerald-400"
             : it.timesUsed > 0
-              ? "bg-cyan-500/60"
-              : "bg-slate-700"
+              ? "bg-accent/40"
+              : "bg-slate-200"
         }`}
         title={
           it.solved
@@ -255,15 +255,15 @@ function BankRow({
         target="_blank"
         rel="noreferrer"
         title="Open problem"
-        className="flex min-w-0 flex-1 items-center gap-1.5 text-sm text-slate-100 hover:text-accent-fg"
+        className="flex min-w-0 flex-1 items-center gap-1.5 text-sm text-slate-900 hover:text-accent-fg"
       >
         <span className="truncate">{it.title}</span>
         {it.mostAsked && (
-          <span title="Most asked" className="shrink-0 text-amber-400">
+          <span title="Most asked" className="shrink-0 text-amber-600">
             ★
           </span>
         )}
-        <ExternalLink className="h-3 w-3 shrink-0 text-slate-600" />
+        <ExternalLink className="h-3 w-3 shrink-0 text-slate-400" />
       </a>
       {it.youtube && (
         <a
@@ -286,7 +286,7 @@ function BankRow({
         onClick={onToggleStar}
         aria-label={it.starred ? "Unstar" : "Star"}
         className={`shrink-0 rounded transition active:scale-90 ${
-          it.starred ? "text-amber-400" : "text-slate-600 hover:text-amber-300"
+          it.starred ? "text-amber-600" : "text-slate-400 hover:text-amber-700"
         }`}
       >
         <Star

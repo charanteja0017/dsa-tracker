@@ -24,11 +24,9 @@ export function ProjectionNote({
   projection: Projection;
   phase1: string;
 }) {
-  const shadow = "[text-shadow:0_1px_6px_rgba(8,8,14,0.95)]";
-
   if (projection.daysToFinish === 0) {
     return (
-      <div className={`text-xs font-medium text-emerald-300 ${shadow}`}>
+      <div className="text-xs font-medium text-emerald-700">
         All solved — every problem done. 🎉
       </div>
     );
@@ -36,7 +34,7 @@ export function ProjectionNote({
 
   if (!projection.finishDate) {
     return (
-      <div className={`text-xs text-slate-400 ${shadow}`}>
+      <div className="text-xs text-slate-600">
         Projected finish — solve a few problems to estimate the pace.
       </div>
     );
@@ -47,17 +45,17 @@ export function ProjectionNote({
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs">
-      <span className={`text-slate-400 ${shadow}`}>
+      <span className="text-slate-600">
         Projected finish{" "}
-        <span className="font-semibold text-slate-100">
+        <span className="font-semibold text-slate-900">
           {fmt(projection.finishDate)}
         </span>
       </span>
       <span
         className={`rounded-md px-1.5 py-0.5 font-medium backdrop-blur-sm ${
           early
-            ? "bg-emerald-500/20 text-emerald-300"
-            : "bg-amber-500/20 text-amber-300"
+            ? "bg-emerald-500/20 text-emerald-700"
+            : "bg-amber-500/20 text-amber-700"
         }`}
       >
         {early ? `${slack}d before` : `${Math.abs(slack)}d after`} Phase 1 ·{" "}

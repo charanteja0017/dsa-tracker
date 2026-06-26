@@ -80,7 +80,7 @@ export function ExamTopicRing({ byTopic }: { byTopic: ExamTopicStat[] }) {
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           {hovered ? (
             <>
-              <span className="text-sm font-semibold leading-tight text-slate-100">
+              <span className="text-sm font-semibold leading-tight text-slate-900">
                 {hovered.topic}
               </span>
               <span className="mt-0.5 text-xs text-slate-500">
@@ -89,7 +89,7 @@ export function ExamTopicRing({ byTopic }: { byTopic: ExamTopicStat[] }) {
             </>
           ) : (
             <>
-              <span className="font-display text-3xl font-black tabular-nums text-slate-50">
+              <span className="font-display text-3xl font-black tabular-nums text-slate-900">
                 {useWritten ? writtenTotal : poolTotal}
               </span>
               <span className="mt-0.5 text-[11px] text-slate-500">{unit}</span>
@@ -106,7 +106,7 @@ export function ExamTopicRing({ byTopic }: { byTopic: ExamTopicStat[] }) {
             onMouseEnter={() => setHover(s.topic)}
             onMouseLeave={() => setHover(null)}
             className={`flex items-center gap-1.5 text-left transition-colors ${
-              hover === s.topic ? "text-slate-100" : "text-slate-400"
+              hover === s.topic ? "text-slate-900" : "text-slate-600"
             }`}
           >
             <span

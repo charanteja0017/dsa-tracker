@@ -19,11 +19,11 @@ export function StatsHero({ stats }: { stats: Stats }) {
       <div className="flex flex-wrap items-center gap-x-14 gap-y-6">
         {/* Solved */}
         <div className="flex items-baseline gap-3">
-          <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
+          <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-900 tabular-nums">
             {solved}
           </span>
-          <span className="flex flex-col text-base leading-tight text-slate-400">
-            <span className="font-semibold text-slate-200">solved</span>
+          <span className="flex flex-col text-base leading-tight text-slate-600">
+            <span className="font-semibold text-slate-800">solved</span>
             <span>/{stats.total}</span>
           </span>
         </div>
@@ -31,10 +31,10 @@ export function StatsHero({ stats }: { stats: Stats }) {
         {/* Streak */}
         <div className="flex items-center gap-3">
           <StreakFlame streak={stats.streak} />
-          <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-50 tabular-nums">
+          <span className="font-display text-8xl font-black leading-none tracking-tighter text-slate-900 tabular-nums">
             {streak}
           </span>
-          <span className="flex flex-col text-base leading-tight text-slate-400">
+          <span className="flex flex-col text-base leading-tight text-slate-600">
             <span>day</span>
             <span>streak</span>
           </span>

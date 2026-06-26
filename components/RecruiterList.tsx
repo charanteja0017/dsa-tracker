@@ -14,7 +14,7 @@ export function RecruiterList({ recruiters }: { recruiters: Recruiter[] }) {
   return (
     <section className="flex max-h-[760px] flex-col rounded-xl border border-edge bg-panel shadow-card">
       <div className="border-b border-edge px-4 py-2.5">
-        <h3 className="text-sm font-semibold text-slate-200">
+        <h3 className="text-sm font-semibold text-slate-800">
           Senior recruiters · AI Dept 2026
         </h3>
         <p className="mt-0.5 text-xs text-slate-500">
@@ -41,7 +41,7 @@ export function RecruiterList({ recruiters }: { recruiters: Recruiter[] }) {
                     isOpen ? "rotate-90" : ""
                   }`}
                 />
-                <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-200">
+                <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-800">
                   {r.company}
                 </span>
                 <Tag variant="type" value={r.type} />
@@ -54,19 +54,19 @@ export function RecruiterList({ recruiters }: { recruiters: Recruiter[] }) {
                 <div className="space-y-2 border-t border-edge px-3 py-2.5 text-sm">
                   <p className="text-xs text-slate-500">
                     DSA bar:{" "}
-                    <span className="text-slate-300">{r.dsa_bar}</span>
+                    <span className="text-slate-700">{r.dsa_bar}</span>
                   </p>
                   <div>
                     <span className="text-xs uppercase tracking-wide text-slate-500">
                       Pattern
                     </span>
-                    <p className="mt-0.5 text-slate-300">{r.pattern}</p>
+                    <p className="mt-0.5 text-slate-700">{r.pattern}</p>
                   </div>
                   <div>
                     <span className="text-xs uppercase tracking-wide text-accent-fg">
                       Your focus
                     </span>
-                    <p className="mt-0.5 text-slate-200">{r.focus}</p>
+                    <p className="mt-0.5 text-slate-800">{r.focus}</p>
                   </div>
                 </div>
               </Collapse>

@@ -23,10 +23,10 @@ export function ShareButton() {
       type="button"
       onClick={copy}
       title="Copy link to share"
-      className="inline-flex items-center gap-1.5 rounded-full border border-edge bg-panel px-2.5 py-1 text-xs font-medium text-slate-300 transition duration-150 hover:border-slate-600 active:scale-95"
+      className="inline-flex items-center gap-1.5 rounded-full border border-edge bg-panel px-2.5 py-1 text-xs font-medium text-slate-700 transition duration-150 hover:border-slate-300 active:scale-95"
     >
       {copied ? (
-        <Check className="h-3.5 w-3.5 text-emerald-400" />
+        <Check className="h-3.5 w-3.5 text-emerald-600" />
       ) : (
         <Share2 className="h-3.5 w-3.5" />
       )}

@@ -6,20 +6,20 @@
 
 // One accent used sparingly (hero %, hatched bar, pace ACTUAL line, active chips,
 // focus border). Swap this single value to re-theme the accent.
-export const ACCENT = "#22d3ee"; // cyan
+export const ACCENT = "#FF8000"; // McLaren orange
 
 export const SURFACE = {
-  ink: "#0a0a0f",
-  panel: "#14141c",
-  panel2: "#1a1a24",
-  edge: "#1f1f2a",
+  ink: "#E8EAF0",
+  panel: "#DCDEE8",
+  panel2: "#D0D3DE",
+  edge: "#BCC0CE",
 };
 
 export const TEXT = {
-  primary: "#e6e9ef",
-  muted: "#94a3b8",
-  faint: "#64748b",
-  grid: "#1f1f2a",
+  primary: "#1E2030",
+  muted: "#5A6280",
+  faint: "#8A92A8",
+  grid: "#C8CCDA",
 };
 
 // Semantic difficulty colors.
@@ -39,16 +39,16 @@ export const DIFFICULTIES = ["EASY", "MEDIUM", "HARD"] as const;
 
 // Tailwind classes for the difficulty Tag (static, so they survive purging).
 export const DIFF_TAG: Record<string, string> = {
-  EASY: "text-emerald-300 bg-emerald-500/15 border-emerald-500/30",
-  MEDIUM: "text-amber-300 bg-amber-500/15 border-amber-500/30",
-  HARD: "text-rose-300 bg-rose-500/15 border-rose-500/30",
+  EASY: "text-emerald-700 bg-emerald-500/15 border-emerald-500/30",
+  MEDIUM: "text-amber-700 bg-amber-500/15 border-amber-500/30",
+  HARD: "text-rose-700 bg-rose-500/15 border-rose-500/30",
 };
 
 // Recruiter category colors.
 export const TYPE_TAG: Record<string, string> = {
-  "Product/Lab": "text-blue-300 bg-blue-500/15 border-blue-500/30",
-  "AI/ML firm": "text-fuchsia-300 bg-fuchsia-500/15 border-fuchsia-500/30",
-  "Service/Consult": "text-amber-300 bg-amber-500/15 border-amber-500/30",
+  "Product/Lab": "text-blue-700 bg-blue-500/15 border-blue-500/30",
+  "AI/ML firm": "text-fuchsia-700 bg-fuchsia-500/15 border-fuchsia-500/30",
+  "Service/Consult": "text-amber-700 bg-amber-500/15 border-amber-500/30",
 };
 
 // One distinct color per pattern (=== topic), keyed to the exact `pattern`
@@ -105,9 +105,9 @@ export function topicColor(pattern: string): string {
   return TOPIC_COLORS[pattern] ?? EXAM_TOPIC_COLORS[pattern] ?? TOPIC_FALLBACK;
 }
 
-// Heatmap intensity ramp (0 → 4); level 0 is just above the card so empty days
-// stay visible.
-export const HEAT_RAMP = ["#23232e", "#1e4f63", "#1f7d97", "#22a6c3", "#38d4ec"];
+// Heatmap intensity ramp (0 → 4); level 0 is slightly darker than the panel so
+// empty days stay visible on the light background.
+export const HEAT_RAMP = ["#D8DAEC", "#FFCC99", "#FFA040", "#FF8000", "#CC5000"];
 
 export function heatLevel(count: number): number {
   if (count <= 0) return 0;

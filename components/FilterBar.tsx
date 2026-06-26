@@ -42,7 +42,7 @@ export function FilterBar({
               className={`rounded-md border px-2.5 py-1 text-xs font-medium transition duration-150 active:scale-95 ${
                 active
                   ? DIFF_TAG[d]
-                  : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                  : "border-edge text-slate-600 hover:border-slate-300 hover:text-slate-800"
               }`}
             >
               {DIFF_LABEL[d]}
@@ -57,11 +57,11 @@ export function FilterBar({
           role="switch"
           aria-checked={hideCompleted}
           onClick={onToggleHideCompleted}
-          className="flex items-center gap-2 rounded-md border border-edge px-2.5 py-1 text-xs font-medium text-slate-300 transition duration-150 hover:border-slate-600 active:scale-95"
+          className="flex items-center gap-2 rounded-md border border-edge px-2.5 py-1 text-xs font-medium text-slate-700 transition duration-150 hover:border-slate-300 active:scale-95"
         >
           <span
             className={`relative inline-flex h-4 w-7 items-center rounded-full transition-colors ${
-              hideCompleted ? "bg-accent" : "bg-slate-700"
+              hideCompleted ? "bg-accent" : "bg-slate-200"
             }`}
           >
             <span
@@ -80,8 +80,8 @@ export function FilterBar({
           title="Show only problems starred for revision"
           className={`flex items-center gap-1 rounded-md border px-2.5 py-1 text-xs font-medium transition duration-150 active:scale-95 ${
             starredOnly
-              ? "border-amber-500/40 bg-amber-500/15 text-amber-300"
-              : "border-edge text-slate-400 hover:border-slate-600 hover:text-slate-200"
+              ? "border-amber-500/40 bg-amber-500/15 text-amber-700"
+              : "border-edge text-slate-600 hover:border-slate-300 hover:text-slate-800"
           }`}
         >
           <Star

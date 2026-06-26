@@ -217,8 +217,8 @@ export default function Home() {
       <span
         className={`rounded-md px-2 py-0.5 text-xs font-medium backdrop-blur-sm ${
           ahead
-            ? "bg-emerald-500/20 text-emerald-300"
-            : "bg-amber-500/20 text-amber-300"
+            ? "bg-emerald-500/20 text-emerald-700"
+            : "bg-amber-500/20 text-amber-700"
         }`}
       >
         {ahead ? `+${diff} ahead` : `${Math.abs(diff)} behind`}
@@ -248,7 +248,7 @@ export default function Home() {
           {stats ? <StatsHero stats={stats} /> : <Skeleton className="h-44" />}
         </Span>
         <Span cols={1}>
-          <section className="relative flex h-full min-h-[240px] flex-col overflow-hidden rounded-xl border border-edge bg-panel shadow-card transition-colors duration-200 hover:border-slate-700/70">
+          <section className="relative flex h-full min-h-[240px] flex-col overflow-hidden rounded-xl border border-edge bg-panel shadow-card transition-colors duration-200 hover:border-slate-200/70">
             {/* Chart fills the card but is squashed in from the sides so it
                 doesn't run to the rounded edges; labels float on top of it. */}
             <div className="absolute inset-y-0 left-2 right-3">
@@ -267,7 +267,7 @@ export default function Home() {
 
             {/* Floating header: title + Week/Full toggle + ahead badge. */}
             <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between gap-2 px-4 py-3">
-              <h3 className="text-sm font-semibold text-slate-200 [text-shadow:0_1px_6px_rgba(8,8,14,0.95)]">
+              <h3 className="text-sm font-semibold text-slate-800">
                 Pace
               </h3>
               <div className="pointer-events-auto flex items-center gap-2">
@@ -280,7 +280,7 @@ export default function Home() {
                       className={`rounded px-2 py-0.5 font-medium transition duration-150 active:scale-95 ${
                         paceMode === m
                           ? "bg-accent/20 text-accent-fg"
-                          : "text-slate-500 hover:text-slate-300"
+                          : "text-slate-500 hover:text-slate-700"
                       }`}
                     >
                       {m === "near" ? "Week" : "Full"}
@@ -372,9 +372,9 @@ export default function Home() {
         </Span>
       </DashboardGrid>
 
-      <footer className="mx-auto max-w-[1600px] px-6 pb-8 pt-2 text-center text-xs text-slate-600">
+      <footer className="mx-auto max-w-[1600px] px-6 pb-8 pt-2 text-center text-xs text-slate-400">
         First run or new seed? Visit{" "}
-        <code className="text-slate-400">/api/init</code> to load / refresh problems.
+        <code className="text-slate-600">/api/init</code> to load / refresh problems.
       </footer>
     </>
   );

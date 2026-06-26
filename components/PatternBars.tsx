@@ -34,7 +34,7 @@ export function PatternBars({ byPattern }: { byPattern: PatternStat[] }) {
             className="mb-2.5 flex items-center gap-3 break-inside-avoid text-sm"
           >
             <span
-              className="w-52 shrink-0 truncate text-slate-300"
+              className="w-52 shrink-0 truncate text-slate-700"
               title={p.pattern}
             >
               {p.pattern}

@@ -19,11 +19,11 @@ export type Grade = { label: string; emoji: string; color: string };
 
 // A playful grade from the score percentage.
 export function grade(pct: number): Grade {
-  if (pct >= 90) return { label: "Ace", emoji: "🏆", color: "text-amber-300" };
-  if (pct >= 70) return { label: "Strong", emoji: "🔥", color: "text-emerald-300" };
-  if (pct >= 50) return { label: "Solid", emoji: "💪", color: "text-cyan-300" };
+  if (pct >= 90) return { label: "Ace", emoji: "🏆", color: "text-amber-700" };
+  if (pct >= 70) return { label: "Strong", emoji: "🔥", color: "text-emerald-700" };
+  if (pct >= 50) return { label: "Solid", emoji: "💪", color: "text-cyan-700" };
   if (pct >= 25)
-    return { label: "Warming up", emoji: "🌱", color: "text-sky-300" };
-  if (pct > 0) return { label: "Keep going", emoji: "🚀", color: "text-slate-300" };
+    return { label: "Warming up", emoji: "🌱", color: "text-sky-700" };
+  if (pct > 0) return { label: "Keep going", emoji: "🚀", color: "text-slate-700" };
   return { label: "Not graded", emoji: "📝", color: "text-slate-500" };
 }

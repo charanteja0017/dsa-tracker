@@ -13,7 +13,7 @@ export function ProgressBar({
   const pct = max > 0 ? Math.min(100, Math.round((value / max) * 100)) : 0;
   return (
     <div
-      className={`h-2 rounded-full bg-slate-800 overflow-hidden ${className}`}
+      className={`h-2 rounded-full bg-slate-100 overflow-hidden ${className}`}
       role="progressbar"
       aria-valuenow={value}
       aria-valuemax={max}

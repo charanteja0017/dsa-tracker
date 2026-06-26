@@ -93,7 +93,7 @@ export function WeekFocusPanel({
   const renderRow = (p: Problem) => (
     <div
       key={p.id}
-      className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2 transition-colors hover:border-slate-700 hover:bg-panel2/70"
+      className="flex items-center gap-2.5 rounded-lg border border-edge bg-panel/60 px-2.5 py-2 transition-colors hover:border-slate-200 hover:bg-panel2/70"
     >
       <Checkbox
         checked={p.done}
@@ -107,8 +107,8 @@ export function WeekFocusPanel({
         rel="noreferrer"
         className={`min-w-0 flex-1 truncate text-sm ${
           p.done
-            ? "text-slate-600 line-through"
-            : "text-slate-100 hover:text-accent-fg"
+            ? "text-slate-400 line-through"
+            : "text-slate-900 hover:text-accent-fg"
         }`}
       >
         {p.title}
@@ -145,7 +145,7 @@ export function WeekFocusPanel({
           <div className="text-xs font-semibold uppercase tracking-wide text-accent-fg">
             This week · focus
           </div>
-          <h2 className="mt-0.5 truncate text-xl font-semibold text-slate-100">
+          <h2 className="mt-0.5 truncate text-xl font-semibold text-slate-900">
             Week {activeWeek}: {topic}
           </h2>
         </div>
@@ -154,9 +154,9 @@ export function WeekFocusPanel({
 
       <div className="mt-3 max-h-[360px] min-h-0 flex-1 space-y-2 overflow-y-auto scroll-thin pr-1">
         {groups.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-4 text-sm text-slate-400">
+          <div className="rounded-lg border border-dashed border-edge bg-panel/50 p-4 text-sm text-slate-600">
             No problems mapped to this week. Focus on{" "}
-            <span className="font-medium text-slate-200">{topic}</span> — drill
+            <span className="font-medium text-slate-800">{topic}</span> — drill
             the pattern and revisit your weak spots.
           </div>
         ) : (
@@ -182,7 +182,7 @@ export function WeekFocusPanel({
                   <span className="shrink-0 font-mono text-xs font-semibold text-accent-fg">
                     W{g.week}
                   </span>
-                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-200">
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-slate-800">
                     {g.topic}
                   </span>
                   {g.week === weekNum && (
@@ -190,7 +190,7 @@ export function WeekFocusPanel({
                       current
                     </span>
                   )}
-                  {complete && <span className="shrink-0 text-emerald-400">✓</span>}
+                  {complete && <span className="shrink-0 text-emerald-600">✓</span>}
                   <span className="shrink-0 font-mono text-xs tabular-nums text-slate-500">
                     {g.done}/{g.total}
                   </span>
@@ -208,8 +208,8 @@ export function WeekFocusPanel({
 
       {next && (
         <div className="mt-3 flex items-center gap-1.5 border-t border-edge pt-2.5 text-xs text-slate-500">
-          <ArrowRight className="h-3.5 w-3.5 text-slate-600" />
-          Next week: <span className="font-medium text-slate-300">{next}</span>
+          <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+          Next week: <span className="font-medium text-slate-700">{next}</span>
         </div>
       )}
     </section>

@@ -38,8 +38,8 @@ export function Tag({
 
   const cls =
     variant === "difficulty"
-      ? DIFF_TAG[value] ?? "text-slate-300 bg-slate-500/10 border-slate-500/25"
-      : TYPE_TAG[value] ?? "text-slate-300 bg-slate-500/10 border-slate-500/25";
+      ? DIFF_TAG[value] ?? "text-slate-700 bg-slate-500/10 border-slate-500/25"
+      : TYPE_TAG[value] ?? "text-slate-700 bg-slate-500/10 border-slate-500/25";
   const label = variant === "difficulty" ? DIFF_LABEL[value] ?? value : value;
 
   return <span className={`${base} ${cls} ${className}`}>{label}</span>;

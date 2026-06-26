@@ -61,7 +61,7 @@ export function StudyPlan({
   return (
     <section className="flex max-h-[760px] flex-col rounded-xl border border-edge bg-panel shadow-card">
       <div className="flex items-center justify-between gap-3 border-b border-edge px-4 py-2.5">
-        <h3 className="text-sm font-semibold text-slate-200">Study plan</h3>
+        <h3 className="text-sm font-semibold text-slate-800">Study plan</h3>
         <span className="font-mono text-xs tabular-nums text-slate-500">
           {doneTotal}/{problems.length} solved
         </span>

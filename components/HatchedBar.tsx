@@ -12,7 +12,7 @@ export function HatchedBar({ percent }: { percent: number }) {
           width: `${pct}%`,
           backgroundColor: ACCENT,
           backgroundImage:
-            "repeating-linear-gradient(45deg, rgba(3,14,24,0.32) 0 7px, transparent 7px 14px)",
+            "repeating-linear-gradient(45deg, rgba(255,255,255,0.35) 0 7px, transparent 7px 14px)",
         }}
       />
     </div>
